@@ -1,0 +1,50 @@
+feature,importance
+close_mean,0.24819786752676087
+pub_4w,0.15724939967431542
+vol_4w,0.14462874048688304
+ret_1d,0.11163012207879192
+vol_growth,0.078826265935272
+pub_growth,0.06575547773981069
+top4_infrequent_sklearn,0.01904123782212448
+top5_Ga2O3 and related materials,0.013463695883226429
+top5_infrequent_sklearn,0.012150882344490695
+top4_Semiconductor Quantum Structures and Devices,0.011719739990786774
+top5_Metal and Thin Film Mechanics,0.011630831279506036
+top2_Ga2O3 and related materials,0.01090567706623267
+top3_infrequent_sklearn,0.010560729843325076
+top4_Semiconductor materials and devices,0.008660683796893848
+top2_Semiconductor materials and devices,0.0071274002770072035
+top3_Semiconductor Quantum Structures and Devices,0.006884068256056402
+top2_Acoustic Wave Resonator Technologies,0.006756646298482521
+top5_ZnO doping and properties,0.006443821979360643
+top4_Radio Frequency Integrated Circuit Design,0.006188284669837599
+top5_Silicon Carbide Semiconductor Technologies,0.0059793289981231405
+top2_infrequent_sklearn,0.005651635842182526
+top2_Semiconductor Quantum Structures and Devices,0.005436984360097891
+top3_Ga2O3 and related materials,0.004562986490896382
+top4_Advancements in Semiconductor Devices and Circuit Design,0.00429535370225062
+top5_Acoustic Wave Resonator Technologies,0.004287308651593416
+top4_ZnO doping and properties,0.0039699113159521
+top3_Acoustic Wave Resonator Technologies,0.003519796471528027
+top3_Semiconductor materials and devices,0.0032073507852861203
+top3_Advancements in Semiconductor Devices and Circuit Design,0.0031016799134475424
+top3_Silicon Carbide Semiconductor Technologies,0.0028233347565372138
+top5_Semiconductor materials and devices,0.0027757930818556897
+top4_Ga2O3 and related materials,0.002493034704544458
+top5_Semiconductor Quantum Structures and Devices,0.0023570199925576794
+top2_Radio Frequency Integrated Circuit Design,0.002222781390732811
+top4_Silicon Carbide Semiconductor Technologies,0.0012944151068217426
+top5_nan,0.0012221092278735554
+top5_Advancements in Semiconductor Devices and Circuit Design,0.0008383593697122758
+top4_Acoustic Wave Resonator Technologies,0.0006023773629837872
+top3_ZnO doping and properties,0.0004893958930806302
+top3_Radio Frequency Integrated Circuit Design,0.00041770952090603515
+top5_Gas Sensing Nanomaterials and Sensors,0.0002053389243806415
+top4_Metal and Thin Film Mechanics,0.00016446539716520885
+top3_Metal and Thin Film Mechanics,0.00016313747172184024
+top4_Photocathodes and Microchannel Plates,5.553160021969105e-05
+top2_Silicon Carbide Semiconductor Technologies,2.7940272793617224e-05
+top5_Radio Frequency Integrated Circuit Design,1.3346445591049536e-05
+top1_GaN-based semiconductor devices and materials,0.0
+top1_infrequent_sklearn,0.0
+top3_Photocathodes and Microchannel Plates,0.0

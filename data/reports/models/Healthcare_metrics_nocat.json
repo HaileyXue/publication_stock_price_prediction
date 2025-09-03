@@ -1,0 +1,101 @@
+{
+  "logit": {
+    "roc_auc": 0.6922525107604017,
+    "pr_auc": 0.7447736386637549,
+    "classification_report": {
+      "0": {
+        "precision": 0.6666666666666666,
+        "recall": 0.6470588235294118,
+        "f1-score": 0.6567164179104478,
+        "support": 34.0
+      },
+      "1": {
+        "precision": 0.7142857142857143,
+        "recall": 0.7317073170731707,
+        "f1-score": 0.7228915662650602,
+        "support": 41.0
+      },
+      "accuracy": 0.6933333333333334,
+      "macro avg": {
+        "precision": 0.6904761904761905,
+        "recall": 0.6893830703012913,
+        "f1-score": 0.689803992087754,
+        "support": 75.0
+      },
+      "weighted avg": {
+        "precision": 0.6926984126984127,
+        "recall": 0.6933333333333334,
+        "f1-score": 0.6928921656776359,
+        "support": 75.0
+      }
+    },
+    "roc_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Healthcare_ROC_logit_nocat.png",
+    "pr_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Healthcare_PR_logit_nocat.png"
+  },
+  "rf": {
+    "roc_auc": 0.7388809182209468,
+    "pr_auc": 0.7966380613549063,
+    "classification_report": {
+      "0": {
+        "precision": 0.6666666666666666,
+        "recall": 0.5294117647058824,
+        "f1-score": 0.5901639344262295,
+        "support": 34.0
+      },
+      "1": {
+        "precision": 0.6666666666666666,
+        "recall": 0.7804878048780488,
+        "f1-score": 0.7191011235955056,
+        "support": 41.0
+      },
+      "accuracy": 0.6666666666666666,
+      "macro avg": {
+        "precision": 0.6666666666666666,
+        "recall": 0.6549497847919656,
+        "f1-score": 0.6546325290108675,
+        "support": 75.0
+      },
+      "weighted avg": {
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "f1-score": 0.6606495978387671,
+        "support": 75.0
+      }
+    },
+    "roc_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Healthcare_ROC_rf_nocat.png",
+    "pr_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Healthcare_PR_rf_nocat.png"
+  },
+  "xgb": {
+    "roc_auc": 0.5021520803443329,
+    "pr_auc": 0.5721166378066105,
+    "classification_report": {
+      "0": {
+        "precision": 0.42857142857142855,
+        "recall": 0.5294117647058824,
+        "f1-score": 0.47368421052631576,
+        "support": 34.0
+      },
+      "1": {
+        "precision": 0.5151515151515151,
+        "recall": 0.4146341463414634,
+        "f1-score": 0.4594594594594595,
+        "support": 41.0
+      },
+      "accuracy": 0.4666666666666667,
+      "macro avg": {
+        "precision": 0.47186147186147187,
+        "recall": 0.4720229555236729,
+        "f1-score": 0.4665718349928876,
+        "support": 75.0
+      },
+      "weighted avg": {
+        "precision": 0.47590187590187594,
+        "recall": 0.4666666666666667,
+        "f1-score": 0.4659080132764344,
+        "support": 75.0
+      }
+    },
+    "roc_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Healthcare_ROC_xgb_nocat.png",
+    "pr_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Healthcare_PR_xgb_nocat.png"
+  }
+}

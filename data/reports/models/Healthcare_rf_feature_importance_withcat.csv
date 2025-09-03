@@ -1,0 +1,47 @@
+feature,importance
+pub_4w,0.18468956367204073
+close_mean,0.177075357497518
+vol_4w,0.14410227904374076
+vol_growth,0.10510732256337643
+ret_1d,0.09991273297681298
+pub_growth,0.08167312832647684
+top2_Healthcare Policy and Management,0.015935136321245824
+top2_infrequent_sklearn,0.015393565107956138
+top5_infrequent_sklearn,0.015003734332052647
+top3_infrequent_sklearn,0.014761504370777322
+top4_infrequent_sklearn,0.014314848158559799
+top2_Healthcare Systems and Reforms,0.014035385393415497
+top2_Health disparities and outcomes,0.013962691265956189
+"top5_Insurance, Mortality, Demography, Risk Management",0.010027906807279715
+top3_Healthcare Systems and Reforms,0.009681893603994695
+top4_Employment and Welfare Studies,0.007674669223658846
+top3_Employment and Welfare Studies,0.0072348122222623806
+top2_Global Maternal and Child Health,0.0063843122862730466
+top3_Health disparities and outcomes,0.005681667884462703
+top2_Employment and Welfare Studies,0.005582255862627285
+top5_Employment and Welfare Studies,0.0041945688203016696
+top5_Health disparities and outcomes,0.00415000783470345
+"top3_Insurance, Mortality, Demography, Risk Management",0.0038601926007290244
+top4_Healthcare Systems and Reforms,0.0038580206566764235
+top5_Healthcare Policy and Management,0.003465008311824975
+"top2_Insurance, Mortality, Demography, Risk Management",0.0034648728026547638
+"top4_Health Systems, Economic Evaluations, Quality of Life",0.0032272465537538163
+top4_Health disparities and outcomes,0.0031068490142001806
+"top4_Insurance, Mortality, Demography, Risk Management",0.002991855254868496
+top5_Healthcare Systems and Reforms,0.002882606239688225
+top5_Global Maternal and Child Health,0.0027414102580827207
+top5_Climate Change and Health Impacts,0.002713628758538292
+top4_Healthcare Policy and Management,0.002704806377507005
+top5_nan,0.0025094675818463337
+"top5_Financial Literacy, Pension, Retirement Analysis",0.0011530195384638607
+"top3_Health Systems, Economic Evaluations, Quality of Life",0.0010413430985166613
+top3_Healthcare Policy and Management,0.0009297078543694992
+"top5_Health Systems, Economic Evaluations, Quality of Life",0.0007991624922730996
+"top2_Health Systems, Economic Evaluations, Quality of Life",0.0007587431529515056
+top3_Global Maternal and Child Health,0.0005317370424140972
+top2_Climate Change and Health Impacts,0.00042697692845373807
+top4_Climate Change and Health Impacts,0.00015172144512556022
+top4_Air Quality and Health Impacts,6.985121480842496e-05
+top4_Global Maternal and Child Health,3.2429246760294785e-05
+top1_infrequent_sklearn,0.0
+top1_Global Health Care Issues,0.0

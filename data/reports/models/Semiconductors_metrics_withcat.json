@@ -1,0 +1,101 @@
+{
+  "logit": {
+    "roc_auc": 0.4857571214392804,
+    "pr_auc": 0.6306905921131275,
+    "classification_report": {
+      "0": {
+        "precision": 0.3,
+        "recall": 0.3103448275862069,
+        "f1-score": 0.3050847457627119,
+        "support": 29.0
+      },
+      "1": {
+        "precision": 0.5555555555555556,
+        "recall": 0.5434782608695652,
+        "f1-score": 0.5494505494505495,
+        "support": 46.0
+      },
+      "accuracy": 0.4533333333333333,
+      "macro avg": {
+        "precision": 0.4277777777777778,
+        "recall": 0.426911544227886,
+        "f1-score": 0.4272676476066307,
+        "support": 75.0
+      },
+      "weighted avg": {
+        "precision": 0.4567407407407408,
+        "recall": 0.4533333333333333,
+        "f1-score": 0.4549624386912523,
+        "support": 75.0
+      }
+    },
+    "roc_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_ROC_logit_withcat.png",
+    "pr_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_PR_logit_withcat.png"
+  },
+  "rf": {
+    "roc_auc": 0.43778110944527737,
+    "pr_auc": 0.6032167349323577,
+    "classification_report": {
+      "0": {
+        "precision": 0.3898305084745763,
+        "recall": 0.7931034482758621,
+        "f1-score": 0.5227272727272727,
+        "support": 29.0
+      },
+      "1": {
+        "precision": 0.625,
+        "recall": 0.21739130434782608,
+        "f1-score": 0.3225806451612903,
+        "support": 46.0
+      },
+      "accuracy": 0.44,
+      "macro avg": {
+        "precision": 0.5074152542372882,
+        "recall": 0.5052473763118441,
+        "f1-score": 0.4226539589442815,
+        "support": 75.0
+      },
+      "weighted avg": {
+        "precision": 0.5340677966101695,
+        "recall": 0.44,
+        "f1-score": 0.3999706744868035,
+        "support": 75.0
+      }
+    },
+    "roc_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_ROC_rf_withcat.png",
+    "pr_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_PR_rf_withcat.png"
+  },
+  "xgb": {
+    "roc_auc": 0.49775112443778113,
+    "pr_auc": 0.6452106062556938,
+    "classification_report": {
+      "0": {
+        "precision": 0.43902439024390244,
+        "recall": 0.6206896551724138,
+        "f1-score": 0.5142857142857142,
+        "support": 29.0
+      },
+      "1": {
+        "precision": 0.6764705882352942,
+        "recall": 0.5,
+        "f1-score": 0.575,
+        "support": 46.0
+      },
+      "accuracy": 0.5466666666666666,
+      "macro avg": {
+        "precision": 0.5577474892395983,
+        "recall": 0.5603448275862069,
+        "f1-score": 0.5446428571428571,
+        "support": 75.0
+      },
+      "weighted avg": {
+        "precision": 0.5846580583452894,
+        "recall": 0.5466666666666666,
+        "f1-score": 0.5515238095238095,
+        "support": 75.0
+      }
+    },
+    "roc_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_ROC_xgb_withcat.png",
+    "pr_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_PR_xgb_withcat.png"
+  }
+}

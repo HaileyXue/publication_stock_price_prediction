@@ -1,0 +1,13 @@
+pyalex 
+pandas 
+numpy 
+requests 
+pyyaml 
+yfinance 
+scikit-learn
+statsmodels 
+matplotlib 
+pandas_datareader 
+seaborn
+setuptools==65.5.0
+xgboost

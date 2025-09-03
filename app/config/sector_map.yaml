@@ -1,0 +1,53 @@
+# Tickers are ETFs (or baskets) you trust Stooq to serve; add more sectors as needed.
+
+Biotech:
+  tickers: ["XBI", "IBB", "BBH", "FBT"]
+  primary_topic_name: "Biotechnology"
+
+Semiconductors:
+  tickers: ["SOXX", "SMH", "XSD", "PSI"]
+  primary_topic_name: "Semiconductors"
+
+Energy:
+  tickers: ["XLE", "VDE", "IYE", "FXN"]
+  primary_topic_name: "Energy industry"
+
+Financials:
+  tickers: ["XLF", "VFH", "IYF", "KBE", "KRE"]
+  primary_topic_name: "Finance"
+
+Healthcare:
+  tickers: ["XLV", "VHT", "IYH", "RYH"]
+  primary_topic_name: "Health care"
+
+Technology:
+  tickers: ["XLK", "VGT", "IYW", "RYT"]
+  primary_topic_name: "Information technology"
+
+Industrials:
+  tickers: ["XLI", "VIS", "IYJ", "FXR"]
+  primary_topic_name: "Manufacturing"
+
+Consumer Discretionary:
+  tickers: ["XLY", "VCR", "IYC", "FDIS"]
+  primary_topic_name: "Consumer discretionary"
+
+Consumer Staples:
+  tickers: ["XLP", "VDC", "IYK", "KXI"]
+  primary_topic_name: "Consumer goods"
+
+Utilities:
+  tickers: ["XLU", "VPU", "IDU", "FXU"]
+  primary_topic_name: "Utilities"
+
+Materials:
+  tickers: ["XLB", "VAW", "IYM", "MXI"]
+  primary_topic_name: "Materials science"
+
+Real Estate:
+  tickers: ["XLRE", "IYR", "VNQ", "SCHH"]
+  primary_topic_name: "Real estate"
+
+Communication Services:
+  tickers: ["XLC", "VOX", "IYZ", "FCOM"]
+  primary_topic_name: "Telecommunications"

@@ -1,0 +1,50 @@
+feature,importance
+close_mean,0.22551592
+pub_4w,0.15045343
+vol_4w,0.13347036
+ret_1d,0.11077149
+top5_infrequent_sklearn,0.09135286
+top4_infrequent_sklearn,0.08505577
+vol_growth,0.07393653
+pub_growth,0.06498034
+top2_Ga2O3 and related materials,0.06446334
+top5_Advancements in Semiconductor Devices and Circuit Design,0.0
+top4_Photocathodes and Microchannel Plates,0.0
+top4_Radio Frequency Integrated Circuit Design,0.0
+top4_Semiconductor Quantum Structures and Devices,0.0
+top4_Semiconductor materials and devices,0.0
+top4_Silicon Carbide Semiconductor Technologies,0.0
+top4_ZnO doping and properties,0.0
+top5_Acoustic Wave Resonator Technologies,0.0
+top5_Ga2O3 and related materials,0.0
+top4_Ga2O3 and related materials,0.0
+top5_Gas Sensing Nanomaterials and Sensors,0.0
+top5_Metal and Thin Film Mechanics,0.0
+top5_Radio Frequency Integrated Circuit Design,0.0
+top5_Semiconductor Quantum Structures and Devices,0.0
+top5_Semiconductor materials and devices,0.0
+top5_Silicon Carbide Semiconductor Technologies,0.0
+top5_ZnO doping and properties,0.0
+top5_nan,0.0
+top4_Metal and Thin Film Mechanics,0.0
+top4_Advancements in Semiconductor Devices and Circuit Design,0.0
+top1_GaN-based semiconductor devices and materials,0.0
+top4_Acoustic Wave Resonator Technologies,0.0
+top1_infrequent_sklearn,0.0
+top2_Acoustic Wave Resonator Technologies,0.0
+top2_Radio Frequency Integrated Circuit Design,0.0
+top2_Semiconductor Quantum Structures and Devices,0.0
+top2_Semiconductor materials and devices,0.0
+top2_Silicon Carbide Semiconductor Technologies,0.0
+top2_infrequent_sklearn,0.0
+top3_Acoustic Wave Resonator Technologies,0.0
+top3_Advancements in Semiconductor Devices and Circuit Design,0.0
+top3_Ga2O3 and related materials,0.0
+top3_Metal and Thin Film Mechanics,0.0
+top3_Photocathodes and Microchannel Plates,0.0
+top3_Radio Frequency Integrated Circuit Design,0.0
+top3_Semiconductor Quantum Structures and Devices,0.0
+top3_Semiconductor materials and devices,0.0
+top3_Silicon Carbide Semiconductor Technologies,0.0
+top3_infrequent_sklearn,0.0
+top3_ZnO doping and properties,0.0
