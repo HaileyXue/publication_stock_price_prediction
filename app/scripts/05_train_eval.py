@@ -166,7 +166,7 @@ def main():
         "vol_4w","vol_growth",
         "pub_4w","pub_growth",
     ]
-    cat_cols_all = ["top1","top2","top3","top4","top5"]
+    cat_cols_all = ["top1", "top5"]
 
     d = df.dropna(subset=[label_col]).copy()
     for c in num_cols_all:

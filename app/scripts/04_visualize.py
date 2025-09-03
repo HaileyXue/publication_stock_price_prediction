@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 from pathlib import Path
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -31,6 +32,54 @@ def _corr_heatmap(df, cols, title, outpath):
     plt.savefig(outpath, bbox_inches="tight")
     plt.close()
 
+# ---------- NEW: categorical (Cramér's V) heatmap helpers ----------
+def _cramers_v_from_table(ct: pd.DataFrame) -> float:
+    """
+    Compute Cramér's V from a contingency table without SciPy.
+    Returns a value in [0, 1]. If table degenerate, returns np.nan/0.
+    """
+    obs = ct.to_numpy(dtype=float)
+    n = obs.sum()
+    if n <= 0:
+        return np.nan
+    row_sum = obs.sum(axis=1, keepdims=True)
+    col_sum = obs.sum(axis=0, keepdims=True)
+    expected = (row_sum @ col_sum) / n
+    with np.errstate(divide='ignore', invalid='ignore'):
+        chi2 = np.nansum((obs - expected) ** 2 / expected)
+    r, k = obs.shape
+    if min(r, k) < 2:
+        return 0.0
+    return float(np.sqrt(chi2 / (n * (min(r, k) - 1))))
+
+def _categorical_assoc_heatmap(df, cols, title, outpath):
+    """
+    Build pairwise Cramér's V for the given categorical columns and plot a heatmap.
+    """
+    cols = [c for c in cols if c in df.columns]
+    if len(cols) < 2:
+        print(f"[WARN] need at least 2 categorical columns for: {title}")
+        return
+
+    n = len(cols)
+    M = np.zeros((n, n), dtype=float)
+    for i in range(n):
+        for j in range(i, n):
+            # crosstab ignores NaN by default; that's fine here
+            ct = pd.crosstab(df[cols[i]], df[cols[j]])
+            val = _cramers_v_from_table(ct) if not ct.empty else np.nan
+            M[i, j] = M[j, i] = val
+
+    assoc = pd.DataFrame(M, index=cols, columns=cols)
+
+    plt.figure(figsize=(min(1.2*len(cols)+2, 18), min(1.2*len(cols)+2, 18)))
+    sns.heatmap(assoc, annot=True, fmt=".2f", cmap="viridis", vmin=0, vmax=1, square=True,
+                cbar_kws={"shrink": .8})
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(outpath, bbox_inches="tight")
+    plt.close()
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sector", required=True)
@@ -51,12 +100,11 @@ def main():
         ax.figure.savefig(PLOTS_DIR / fname, bbox_inches="tight"); plt_close(ax)
 
     # ============================
-    # NEW: Relationship plots
+    # Relationship plots
     # ============================
 
     # 1) LEVELS (absolute values) — z-scored close_mean vs z-scored pub_count on one axis
     if {"close_mean", "pub_count"}.issubset(df.columns):
-        # z-score both series so they’re comparable on one axis
         z = lambda s: (s - s.mean()) / (s.std(ddof=0) if s.std(ddof=0) != 0 else 1)
         df["_close_mean_z"] = z(df["close_mean"])
         df["_pub_count_z"]  = z(df["pub_count"])
@@ -70,7 +118,6 @@ def main():
         ax.set_ylabel("Z-score")
         ax.figure.savefig(PLOTS_DIR / f"{args.sector}_levels_price_vs_pubs_z.png", bbox_inches="tight")
         plt_close(ax)
-        # Clean up temp cols (optional)
         df.drop(columns=["_close_mean_z", "_pub_count_z"], inplace=True, errors="ignore")
     else:
         print("[WARN] Levels plot skipped: require 'close_mean' and 'pub_count'")
@@ -79,7 +126,6 @@ def main():
     need_growth = "pub_growth" not in df.columns
     can_compute_growth = {"pub_count"}.issubset(df.columns)
     if need_growth and can_compute_growth:
-        # percentage change; replace inf/NaN with 0 for plotting continuity
         df["pub_growth"] = df["pub_count"].pct_change().replace([float("inf"), float("-inf")], pd.NA).fillna(0)
 
     if "ret_1d" in df.columns and "pub_growth" in df.columns:
@@ -130,6 +176,15 @@ def main():
         cols_hm_core,
         title=f"{args.sector} correlations — core",
         outpath=PLOTS_DIR / f"{args.sector}_corr_core.png",
+    )
+
+    # ---------- NEW: Heatmap 3 — categorical associations (Cramér's V) ----------
+    cols_cats = ["top1","top2","top3","top4","top5"]
+    _categorical_assoc_heatmap(
+        df,
+        cols_cats,
+        title=f"{args.sector} categorical associations — top topics (Cramér's V)",
+        outpath=PLOTS_DIR / f"{args.sector}_cat_assoc_top_topics.png",
     )
 
 def plt_close(ax):

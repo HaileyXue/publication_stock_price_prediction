@@ -87,7 +87,7 @@ NUM_FEATURES = [
     "vol_4w","vol_growth",
     "pub_4w","pub_growth",
 ]
-CAT_FEATURES = ["top1","top2","top3","top4","top5"]
+CAT_FEATURES = ["top1", "top5"]
 
 def run_py(cmd_list, label="Extracting and writing…"):
     """Run a Python command; show a neutral status message (no paths/commands)."""
@@ -127,6 +127,7 @@ def expected_plot_paths(sector: str):
         PLOTS_DIR / f"{sector}_growth_ret_vs_pub_growth.png",
         PLOTS_DIR / f"{sector}_corr_all.png",
         PLOTS_DIR / f"{sector}_corr_core.png",
+        PLOTS_DIR / f"{sector}_cat_assoc_top_topics.png",   # NEW
     ]
 
 def metrics_json_path(sector: str, with_cat: bool) -> Path:
@@ -346,14 +347,21 @@ with tab_model:
         # Build a tidy table: rows = models, cols = ROC-AUC, PR-AUC
         try:
             metrics = json.loads(mj_path.read_text())
+            # Map short keys -> full names
+            model_name_map = {
+                "logit": "Logistic Regression",
+                "rf":    "Random Forest",
+                "xgb":   "XGBoost",
+            }
             rows = []
-            for model_name, vals in metrics.items():
+            for model_key, vals in metrics.items():
+                pretty_name = model_name_map.get(model_key, model_key)  # fallback: original key
                 rows.append({
-                    "model": model_name,
+                    "Model":  pretty_name,
                     "ROC-AUC": round(vals.get("roc_auc", float("nan")), 4),
                     "PR-AUC":  round(vals.get("pr_auc",  float("nan")), 4),
                 })
-            metrics_df = pd.DataFrame(rows).sort_values("model")
+            metrics_df = pd.DataFrame(rows).sort_values("Model")
             st.caption(f"{variant_label}")
             st.dataframe(metrics_df, use_container_width=True)
         except Exception:
