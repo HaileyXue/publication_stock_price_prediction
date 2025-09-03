@@ -1,50 +1,50 @@
 feature,coef,importance,sign
-top5_Metal and Thin Film Mechanics,1.3057007681135353,1.3057007681135353,1.0
-top4_Radio Frequency Integrated Circuit Design,1.1779771638778997,1.1779771638778997,1.0
-top3_Advancements in Semiconductor Devices and Circuit Design,-0.7992298190289594,0.7992298190289594,-1.0
-top5_Ga2O3 and related materials,0.7118706898419971,0.7118706898419971,1.0
-top5_Acoustic Wave Resonator Technologies,-0.648427185255293,0.648427185255293,-1.0
-top3_Metal and Thin Film Mechanics,-0.6415343800600979,0.6415343800600979,-1.0
-top2_Semiconductor Quantum Structures and Devices,0.6294251319669677,0.6294251319669677,1.0
-top3_Photocathodes and Microchannel Plates,0.612610555704104,0.612610555704104,1.0
-top4_infrequent_sklearn,0.6088513570465598,0.6088513570465598,1.0
-top3_Semiconductor Quantum Structures and Devices,0.5888425141548584,0.5888425141548584,1.0
-top4_Silicon Carbide Semiconductor Technologies,-0.5883633689052483,0.5883633689052483,-1.0
-top2_Acoustic Wave Resonator Technologies,-0.5749832682659848,0.5749832682659848,-1.0
-top2_Radio Frequency Integrated Circuit Design,-0.5485422048570384,0.5485422048570384,-1.0
-top4_Semiconductor materials and devices,-0.5470868579279918,0.5470868579279918,-1.0
-top4_Advancements in Semiconductor Devices and Circuit Design,0.5166643222970404,0.5166643222970404,1.0
-top5_Silicon Carbide Semiconductor Technologies,-0.512482813690145,0.512482813690145,-1.0
-top2_Silicon Carbide Semiconductor Technologies,-0.4774173791070371,0.4774173791070371,-1.0
-top2_Ga2O3 and related materials,0.4230098434407557,0.4230098434407557,1.0
-top4_Semiconductor Quantum Structures and Devices,-0.3851732321900213,0.3851732321900213,-1.0
-top5_Advancements in Semiconductor Devices and Circuit Design,-0.35953557158932903,0.35953557158932903,-1.0
-top5_nan,0.3428268367082685,0.3428268367082685,1.0
-top2_Semiconductor materials and devices,0.33867187705769536,0.33867187705769536,1.0
-pub_growth,0.3233481435039455,0.3233481435039455,1.0
-top5_infrequent_sklearn,-0.314550553545653,0.314550553545653,-1.0
-vol_4w,0.3107674887669229,0.3107674887669229,1.0
-top5_Semiconductor Quantum Structures and Devices,-0.3101334924422473,0.3101334924422473,-1.0
-top4_Acoustic Wave Resonator Technologies,-0.30593272182456216,0.30593272182456216,-1.0
-top4_ZnO doping and properties,-0.2853694942822427,0.2853694942822427,-1.0
-top3_Semiconductor materials and devices,0.2838955821121231,0.2838955821121231,1.0
-top3_infrequent_sklearn,0.2834384335626098,0.2834384335626098,1.0
-top5_Gas Sensing Nanomaterials and Sensors,-0.28147763600250525,0.28147763600250525,-1.0
-top3_ZnO doping and properties,-0.2761536895340453,0.2761536895340453,-1.0
-ret_1d,-0.2708179632786178,0.2708179632786178,-1.0
-top3_Ga2O3 and related materials,-0.270133681724588,0.270133681724588,-1.0
-top5_Semiconductor materials and devices,-0.2509363050789259,0.2509363050789259,-1.0
-top2_infrequent_sklearn,0.20301857832412545,0.20301857832412545,1.0
-top5_ZnO doping and properties,0.20288558687675312,0.20288558687675312,1.0
-top4_Ga2O3 and related materials,-0.20098921714730164,0.20098921714730164,-1.0
-close_mean,-0.19725348234903953,0.19725348234903953,-1.0
-top3_Radio Frequency Integrated Circuit Design,0.18613729249450625,0.18613729249450625,1.0
-pub_4w,-0.1691605960837827,0.1691605960837827,-1.0
-top4_Photocathodes and Microchannel Plates,0.14752967442413917,0.14752967442413917,1.0
-top4_Metal and Thin Film Mechanics,-0.14492504680878626,0.14492504680878626,-1.0
-top5_Radio Frequency Integrated Circuit Design,0.10744225462303027,0.10744225462303027,1.0
-vol_growth,-0.10655851942375234,0.10655851942375234,-1.0
-top3_Acoustic Wave Resonator Technologies,0.091421557684733,0.091421557684733,1.0
-top3_Silicon Carbide Semiconductor Technologies,-0.0661117868057583,0.0661117868057583,-1.0
-top1_infrequent_sklearn,-0.023443639155152237,0.023443639155152237,-1.0
-top1_GaN-based semiconductor devices and materials,0.016626217714637456,0.016626217714637456,1.0
+top5_Advancements in Semiconductor Devices and Circuit Design,1.190125333081267,1.190125333081267,1.0
+top5_Electron and X-Ray Spectroscopy Techniques,1.027118161759091,1.027118161759091,1.0
+top4_Electronic and Structural Properties of Oxides,1.026183794993503,1.026183794993503,1.0
+top5_Copper Interconnects and Reliability,-0.8770504440300741,0.8770504440300741,-1.0
+top4_Electron and X-Ray Spectroscopy Techniques,-0.8403452900911472,0.8403452900911472,-1.0
+top4_Catalytic Processes in Materials Science,-0.8311080806841329,0.8311080806841329,-1.0
+top2_Advancements in Semiconductor Devices and Circuit Design,0.7099402909629541,0.7099402909629541,1.0
+top5_Semiconductor materials and interfaces,-0.6557313851459513,0.6557313851459513,-1.0
+top3_Advanced Memory and Neural Computing,-0.5600110758366662,0.5600110758366662,-1.0
+top5_Ferroelectric and Negative Capacitance Devices,-0.5564470370113261,0.5564470370113261,-1.0
+pub_growth,0.5482448701969719,0.5482448701969719,1.0
+top3_Integrated Circuits and Semiconductor Failure Analysis,-0.5325220173252687,0.5325220173252687,-1.0
+top4_Advancements in Semiconductor Devices and Circuit Design,0.5260972054843773,0.5260972054843773,1.0
+top3_Semiconductor materials and interfaces,0.48354645342123537,0.48354645342123537,1.0
+top3_Electronic and Structural Properties of Oxides,-0.4793670581560476,0.4793670581560476,-1.0
+top4_Advancements in Battery Materials,0.468996574906223,0.468996574906223,1.0
+top1_Semiconductor materials and devices,-0.46077935859738983,0.46077935859738983,-1.0
+top1_infrequent_sklearn,0.4556780777015632,0.4556780777015632,1.0
+top5_Advancements in Battery Materials,0.4405733914180471,0.4405733914180471,1.0
+close_mean,-0.40860545261798603,0.40860545261798603,-1.0
+top3_Ferroelectric and Negative Capacitance Devices,0.38962250419238936,0.38962250419238936,1.0
+top4_Integrated Circuits and Semiconductor Failure Analysis,-0.38600797130204495,0.38600797130204495,-1.0
+top3_Copper Interconnects and Reliability,0.3795560305156614,0.3795560305156614,1.0
+top2_Advanced Memory and Neural Computing,-0.3621772890625234,0.3621772890625234,-1.0
+top5_Integrated Circuits and Semiconductor Failure Analysis,-0.30814621941079495,0.30814621941079495,-1.0
+top3_Advancements in Semiconductor Devices and Circuit Design,0.30142556615100013,0.30142556615100013,1.0
+top5_infrequent_sklearn,0.27992531572993223,0.27992531572993223,1.0
+top2_infrequent_sklearn,0.26858268162593774,0.26858268162593774,1.0
+top4_Advanced Memory and Neural Computing,-0.265760881636469,0.265760881636469,-1.0
+top4_infrequent_sklearn,0.2626838539344231,0.2626838539344231,1.0
+top5_GaN-based semiconductor devices and materials,-0.25687656569189127,0.25687656569189127,-1.0
+top5_Catalytic Processes in Materials Science,0.2558592145094216,0.2558592145094216,1.0
+top5_Electronic and Structural Properties of Oxides,-0.23511702740283852,0.23511702740283852,-1.0
+top2_Catalytic Processes in Materials Science,-0.21940478730158522,0.21940478730158522,-1.0
+top3_Catalytic Processes in Materials Science,0.21739864082491941,0.21739864082491941,1.0
+top2_Advancements in Battery Materials,-0.2157218717731166,0.2157218717731166,-1.0
+top4_Ferroelectric and Negative Capacitance Devices,0.20230814047019682,0.20230814047019682,1.0
+top4_Advanced ceramic materials synthesis,-0.1929317072120687,0.1929317072120687,-1.0
+top2_Electronic and Structural Properties of Oxides,-0.18632030534749414,0.18632030534749414,-1.0
+top5_Advanced ceramic materials synthesis,-0.18338026271488472,0.18338026271488472,-1.0
+ret_1d,-0.18306132230663033,0.18306132230663033,-1.0
+top3_Advancements in Battery Materials,-0.16476890808823066,0.16476890808823066,-1.0
+vol_growth,0.13400302934173536,0.13400302934173536,1.0
+top5_Advanced Memory and Neural Computing,-0.12595375598582484,0.12595375598582484,-1.0
+vol_4w,0.10270330552946735,0.10270330552946735,1.0
+top4_GaN-based semiconductor devices and materials,0.08497301636162971,0.08497301636162971,1.0
+top4_Analytical Chemistry and Sensors,-0.06018993612031837,0.06018993612031837,-1.0
+top3_infrequent_sklearn,-0.039981416594819984,0.039981416594819984,-1.0
+pub_4w,-0.020451614648430278,0.020451614648430278,-1.0

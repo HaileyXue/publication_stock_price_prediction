@@ -1,50 +1,50 @@
 feature,importance
-close_mean,0.24819786752676087
-pub_4w,0.15724939967431542
-vol_4w,0.14462874048688304
-ret_1d,0.11163012207879192
-vol_growth,0.078826265935272
-pub_growth,0.06575547773981069
-top4_infrequent_sklearn,0.01904123782212448
-top5_Ga2O3 and related materials,0.013463695883226429
-top5_infrequent_sklearn,0.012150882344490695
-top4_Semiconductor Quantum Structures and Devices,0.011719739990786774
-top5_Metal and Thin Film Mechanics,0.011630831279506036
-top2_Ga2O3 and related materials,0.01090567706623267
-top3_infrequent_sklearn,0.010560729843325076
-top4_Semiconductor materials and devices,0.008660683796893848
-top2_Semiconductor materials and devices,0.0071274002770072035
-top3_Semiconductor Quantum Structures and Devices,0.006884068256056402
-top2_Acoustic Wave Resonator Technologies,0.006756646298482521
-top5_ZnO doping and properties,0.006443821979360643
-top4_Radio Frequency Integrated Circuit Design,0.006188284669837599
-top5_Silicon Carbide Semiconductor Technologies,0.0059793289981231405
-top2_infrequent_sklearn,0.005651635842182526
-top2_Semiconductor Quantum Structures and Devices,0.005436984360097891
-top3_Ga2O3 and related materials,0.004562986490896382
-top4_Advancements in Semiconductor Devices and Circuit Design,0.00429535370225062
-top5_Acoustic Wave Resonator Technologies,0.004287308651593416
-top4_ZnO doping and properties,0.0039699113159521
-top3_Acoustic Wave Resonator Technologies,0.003519796471528027
-top3_Semiconductor materials and devices,0.0032073507852861203
-top3_Advancements in Semiconductor Devices and Circuit Design,0.0031016799134475424
-top3_Silicon Carbide Semiconductor Technologies,0.0028233347565372138
-top5_Semiconductor materials and devices,0.0027757930818556897
-top4_Ga2O3 and related materials,0.002493034704544458
-top5_Semiconductor Quantum Structures and Devices,0.0023570199925576794
-top2_Radio Frequency Integrated Circuit Design,0.002222781390732811
-top4_Silicon Carbide Semiconductor Technologies,0.0012944151068217426
-top5_nan,0.0012221092278735554
-top5_Advancements in Semiconductor Devices and Circuit Design,0.0008383593697122758
-top4_Acoustic Wave Resonator Technologies,0.0006023773629837872
-top3_ZnO doping and properties,0.0004893958930806302
-top3_Radio Frequency Integrated Circuit Design,0.00041770952090603515
-top5_Gas Sensing Nanomaterials and Sensors,0.0002053389243806415
-top4_Metal and Thin Film Mechanics,0.00016446539716520885
-top3_Metal and Thin Film Mechanics,0.00016313747172184024
-top4_Photocathodes and Microchannel Plates,5.553160021969105e-05
-top2_Silicon Carbide Semiconductor Technologies,2.7940272793617224e-05
-top5_Radio Frequency Integrated Circuit Design,1.3346445591049536e-05
-top1_GaN-based semiconductor devices and materials,0.0
+close_mean,0.2821977322332267
+vol_4w,0.1292936034128831
+pub_4w,0.10893016369645053
+ret_1d,0.10236272164141531
+pub_growth,0.09945306220368444
+vol_growth,0.07964706706662004
+top4_Electronic and Structural Properties of Oxides,0.019703599751696856
+top4_infrequent_sklearn,0.016952370544410827
+top2_Advancements in Semiconductor Devices and Circuit Design,0.01692571767190901
+top5_infrequent_sklearn,0.012898669531664355
+top3_Advanced Memory and Neural Computing,0.010286997699209904
+top5_Electron and X-Ray Spectroscopy Techniques,0.009679749451491
+top2_infrequent_sklearn,0.009404826548248446
+top2_Electronic and Structural Properties of Oxides,0.00897028501148384
+top2_Advanced Memory and Neural Computing,0.008835407596389361
+top3_infrequent_sklearn,0.007777483478540226
+top5_Electronic and Structural Properties of Oxides,0.007478382630182614
+top4_Catalytic Processes in Materials Science,0.007391376320931549
+top5_Copper Interconnects and Reliability,0.0068970948855300775
+top3_Advancements in Semiconductor Devices and Circuit Design,0.006183969451263381
+top5_Advancements in Battery Materials,0.005904663851138044
+top4_Advanced Memory and Neural Computing,0.005007785667849287
+top5_Advancements in Semiconductor Devices and Circuit Design,0.004364539446960305
+top3_Integrated Circuits and Semiconductor Failure Analysis,0.004301817396921264
+top5_Integrated Circuits and Semiconductor Failure Analysis,0.003993489295077817
+top3_Copper Interconnects and Reliability,0.0034156778002542424
+top3_Ferroelectric and Negative Capacitance Devices,0.003092012322941607
+top5_Ferroelectric and Negative Capacitance Devices,0.0025231313269478937
+top3_Electronic and Structural Properties of Oxides,0.002102995022408706
+top3_Semiconductor materials and interfaces,0.002000185525845076
+top4_Integrated Circuits and Semiconductor Failure Analysis,0.0018846617592741285
+top5_Catalytic Processes in Materials Science,0.001736737816292773
+top4_Advancements in Semiconductor Devices and Circuit Design,0.0016461958326809485
+top4_Electron and X-Ray Spectroscopy Techniques,0.0014106363463081354
+top5_Semiconductor materials and interfaces,0.0012534280180831327
+top5_GaN-based semiconductor devices and materials,0.0010836087335025846
+top4_Advancements in Battery Materials,0.0007955074919211527
+top4_Ferroelectric and Negative Capacitance Devices,0.000562303515922153
+top5_Advanced Memory and Neural Computing,0.00045965084536549124
+top2_Advancements in Battery Materials,0.0004157777415755756
+top3_Catalytic Processes in Materials Science,0.00032570407272526435
+top4_Analytical Chemistry and Sensors,0.0001373558851308734
+top3_Advancements in Battery Materials,0.0001347082421389276
+top4_Advanced ceramic materials synthesis,0.0001210528646457181
+top4_GaN-based semiconductor devices and materials,5.609235085747052e-05
+top5_Advanced ceramic materials synthesis,0.0
 top1_infrequent_sklearn,0.0
-top3_Photocathodes and Microchannel Plates,0.0
+top2_Catalytic Processes in Materials Science,0.0
+top1_Semiconductor materials and devices,0.0

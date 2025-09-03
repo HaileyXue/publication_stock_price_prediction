@@ -39,7 +39,6 @@ def load_sectors_from_yaml():
             return list(cfg.keys())
     except Exception:
         pass
-    # Fallback list if YAML missing
     return [
         "Biotech","Semiconductors","Energy","Financials","Healthcare",
         "Technology","Industrials","Consumer Discretionary","Consumer Staples",
@@ -52,68 +51,60 @@ SECTORS = load_sectors_from_yaml()
 # Script command templates
 # =========================
 SCRIPT_CMDS = {
-    # 01 — prices via Stooq (requires YAML sector map)
     "s1_fetch_prices": [
         sys.executable, str(ROOT / "app" / "scripts" / "01_fetch_prices_stooq.py"),
-        "--sector", "{sector}",
-        "--start",  "{start}",
-        "--end",    "{end}",
+        "--sector", "{sector}", "--start", "{start}", "--end", "{end}",
         "--config", str(CONFIG_PATH),
     ],
-    # 02 — OpenAlex topics (requires YAML sector map)
     "s2_fetch_openalex": [
         sys.executable, str(ROOT / "app" / "scripts" / "02_fetch_openalex_topics.py"),
-        "--sector", "{sector}",
-        "--start",  "{start}",
-        "--end",    "{end}",
+        "--sector", "{sector}", "--start", "{start}", "--end", "{end}",
         "--config", str(CONFIG_PATH),
-        # uses --primary_only default True; no flag needed
     ],
-    # 03 — build features
     "s3_build_features": [
         sys.executable, str(ROOT / "app" / "scripts" / "03_build_features.py"),
         "--sector", "{sector}",
     ],
-    # 04 — visualize
     "s4_visualize": [
         sys.executable, str(ROOT / "app" / "scripts" / "04_visualize.py"),
         "--sector", "{sector}",
     ],
-    # 05 — train/eval (toggle categories)
     "s5_train_eval_nocat": [
         sys.executable, str(ROOT / "app" / "scripts" / "05_train_eval.py"),
         "--sector", "{sector}",
     ],
     "s5_train_eval_withcat": [
         sys.executable, str(ROOT / "app" / "scripts" / "05_train_eval.py"),
-        "--sector", "{sector}",
-        "--use-categories",
+        "--sector", "{sector}", "--use-categories",
     ],
 }
 
 # =========================
-# Helpers
+# Helpers & constants
 # =========================
-def run_py(cmd_list):
-    """Run a Python command and surface logs in Streamlit."""
-    with st.status(f"Running: {' '.join(map(str, cmd_list))}", expanded=False) as status:
+NUM_FEATURES = [
+    "ret_1d","close_mean",
+    "vol_4w","vol_growth",
+    "pub_4w","pub_growth",
+]
+CAT_FEATURES = ["top1","top2","top3","top4","top5"]
+
+def run_py(cmd_list, label="Extracting and writing…"):
+    """Run a Python command; show a neutral status message (no paths/commands)."""
+    with st.status(label, expanded=False) as status:
         try:
             proc = subprocess.run(cmd_list, capture_output=True, text=True, check=True)
-            if proc.stdout:
-                st.code(proc.stdout, language="bash")
-            if proc.stderr:
-                st.code(proc.stderr, language="bash")
+            # Suppress stdout/stderr to keep UI clean; only surface on error.
             status.update(label="✅ Done", state="complete")
         except subprocess.CalledProcessError as e:
-            st.error(f"❌ Command failed (exit {e.returncode})")
-            if e.stdout: st.code(e.stdout, language="bash")
-            if e.stderr: st.code(e.stderr, language="bash")
+            st.error("❌ Step failed")
+            if e.stdout: st.code(e.stdout[:4000], language="bash")
+            if e.stderr: st.code(e.stderr[:4000], language="bash")
             st.stop()
 
 def fmt_date(d):
     return pd.to_datetime(d).strftime("%Y-%m-%d")
 
-# Expected artifact paths
 def sector_prices_csv(sector: str) -> Path:
     return RAW_PRICES / f"sector_{sector}_daily_agg.csv"
 
@@ -139,82 +130,119 @@ def expected_plot_paths(sector: str):
     ]
 
 def metrics_json_path(sector: str, with_cat: bool) -> Path:
-    suffix = "_withcat" if with_cat else "_nocat"
-    return MODELS_DIR / f"{sector}_metrics{suffix}.json"
+    return MODELS_DIR / f"{sector}_metrics{'_withcat' if with_cat else '_nocat'}.json"
+
+def render_artifacts_status(sector: str):
+    st.markdown("---")
+    st.subheader("Artifacts Status")
+
+    core = [
+        ("Prices (sector daily aggregate)", sector_prices_csv(sector)),
+        ("Topics: daily_topic_counts",      topics_counts_csv(sector)),
+        ("Topics: daily_top5_wide",         topics_top5_csv(sector)),
+        ("Features (model input table)",    features_csv(sector)),
+    ]
+    for label, path in core:
+        if path.exists():
+            st.success(f"✓ {label}: {path.name}")
+        else:
+            st.info(f"• {label}: not found")
+
+    # Plots summary (only counts & filenames, not images)
+    present_plots = [p for p in expected_plot_paths(sector) if p.exists()]
+    missing_plots = [p for p in expected_plot_paths(sector) if not p.exists()]
+
+    st.markdown("**Plots**")
+    if present_plots:
+        st.success(f"✓ {len(present_plots)} plot(s) generated")
+        with st.expander("Show plot files"):
+            for p in present_plots:
+                st.write(p.name)
+    else:
+        st.info("• No plots found yet")
+
+    if missing_plots:
+        with st.expander("Missing (expected) plot files"):
+            for p in missing_plots:
+                st.write(p.name)
+
+    # Metrics presence (both variants)
+    for label, mpath in [
+        ("Metrics (no categorical features)",  metrics_json_path(sector, False)),
+        ("Metrics (with categorical features)", metrics_json_path(sector, True)),
+    ]:
+        if mpath.exists():
+            st.success(f"✓ {label}: {mpath.name}")
+        else:
+            st.info(f"• {label}: not found")
 
 # =========================
-# Orchestration steps
+# Orchestration
 # =========================
 def ensure_prices(sector, start, end, force=False):
     out = sector_prices_csv(sector)
     if out.exists() and not force:
-        st.success(f"Prices present: {out.name} — skipping 01.")
+        st.success("Prices present — skipping.")
         return
     if not CONFIG_PATH.exists():
-        st.error(f"Missing config: {CONFIG_PATH}. Add your sector_map.yaml.")
+        st.error("Missing sector_map.yaml.")
         st.stop()
     cmd = [arg.format(sector=sector, start=fmt_date(start), end=fmt_date(end)) for arg in SCRIPT_CMDS["s1_fetch_prices"]]
-    run_py(cmd)
+    run_py(cmd, label="Extracting and writing…")
 
 def ensure_topics(sector, start, end, force=False):
     counts_p = topics_counts_csv(sector)
     wide_p   = topics_top5_csv(sector)
     if counts_p.exists() and wide_p.exists() and not force:
-        st.success(f"Topics present: {counts_p.name}, {wide_p.name} — skipping 02.")
+        st.success("Topics present — skipping.")
         return
     if not CONFIG_PATH.exists():
-        st.error(f"Missing config: {CONFIG_PATH}. Add your sector_map.yaml.")
+        st.error("Missing sector_map.yaml.")
         st.stop()
     cmd = [arg.format(sector=sector, start=fmt_date(start), end=fmt_date(end)) for arg in SCRIPT_CMDS["s2_fetch_openalex"]]
-    run_py(cmd)
+    run_py(cmd, label="Extracting and writing…")
 
 def ensure_features(sector, start, end, force=False):
-    """
-    If features exist and not forced → skip.
-    Else: ensure prices + topics, then run 03 to build features.
-    """
     fcsv = features_csv(sector)
     if fcsv.exists() and not force:
-        st.success(f"Features present: {fcsv.name} — skipping 03.")
+        st.success("Features present — skipping.")
         return
-    # Need inputs first
-    ensure_prices(sector, start, end, force=False)  # don't force sub-steps unless top-level force is on
+    ensure_prices(sector, start, end, force=False)
     ensure_topics(sector, start, end, force=False)
-    # Build features
     cmd = [arg.format(sector=sector) for arg in SCRIPT_CMDS["s3_build_features"]]
-    run_py(cmd)
+    run_py(cmd, label="Extracting and writing…")
 
 def ensure_plots(sector, force=False):
     exp = expected_plot_paths(sector)
     missing = [p for p in exp if not p.exists()]
     if not missing and not force:
-        st.success("All plots present — skipping 04.")
+        st.success("All plots present — skipping.")
         return
     cmd = [arg.format(sector=sector) for arg in SCRIPT_CMDS["s4_visualize"]]
-    run_py(cmd)
+    run_py(cmd, label="Extracting and writing…")
 
 def run_modeling(sector, with_categories=False):
     key = "s5_train_eval_withcat" if with_categories else "s5_train_eval_nocat"
     cmd = [arg.format(sector=sector) for arg in SCRIPT_CMDS[key]]
-    run_py(cmd)
+    run_py(cmd, label="Extracting and writing…")
 
 # =========================
-# UI Controls
-# =========================
-# =========================
-# Sidebar Controls (moved from top)
+# Sidebar Controls
 # =========================
 st.sidebar.header("Controls")
 sector = st.sidebar.selectbox("Sector", SECTORS, index=SECTORS.index("Semiconductors") if "Semiconductors" in SECTORS else 0)
-
 today = dt.date.today()
 default_start = today.replace(year=today.year - 1)
 start_date = st.sidebar.date_input("Start date", value=default_start)
 end_date   = st.sidebar.date_input("End date",   value=today)
-
 force_all  = st.sidebar.checkbox("Force refresh all steps", value=False)
+# persist modeling choice in session_state so other tabs can use it
+if "with_categories" not in st.session_state:
+    st.session_state.with_categories = False
+st.session_state.with_categories = st.sidebar.checkbox("Include categorical features (top1..top5) for modeling & feature view", value=st.session_state.with_categories)
+
 st.sidebar.markdown("---")
-st.sidebar.caption("Files are skipped if already present unless force refresh is enabled.")
+st.sidebar.caption("Files are skipped unless Force refresh is enabled.")
 
 # =========================
 # Tabs
@@ -236,102 +264,141 @@ with tab_build:
             ensure_plots(sector, force=force_all)
             st.success("Plot generation complete.")
     with c3:
-        with_categories = st.checkbox("Include categorical features (top1..top5) in 05", value=False)
         if st.button("Run Modeling (05)"):
-            # Ensure features exist first
             ensure_features(sector, start_date, end_date, force=False)
-            run_modeling(sector, with_categories=with_categories)
+            run_modeling(sector, with_categories=st.session_state.with_categories)
             st.success("Modeling complete.")
-
-    st.markdown("---")
-    st.subheader("Artifacts Status")
-    # Prices / Topics / Features presence
-    statuses = [
-        ("Prices", sector_prices_csv(sector)),
-        ("Topics: daily_topic_counts", topics_counts_csv(sector)),
-        ("Topics: daily_top5_wide", topics_top5_csv(sector)),
-        ("Features", features_csv(sector)),
-    ]
-    for label, path in statuses:
-        if path.exists():
-            st.success(f"✓ {label}: {path.name}")
-        else:
-            st.info(f"• {label}: not found")
+    render_artifacts_status(sector)
 
 # ---------- TAB: Features ----------
 with tab_features:
-    st.subheader("Feature Table")
+    st.subheader("Feature Table (model inputs only)")
     fcsv = features_csv(sector)
     if fcsv.exists():
         df = pd.read_csv(fcsv, parse_dates=["date"]).sort_values("date")
         mask = (df["date"].dt.date >= start_date) & (df["date"].dt.date <= end_date)
         dfw = df.loc[mask].copy()
-        st.caption(f"Loaded {len(dfw):,} rows from {fcsv.name} for {start_date} → {end_date}")
-        st.dataframe(dfw.head(200))
+
+        used_cols = NUM_FEATURES.copy()
+        if st.session_state.with_categories:
+            used_cols += CAT_FEATURES
+        used_cols = [c for c in used_cols if c in dfw.columns]
+        show_cols = ["date"] + used_cols
+
+        st.caption(
+            f"Showing **{len(used_cols)}** model input columns "
+            f"({'with' if st.session_state.with_categories else 'without'} categorical features)."
+        )
+        st.dataframe(dfw[show_cols].head(200), use_container_width=True)
+        st.caption("Note: for speed, only the **first 200 rows** (head) are shown here.")
+
+        # --- Human-friendly feature descriptions ---
+        expl = {
+            "ret_1d": "Daily return of the sector basket (percentage change from previous trading day).",
+            "close_mean": "Equal-weighted average closing price across sector ETFs on each trading day.",
+            "vol_4w": "Rolling **4-week sum** of trading volume across the sector basket (smooths daily noise).",
+            "vol_growth": "Day-over-day **percentage change** in total trading volume.",
+            "pub_4w": "Rolling **4-week sum** of publication counts mapped to trading days.",
+            "pub_growth": "Day-over-day **percentage change** in publications (0 if previous day is 0).",
+            "top1": "Most frequent **topic name** on that day (from OpenAlex).",
+            "top2": "2nd most frequent topic name.",
+            "top3": "3rd most frequent topic name.",
+            "top4": "4th most frequent topic name.",
+            "top5": "5th most frequent topic name."
+        }
+        with st.expander("What do these features mean?"):
+            nums = [c for c in NUM_FEATURES if c in used_cols]
+            cats = [c for c in CAT_FEATURES if c in used_cols]
+            if nums:
+                st.markdown("**Numeric features**")
+                for c in nums:
+                    st.markdown(f"- **{c}** — {expl.get(c, 'n/a')}")
+            if cats:
+                st.markdown("**Categorical features (optional)**")
+                for c in cats:
+                    st.markdown(f"- **{c}** — {expl.get(c, 'n/a')}")
+            st.caption("All publication features are aligned to trading days with a small forward tolerance.")
     else:
         st.info("Features not found yet. Run **Build / Update Data (01–03)** in the Build & Run tab.")
 
 # ---------- TAB: Plots ----------
 with tab_plots:
     st.subheader("Visualization Outputs (from 04_visualize.py)")
-    pngs = sorted(glob.glob(str(PLOTS_DIR / f"{sector}_*.png")))
-    if pngs:
-        cols = st.columns(3)
-        for i, p in enumerate(pngs):
-            with cols[i % 3]:
-                st.image(p, caption=Path(p).name, use_column_width=True)
+    exp_paths = expected_plot_paths(sector)
+    existing = [p for p in exp_paths if p.exists()]
+    if existing:
+        cols = st.columns(2)  # two per row for larger images
+        for i, p in enumerate(existing):
+            with cols[i % 2]:
+                st.image(str(p), caption=p.name, use_container_width=True)
     else:
         st.info("No plots found. Use **Generate Plots (04)** in the Build & Run tab.")
 
 # ---------- TAB: Modeling ----------
 with tab_model:
-    st.subheader("Modeling Outputs (from 05_train_eval.py)")
+    st.subheader("Modeling Results (from 05_train_eval.py)")
 
-    # Metrics JSON for both variants if present
-    for variant, with_cat in [("No categories", False), ("With categories", True)]:
-        mj = metrics_json_path(sector, with_cat)
-        if mj.exists():
-            st.success(f"Metrics found ({variant}): {mj.name}")
-            try:
-                data = json.loads(mj.read_text())
-                st.json(data)
-            except Exception:
-                st.code(mj.read_text()[:8000])
-        else:
-            st.info(f"Metrics not found ({variant}). Run **Modeling (05)** in the Build & Run tab.")
+    # Choose which metrics file to show (No categories vs With categories)
+    variant_label = "With categorical features" if st.session_state.with_categories else "No categorical features"
+    mj_path = metrics_json_path(sector, st.session_state.with_categories)
 
-    # Feature-importance CSVs & plots
-    st.markdown("---")
-    st.subheader("Feature Importance")
-    fi_csvs = sorted(glob.glob(str(MODELS_DIR / f"{sector}_*_feature_importance*.csv")))
-    fi_pngs = sorted(glob.glob(str(PLOTS_DIR / f"{sector}_*_feature_importance*.png")))
-    if fi_csvs or fi_pngs:
-        if fi_csvs:
-            with st.expander("Tables (CSV)"):
-                for p in fi_csvs:
-                    st.write(Path(p).name)
-                    try:
-                        st.dataframe(pd.read_csv(p))
-                    except Exception:
-                        st.code(Path(p).read_text()[:4000])
-        if fi_pngs:
-            with st.expander("Bar charts (Top-N)"):
-                cols = st.columns(3)
-                for i, p in enumerate(fi_pngs):
-                    with cols[i % 3]:
-                        st.image(p, caption=Path(p).name, use_column_width=True)
+    if mj_path.exists():
+        # Build a tidy table: rows = models, cols = ROC-AUC, PR-AUC
+        try:
+            metrics = json.loads(mj_path.read_text())
+            rows = []
+            for model_name, vals in metrics.items():
+                rows.append({
+                    "model": model_name,
+                    "ROC-AUC": round(vals.get("roc_auc", float("nan")), 4),
+                    "PR-AUC":  round(vals.get("pr_auc",  float("nan")), 4),
+                })
+            metrics_df = pd.DataFrame(rows).sort_values("model")
+            st.caption(f"{variant_label}")
+            st.dataframe(metrics_df, use_container_width=True)
+        except Exception:
+            st.error("Could not parse metrics JSON.")
     else:
-        st.info("No feature-importance outputs yet.")
+        st.info(f"No metrics found ({variant_label}). Run **Modeling (05)** in the Build & Run tab.")
 
-    # ROC/PR curves
+        st.markdown("---")
+    st.subheader("Feature Importance")
+
+    # Tables (CSV)
+    fi_glob_suffix = "_withcat" if st.session_state.with_categories else "_nocat"
+    fi_csvs = sorted(glob.glob(str(MODELS_DIR / f"{sector}_*_feature_importance{fi_glob_suffix}.csv")))
+    fi_pngs = sorted(glob.glob(str(PLOTS_DIR  / f"{sector}_*_feature_importance{fi_glob_suffix}.png")))
+
+    if fi_csvs:
+        with st.expander("Tables (CSV)"):
+            for p in fi_csvs:
+                st.write(Path(p).name)
+                try:
+                    st.dataframe(pd.read_csv(p), use_container_width=True)
+                except Exception:
+                    st.code(Path(p).read_text()[:4000])
+    else:
+        st.info("No feature-importance CSVs yet for this variant.")
+
+    # Bar charts (Top-N) — under the CSVs
+    if fi_pngs:
+        with st.expander("Bar charts (Top-N)"):
+            cols = st.columns(2)  # bigger plots
+            for i, p in enumerate(fi_pngs):
+                with cols[i % 2]:
+                    st.image(str(p), caption=Path(p).name, use_container_width=True)
+    else:
+        st.info("No feature-importance plots yet for this variant.")
+
+    # ROC/PR curves (keep these in Modeling tab)
     st.markdown("---")
     st.subheader("ROC & PR Curves")
-    roc_imgs = sorted(glob.glob(str(PLOTS_DIR / f"{sector}_ROC_*.png")))
-    pr_imgs  = sorted(glob.glob(str(PLOTS_DIR / f"{sector}_PR_*.png")))
+    roc_imgs = sorted(glob.glob(str(PLOTS_DIR / f"{sector}_ROC_*{'_withcat' if st.session_state.with_categories else '_nocat'}.png")))
+    pr_imgs  = sorted(glob.glob(str(PLOTS_DIR / f"{sector}_PR_*{'_withcat' if st.session_state.with_categories else '_nocat'}.png")))
     if roc_imgs or pr_imgs:
         cols = st.columns(3)
         for i, p in enumerate(roc_imgs + pr_imgs):
             with cols[i % 3]:
-                st.image(p, caption=Path(p).name, use_column_width=True)
+                st.image(str(p), caption=Path(p).name, use_container_width=True)
     else:
-        st.info("No ROC/PR curves yet.")
+        st.info("No ROC/PR curves yet for this variant.")

@@ -1,101 +1,101 @@
 {
   "logit": {
-    "roc_auc": 0.4857571214392804,
-    "pr_auc": 0.6306905921131275,
+    "roc_auc": 0.6008804108584006,
+    "pr_auc": 0.7677679878567463,
     "classification_report": {
       "0": {
-        "precision": 0.3,
-        "recall": 0.3103448275862069,
-        "f1-score": 0.3050847457627119,
+        "precision": 0.45161290322580644,
+        "recall": 0.9655172413793104,
+        "f1-score": 0.6153846153846154,
         "support": 29.0
       },
       "1": {
-        "precision": 0.5555555555555556,
-        "recall": 0.5434782608695652,
-        "f1-score": 0.5494505494505495,
-        "support": 46.0
+        "precision": 0.9285714285714286,
+        "recall": 0.2765957446808511,
+        "f1-score": 0.4262295081967213,
+        "support": 47.0
       },
-      "accuracy": 0.4533333333333333,
+      "accuracy": 0.5394736842105263,
       "macro avg": {
-        "precision": 0.4277777777777778,
-        "recall": 0.426911544227886,
-        "f1-score": 0.4272676476066307,
-        "support": 75.0
+        "precision": 0.6900921658986175,
+        "recall": 0.6210564930300807,
+        "f1-score": 0.5208070617906684,
+        "support": 76.0
       },
       "weighted avg": {
-        "precision": 0.4567407407407408,
-        "recall": 0.4533333333333333,
-        "f1-score": 0.4549624386912523,
-        "support": 75.0
+        "precision": 0.7465740965316517,
+        "recall": 0.5394736842105263,
+        "f1-score": 0.4984071148868388,
+        "support": 76.0
       }
     },
-    "roc_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_ROC_logit_withcat.png",
-    "pr_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_PR_logit_withcat.png"
+    "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_ROC_logit_withcat.png",
+    "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_PR_logit_withcat.png"
   },
   "rf": {
-    "roc_auc": 0.43778110944527737,
-    "pr_auc": 0.6032167349323577,
+    "roc_auc": 0.5649303008070432,
+    "pr_auc": 0.7127118903140482,
     "classification_report": {
       "0": {
-        "precision": 0.3898305084745763,
-        "recall": 0.7931034482758621,
-        "f1-score": 0.5227272727272727,
+        "precision": 0.4032258064516129,
+        "recall": 0.8620689655172413,
+        "f1-score": 0.5494505494505495,
         "support": 29.0
       },
       "1": {
-        "precision": 0.625,
-        "recall": 0.21739130434782608,
-        "f1-score": 0.3225806451612903,
-        "support": 46.0
+        "precision": 0.7142857142857143,
+        "recall": 0.2127659574468085,
+        "f1-score": 0.32786885245901637,
+        "support": 47.0
       },
-      "accuracy": 0.44,
+      "accuracy": 0.4605263157894737,
       "macro avg": {
-        "precision": 0.5074152542372882,
-        "recall": 0.5052473763118441,
-        "f1-score": 0.4226539589442815,
-        "support": 75.0
+        "precision": 0.5587557603686636,
+        "recall": 0.537417461482025,
+        "f1-score": 0.4386597009547829,
+        "support": 76.0
       },
       "weighted avg": {
-        "precision": 0.5340677966101695,
-        "recall": 0.44,
-        "f1-score": 0.3999706744868035,
-        "support": 75.0
+        "precision": 0.5955918020858598,
+        "recall": 0.4605263157894737,
+        "f1-score": 0.41241976315315404,
+        "support": 76.0
       }
     },
-    "roc_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_ROC_rf_withcat.png",
-    "pr_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_PR_rf_withcat.png"
+    "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_ROC_rf_withcat.png",
+    "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_PR_rf_withcat.png"
   },
   "xgb": {
-    "roc_auc": 0.49775112443778113,
-    "pr_auc": 0.6452106062556938,
+    "roc_auc": 0.6052824651504035,
+    "pr_auc": 0.7488687108925727,
     "classification_report": {
       "0": {
-        "precision": 0.43902439024390244,
-        "recall": 0.6206896551724138,
-        "f1-score": 0.5142857142857142,
+        "precision": 0.42857142857142855,
+        "recall": 0.9310344827586207,
+        "f1-score": 0.5869565217391305,
         "support": 29.0
       },
       "1": {
-        "precision": 0.6764705882352942,
-        "recall": 0.5,
-        "f1-score": 0.575,
-        "support": 46.0
+        "precision": 0.8461538461538461,
+        "recall": 0.23404255319148937,
+        "f1-score": 0.36666666666666664,
+        "support": 47.0
       },
-      "accuracy": 0.5466666666666666,
+      "accuracy": 0.5,
       "macro avg": {
-        "precision": 0.5577474892395983,
-        "recall": 0.5603448275862069,
-        "f1-score": 0.5446428571428571,
-        "support": 75.0
+        "precision": 0.6373626373626373,
+        "recall": 0.5825385179750551,
+        "f1-score": 0.47681159420289854,
+        "support": 76.0
       },
       "weighted avg": {
-        "precision": 0.5846580583452894,
-        "recall": 0.5466666666666666,
-        "f1-score": 0.5515238095238095,
-        "support": 75.0
+        "precision": 0.6868131868131867,
+        "recall": 0.5,
+        "f1-score": 0.4507246376811594,
+        "support": 76.0
       }
     },
-    "roc_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_ROC_xgb_withcat.png",
-    "pr_plot": "/Users/xiaogouzuomeng/Desktop/Ghamut technical interview/data/reports/plots/Semiconductors_PR_xgb_withcat.png"
+    "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_ROC_xgb_withcat.png",
+    "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_PR_xgb_withcat.png"
   }
 }
