@@ -24,3 +24,6 @@ python app/scripts/04_visualize.py \
   --sector Semiconductors
 python app/scripts/05_train_eval.py --sector Semiconductors
 python app/scripts/05_train_eval.py --sector Semiconductors --use-categories
+
+# run app
+streamlit run app.py

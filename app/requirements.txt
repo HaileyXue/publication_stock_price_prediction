@@ -11,3 +11,4 @@ pandas_datareader
 seaborn
 setuptools==65.5.0
 xgboost
+streamlit
