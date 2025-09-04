@@ -88,48 +88,44 @@ streamlit run app.py
 
 ## Usage Workflow
 The Streamlit app automates the pipeline, but you can also run scripts manually.  
-1. Fetch stock prices  
-provide the time window and sector (in `sector_map.yaml`).  
+1. Fetch stock prices    
 ```
 python app/scripts/01_fetch_prices_stooq.py \
   --sector Semiconductors \
   --start 2023-09-01 \
   --end   2025-09-01
 ```
-Prices data is written to `data/raw/prices/`.  
+Provide the time window and sector (in `sector_map.yaml`). Prices data is written to `data/raw/prices/`.  
 
-2. Fetch publications (OpenAlex)  
-provide the time window and sector (in `sector_map.yaml`).  
+2. Fetch publications (OpenAlex)    
 ```
 python app/scripts/02_fetch_openalex_topics.py \
   --sector Semiconductors \
   --start 2024-09-01 \
   --end   2025-09-01
 ```
-Publication data is written to `data/processed/topics/`.  
+Provide the time window and sector (in `sector_map.yaml`). Publication data is written to `data/processed/topics/`.  
 
-3. Build features  
-provide sector.  
+3. Build features    
 ```
 python app/scripts/03_build_features.py --sector Semiconductors
 ```
-Full feature dataset is written to `data/processed/features/`.  
+Provide sector. Full feature dataset is written to `data/processed/features/`.  
 
 4. Visualize  
-provide sector.  
+ 
 ```
 python app/scripts/04_visualize.py --sector Semiconductors
 ```
-Plots are saved under `data/reports/plots/`.  
+Provide sector. Plots are saved under `data/reports/plots/`.  
 
 5. Train models  
-provide and sector and whether to use categorical features or not.  
+ 
 ``` 
 python app/scripts/05_train_eval.py --sector Semiconductors
 python app/scripts/05_train_eval.py --sector Semiconductors --use-categories
 ```
-Model outputs are written under `data/reports/models/`.
-Feature importance plots are saved under `data/reports/plots/`.  
+Provide and sector and whether to use categorical features or not. Model outputs are written under `data/reports/models/`. Feature importance plots are saved under `data/reports/plots/`.  
 
 ## Features & Models
 
@@ -155,39 +151,3 @@ Feature importance plots are saved under `data/reports/plots/`.
 - seaborn / matplotlib
 - pyalex (OpenAlex API client)
 - pandas_datareader (Stooq price reader)
-
-# Create a 3.11 venv (Homebrew’s python@3.11)
-/opt/homebrew/opt/python@3.11/bin/python3.11 -m venv .venv
-source .venv/bin/activate
-python --version  # should show 3.11.x
-pip install --upgrade pip
-pip install -r requirements.txt
-
-# commands to run the scripts with user-defined time window and sector:
-python app/scripts/01_fetch_prices_stooq.py \  
-  --sector Biotech \       
-  --start  2024-09-01 \  
-  --end    2025-09-01
-python app/scripts/01_fetch_prices_stooq.py \
-  --sector Semiconductors \
-  --start  2023-09-01 \
-  --end    2025-09-01  
-python app/scripts/02_fetch_openalex_topics.py \
-  --sector Semiconductors \
-  --start  2024-09-01 \
-  --end    2025-09-01
-python app/scripts/03_build_features.py \
-  --sector Semiconductors
-python app/scripts/04_visualize.py \
-  --sector Semiconductors
-python app/scripts/05_train_eval.py --sector Semiconductors
-python app/scripts/05_train_eval.py --sector Semiconductors --use-categories
-
-# run app
-streamlit run app.py
-
-# Docker - clone repo and build image and run Docker
-docker compose up --build
-
-# Docker - just run this line with Docker running on local
-docker run -p 8501:8501 haileyxue391/pub-stock-app:latest
