@@ -1,0 +1,50 @@
+feature,importance
+close_mean,0.2821977322332267
+vol_4w,0.1292936034128831
+pub_4w,0.10893016369645053
+ret_1d,0.10236272164141531
+pub_growth,0.09945306220368444
+vol_growth,0.07964706706662004
+top4_Electronic and Structural Properties of Oxides,0.019703599751696856
+top4_infrequent_sklearn,0.016952370544410827
+top2_Advancements in Semiconductor Devices and Circuit Design,0.01692571767190901
+top5_infrequent_sklearn,0.012898669531664355
+top3_Advanced Memory and Neural Computing,0.010286997699209904
+top5_Electron and X-Ray Spectroscopy Techniques,0.009679749451491
+top2_infrequent_sklearn,0.009404826548248446
+top2_Electronic and Structural Properties of Oxides,0.00897028501148384
+top2_Advanced Memory and Neural Computing,0.008835407596389361
+top3_infrequent_sklearn,0.007777483478540226
+top5_Electronic and Structural Properties of Oxides,0.007478382630182614
+top4_Catalytic Processes in Materials Science,0.007391376320931549
+top5_Copper Interconnects and Reliability,0.0068970948855300775
+top3_Advancements in Semiconductor Devices and Circuit Design,0.006183969451263381
+top5_Advancements in Battery Materials,0.005904663851138044
+top4_Advanced Memory and Neural Computing,0.005007785667849287
+top5_Advancements in Semiconductor Devices and Circuit Design,0.004364539446960305
+top3_Integrated Circuits and Semiconductor Failure Analysis,0.004301817396921264
+top5_Integrated Circuits and Semiconductor Failure Analysis,0.003993489295077817
+top3_Copper Interconnects and Reliability,0.0034156778002542424
+top3_Ferroelectric and Negative Capacitance Devices,0.003092012322941607
+top5_Ferroelectric and Negative Capacitance Devices,0.0025231313269478937
+top3_Electronic and Structural Properties of Oxides,0.002102995022408706
+top3_Semiconductor materials and interfaces,0.002000185525845076
+top4_Integrated Circuits and Semiconductor Failure Analysis,0.0018846617592741285
+top5_Catalytic Processes in Materials Science,0.001736737816292773
+top4_Advancements in Semiconductor Devices and Circuit Design,0.0016461958326809485
+top4_Electron and X-Ray Spectroscopy Techniques,0.0014106363463081354
+top5_Semiconductor materials and interfaces,0.0012534280180831327
+top5_GaN-based semiconductor devices and materials,0.0010836087335025846
+top4_Advancements in Battery Materials,0.0007955074919211527
+top4_Ferroelectric and Negative Capacitance Devices,0.000562303515922153
+top5_Advanced Memory and Neural Computing,0.00045965084536549124
+top2_Advancements in Battery Materials,0.0004157777415755756
+top3_Catalytic Processes in Materials Science,0.00032570407272526435
+top4_Analytical Chemistry and Sensors,0.0001373558851308734
+top3_Advancements in Battery Materials,0.0001347082421389276
+top4_Advanced ceramic materials synthesis,0.0001210528646457181
+top4_GaN-based semiconductor devices and materials,5.609235085747052e-05
+top5_Advanced ceramic materials synthesis,0.0
+top1_infrequent_sklearn,0.0
+top2_Catalytic Processes in Materials Science,0.0
+top1_Semiconductor materials and devices,0.0
