@@ -12,3 +12,6 @@ data/
 reports/
 **/plots/
 **/models/
+
+# Ignore Jupyter notebooks
+*.ipynb

@@ -62,7 +62,7 @@ docker run -p 8501:8501 haileyxue391/pub-stock-app:latest
 git clone https://github.com/HaileyXue/publication_stock_price_prediction.git
 cd publication_stock_price_prediction
 ```
-2. Run this line in terminal to build the Docker image and start the app:  
+2. Run this line at repo root to build the Docker image and start the app:  
 ```
 docker compose up --build
 ```
