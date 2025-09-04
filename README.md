@@ -49,19 +49,16 @@ All data folders are created automatically on first run.
 git clone https://github.com/HaileyXue/publication_stock_price_prediction.git
 cd publication_stock_price_prediction
 ```
-
 2. Create a virtual environment and install deps:  
 ```
 python -m venv .venv
 source .venv/bin/activate   # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
-
 3. Run the app:  
 ```
 streamlit run app.py
 ```
-
 4. Open http://localhost:8501 in your browser.
 
 **Option 2 — Docker (recommended for reproducibility)**
@@ -71,21 +68,60 @@ streamlit run app.py
 git clone https://github.com/HaileyXue/publication_stock_price_prediction.git
 cd publication_stock_price_prediction
 ```
-
-2. use Docker Compose:  
+2. Run this line to build the Docker image and start the app:  
 ```
 docker compose up --build
 ```
-
 3. Visit http://localhost:8501  
 
 **Option 3 - Docker (no repo clone)**
 1. Make sure your have Docker running on your local machine  
-
 2. Run this line to start the app:  
 ```
 docker run -p 8501:8501 haileyxue391/pub-stock-app:latest
 ```
+3. Visit http://localhost:8501
+
+## Usage Workflow
+The Streamlit app automates the pipeline, but you can also run scripts manually.  
+1. Fetch stock prices  
+provide the time window and sector (in `sector_map.yaml`).  
+```
+python app/scripts/01_fetch_prices_stooq.py \
+  --sector Semiconductors \
+  --start 2023-09-01 \
+  --end   2025-09-01
+```
+Prices data is written to data/raw/prices/.  
+2. Fetch publications (OpenAlex)  
+provide the time window and sector (in `sector_map.yaml`).  
+```
+python app/scripts/02_fetch_openalex_topics.py \
+  --sector Semiconductors \
+  --start 2024-09-01 \
+  --end   2025-09-01
+```
+Publication data is written to data/processed/topics/.  
+3. Build features  
+provide sector.  
+```
+python app/scripts/03_build_features.py --sector Semiconductors
+```
+Full feature dataset is written to data/processed/features/.  
+4. Visualize  
+provide sector.  
+```
+python app/scripts/04_visualize.py --sector Semiconductors
+```
+Plots are saved under data/reports/plots/.  
+5. Train models  
+provide and sector and whether to use categorical features or not.  
+``` 
+python app/scripts/05_train_eval.py --sector Semiconductors
+python app/scripts/05_train_eval.py --sector Semiconductors --use-categories
+```
+Model outputs are written under data/reports/models/.
+Feature importance plots are saved under data/reports/plots/.  
 
 
 # Create a 3.11 venv (Homebrew’s python@3.11)
