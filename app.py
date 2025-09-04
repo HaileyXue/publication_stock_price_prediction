@@ -257,15 +257,15 @@ with tab_build:
     st.subheader("Pipeline Orchestration")
     c1, c2, c3 = st.columns(3)
     with c1:
-        if st.button("Build / Update Data (01–03)"):
+        if st.button("Build / Update Data"):
             ensure_features(sector, start_date, end_date, force=force_all)
             st.success("Data build complete.")
     with c2:
-        if st.button("Generate Plots (04)"):
+        if st.button("Generate Plots"):
             ensure_plots(sector, force=force_all)
             st.success("Plot generation complete.")
     with c3:
-        if st.button("Run Modeling (05)"):
+        if st.button("Run Modeling"):
             ensure_features(sector, start_date, end_date, force=False)
             run_modeling(sector, with_categories=st.session_state.with_categories)
             st.success("Modeling complete.")
@@ -324,7 +324,7 @@ with tab_features:
 
 # ---------- TAB: Plots ----------
 with tab_plots:
-    st.subheader("Visualization Outputs (from 04_visualize.py)")
+    st.subheader("Visualization Outputs")
     exp_paths = expected_plot_paths(sector)
     existing = [p for p in exp_paths if p.exists()]
     if existing:
@@ -337,7 +337,7 @@ with tab_plots:
 
 # ---------- TAB: Modeling ----------
 with tab_model:
-    st.subheader("Modeling Results (from 05_train_eval.py)")
+    st.subheader("Modeling Results")
 
     # Choose which metrics file to show (No categories vs With categories)
     variant_label = "With categorical features" if st.session_state.with_categories else "No categorical features"

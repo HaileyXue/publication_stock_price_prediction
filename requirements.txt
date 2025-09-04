@@ -7,7 +7,7 @@ yfinance
 scikit-learn
 statsmodels 
 matplotlib 
-pandas_datareader 
+pandas_datareader
 seaborn
 setuptools==65.5.0
 xgboost
