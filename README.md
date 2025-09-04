@@ -3,7 +3,7 @@
 source .venv/bin/activate
 python --version  # should show 3.11.x
 pip install --upgrade pip
-pip install -r app/requirements.txt
+pip install -r requirements.txt
 
 # commands to run the scripts with user-defined time window and sector:
 python app/scripts/01_fetch_prices_stooq.py \

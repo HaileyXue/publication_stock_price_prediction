@@ -77,6 +77,14 @@ SCRIPT_CMDS = {
         sys.executable, str(ROOT / "app" / "scripts" / "05_train_eval.py"),
         "--sector", "{sector}", "--use-categories",
     ],
+    "s5_train_eval_fast_nocat": [
+        sys.executable, str(ROOT / "app" / "scripts" / "05_train_eval.py"),
+        "--sector", "{sector}", "--fast", "--max-rows", "{maxrows}",
+    ],
+    "s5_train_eval_fast_withcat": [
+        sys.executable, str(ROOT / "app" / "scripts" / "05_train_eval.py"),
+        "--sector", "{sector}", "--use-categories", "--fast", "--max-rows", "{maxrows}",
+    ],
 }
 
 # =========================
@@ -89,17 +97,22 @@ NUM_FEATURES = [
 ]
 CAT_FEATURES = ["top1", "top5"]
 
-def run_py(cmd_list, label="Extracting and writing…"):
-    """Run a Python command; show a neutral status message (no paths/commands)."""
-    with st.status(label, expanded=False) as status:
+def run_py(cmd_list, label="Extracting and writing…", stream=False):
+    with st.status(label, expanded=stream) as status:
         try:
-            proc = subprocess.run(cmd_list, capture_output=True, text=True, check=True)
-            # Suppress stdout/stderr to keep UI clean; only surface on error.
+            if stream:
+                # show live logs in the app (inherits stdout/stderr)
+                subprocess.run(cmd_list, check=True)
+            else:
+                subprocess.run(cmd_list, capture_output=True, text=True, check=True)
             status.update(label="✅ Done", state="complete")
         except subprocess.CalledProcessError as e:
-            st.error("❌ Step failed")
-            if e.stdout: st.code(e.stdout[:4000], language="bash")
-            if e.stderr: st.code(e.stderr[:4000], language="bash")
+            status.update(label="❌ Step failed", state="error")
+            st.error("Step failed. See logs below.")
+            if hasattr(e, "stdout") and e.stdout:
+                st.code(e.stdout[-4000:], language="bash")
+            if hasattr(e, "stderr") and e.stderr:
+                st.code(e.stderr[-4000:], language="bash")
             st.stop()
 
 def fmt_date(d):
@@ -222,10 +235,19 @@ def ensure_plots(sector, force=False):
     cmd = [arg.format(sector=sector) for arg in SCRIPT_CMDS["s4_visualize"]]
     run_py(cmd, label="Extracting and writing…")
 
-def run_modeling(sector, with_categories=False):
-    key = "s5_train_eval_withcat" if with_categories else "s5_train_eval_nocat"
-    cmd = [arg.format(sector=sector) for arg in SCRIPT_CMDS[key]]
-    run_py(cmd, label="Extracting and writing…")
+def run_modeling(sector, with_categories=False, fast=False, max_rows=None):
+    if fast:
+        key = "s5_train_eval_fast_withcat" if with_categories else "s5_train_eval_fast_nocat"
+        # default a sensible cap if none provided
+        max_rows = int(max_rows) if max_rows is not None else 3000
+        cmd_tpl = SCRIPT_CMDS[key]
+        cmd = [arg.format(sector=sector, maxrows=str(max_rows)) for arg in cmd_tpl]
+    else:
+        key = "s5_train_eval_withcat" if with_categories else "s5_train_eval_nocat"
+        cmd_tpl = SCRIPT_CMDS[key]
+        cmd = [arg.format(sector=sector) for arg in cmd_tpl]
+
+    run_py(cmd, label="Extracting and writing…", stream=True)
 
 # =========================
 # Sidebar Controls
@@ -256,19 +278,36 @@ tab_build, tab_features, tab_plots, tab_model = st.tabs(
 with tab_build:
     st.subheader("Pipeline Orchestration")
     c1, c2, c3 = st.columns(3)
+
     with c1:
         if st.button("Build / Update Data"):
             ensure_features(sector, start_date, end_date, force=force_all)
             st.success("Data build complete.")
+
     with c2:
         if st.button("Generate Plots"):
             ensure_plots(sector, force=force_all)
             st.success("Plot generation complete.")
+
     with c3:
+        # --- extra modeling options ---
+        st.markdown("**Modeling Options**")
+        fast_mode = st.checkbox("Fast mode (smaller models + early stopping)", value=True, key="fast_mode")
+        max_rows  = st.number_input(
+            "Max rows (most recent)", min_value=500, max_value=20000,
+            value=3000, step=500, key="max_rows"
+        )
         if st.button("Run Modeling"):
             ensure_features(sector, start_date, end_date, force=False)
-            run_modeling(sector, with_categories=st.session_state.with_categories)
+            run_modeling(
+                sector,
+                with_categories=st.session_state.with_categories,
+                fast=fast_mode,
+                max_rows=int(max_rows)
+            )
             st.success("Modeling complete.")
+
+    # Only show this once in Build tab
     render_artifacts_status(sector)
 
 # ---------- TAB: Features ----------

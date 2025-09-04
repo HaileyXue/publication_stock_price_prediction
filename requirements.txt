@@ -10,5 +10,5 @@ matplotlib
 pandas_datareader
 seaborn
 setuptools==65.5.0
-xgboost
+xgboost>=1.6
 streamlit
