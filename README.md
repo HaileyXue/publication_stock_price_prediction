@@ -1,3 +1,51 @@
+### README
+## Publication–Stock Price Prediction
+
+This project explores whether trends in scientific publication activity (via OpenAlex) are correlated with, or predictive of, stock sector performance.
+It provides a complete pipeline for:
+1. Fetching and aggregating stock prices from Stooq
+2. Fetching publication counts and top topics from OpenAlex
+3. Building a clean feature dataset
+4. Visualizing correlations and trends
+5. Training ML models (Logit, Random Forest, XGBoost) to predict next-week stock movement
+6. Serving results in an interactive Streamlit app
+
+## Project Structure
+publication_stock_price_prediction/
+├── app.py                 # Main Streamlit app
+├── docker-compose.yml     # Compose config for running in Docker
+├── Dockerfile             # Container build recipe
+├── requirements.txt       # Python dependencies
+├── README.md              # This file
+├── .gitignore             # This file
+
+├── app/
+│   ├── config/
+│   │   └── sector_map.yaml   # Sector ↔ tickers ↔ topic mappings
+│   └── scripts/
+│       ├── 01_fetch_prices_stooq.py     # Fetch sector-level stock price data
+│       ├── 02_fetch_openalex_topics.py  # Fetch publications and topics from OpenAlex
+│       ├── 03_build_features.py         # Merge prices + pubs → feature table
+│       ├── 04_visualize.py              # Create plots and correlation heatmaps
+│       └── 05_train_eval.py             # Train & evaluate ML models
+
+├── data/
+│   ├── raw/                 # Raw fetched data (per-ticker prices, etc.)
+│   ├── processed/           # Cleaned + merged datasets
+│   │   ├── features/        # Final feature tables per sector
+│   │   └── topics/          # Publication topic tables
+│   └── reports/
+│       ├── plots/           # Visualization outputs (PNGs)
+│       └── models/          # Model metrics & feature importance
+All data folders are created automatically on first run.
+
+
+
+
+
+
+
+
 # Create a 3.11 venv (Homebrew’s python@3.11)
 /opt/homebrew/opt/python@3.11/bin/python3.11 -m venv .venv
 source .venv/bin/activate
@@ -27,3 +75,9 @@ python app/scripts/05_train_eval.py --sector Semiconductors --use-categories
 
 # run app
 streamlit run app.py
+
+# Docker - clone repo and build image and run Docker
+docker compose up --build
+
+# Docker - just run this line with Docker running on local
+docker run -p 8501:8501 haileyxue391/pub-stock-app:latest
