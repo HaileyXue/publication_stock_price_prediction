@@ -11,39 +11,81 @@ It provides a complete pipeline for:
 6. Serving results in an interactive Streamlit app
 
 ## Project Structure
-publication_stock_price_prediction/
-├── app.py                 # Main Streamlit app
-├── docker-compose.yml     # Compose config for running in Docker
-├── Dockerfile             # Container build recipe
-├── requirements.txt       # Python dependencies
-├── README.md              # This file
-├── .gitignore             # This file
+```
+publication_stock_price_prediction/  
+├── app.py                 # Main Streamlit app  
+├── docker-compose.yml     # Compose config for running in Docker  
+├── Dockerfile             # Container build recipe  
+├── requirements.txt       # Python dependencies  
+├── README.md              # This file  
+├── .gitignore             # This file  
 
-├── app/
-│   ├── config/
-│   │   └── sector_map.yaml   # Sector ↔ tickers ↔ topic mappings
-│   └── scripts/
-│       ├── 01_fetch_prices_stooq.py     # Fetch sector-level stock price data
-│       ├── 02_fetch_openalex_topics.py  # Fetch publications and topics from OpenAlex
-│       ├── 03_build_features.py         # Merge prices + pubs → feature table
-│       ├── 04_visualize.py              # Create plots and correlation heatmaps
-│       └── 05_train_eval.py             # Train & evaluate ML models
+├── app/  
+│   ├── config/  
+│   │   └── sector_map.yaml   # Sector ↔ tickers ↔ topic mappings  
+│   └── scripts/  
+│       ├── 01_fetch_prices_stooq.py     # Fetch sector-level stock price data  
+│       ├── 02_fetch_openalex_topics.py  # Fetch publications and topics from OpenAlex  
+│       ├── 03_build_features.py         # Merge prices + pubs → feature table  
+│       ├── 04_visualize.py              # Create plots and correlation heatmaps  
+│       └── 05_train_eval.py             # Train & evaluate ML models  
 
-├── data/
-│   ├── raw/                 # Raw fetched data (per-ticker prices, etc.)
-│   ├── processed/           # Cleaned + merged datasets
-│   │   ├── features/        # Final feature tables per sector
-│   │   └── topics/          # Publication topic tables
-│   └── reports/
-│       ├── plots/           # Visualization outputs (PNGs)
-│       └── models/          # Model metrics & feature importance
-All data folders are created automatically on first run.
+├── data/  
+│   ├── raw/                 # Raw fetched data (per-ticker prices, etc.)  
+│   ├── processed/           # Cleaned + merged datasets  
+│   │   ├── features/        # Final feature tables per sector  
+│   │   └── topics/          # Publication topic tables  
+│   └── reports/  
+│       ├── plots/           # Visualization outputs (PNGs)  
+│       └── models/          # Model metrics & feature importance  
+```
 
+All data folders are created automatically on first run.  
 
+## Running the Streamlit App
+**Option 1 — Local (no Docker)**
+1. Clone this repo:  
+```
+git clone https://github.com/HaileyXue/publication_stock_price_prediction.git
+cd publication_stock_price_prediction
+```
 
+2. Create a virtual environment and install deps:  
+```
+python -m venv .venv
+source .venv/bin/activate   # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
 
+3. Run the app:  
+```
+streamlit run app.py
+```
 
+4. Open http://localhost:8501 in your browser.
 
+**Option 2 — Docker (recommended for reproducibility)**
+
+1. Clone this repo:  
+```
+git clone https://github.com/HaileyXue/publication_stock_price_prediction.git
+cd publication_stock_price_prediction
+```
+
+2. use Docker Compose:  
+```
+docker compose up --build
+```
+
+3. Visit http://localhost:8501  
+
+**Option 3 - Docker (no repo clone)**
+1. Make sure your have Docker running on your local machine  
+
+2. Run this line to start the app:  
+```
+docker run -p 8501:8501 haileyxue391/pub-stock-app:latest
+```
 
 
 # Create a 3.11 venv (Homebrew’s python@3.11)
@@ -54,9 +96,9 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 # commands to run the scripts with user-defined time window and sector:
-python app/scripts/01_fetch_prices_stooq.py \
+python app/scripts/01_fetch_prices_stooq.py \  
   --sector Biotech \       
-  --start  2024-09-01 \
+  --start  2024-09-01 \  
   --end    2025-09-01
 python app/scripts/01_fetch_prices_stooq.py \
   --sector Semiconductors \
