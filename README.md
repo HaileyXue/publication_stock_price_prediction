@@ -47,7 +47,7 @@ All data folders are created automatically on first run.
 
 Visit [Lit&Stock App](https://publicationstockpriceprediction-haileyxue.streamlit.app/) hosted on Streamlit.  
 
-*Note: Streamlit Community Cloud has limited CPU and memory (≈ 1 vCPU, 1–2 GB RAM), maaking heavy model training very slow. Expect 1 minute for model training without categorical features and 1.5 mintues with categorical features.*  
+*Note: Streamlit Community Cloud has limited CPU and memory (≈ 1 vCPU, 1–2 GB RAM), making heavy model training very slow. Expect 1 minute for model training without categorical features and 1.5 mintues with categorical features.*  
 
 **Option 2 - Docker (app most responsive)**
 1. Make sure your have Docker running on your local machine  
