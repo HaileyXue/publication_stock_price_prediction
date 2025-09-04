@@ -6,3 +6,6 @@ env/
 # Data files
 data/raw/
 data/processed/
+
+# Ignore Jupyter notebooks
+*.ipynb
