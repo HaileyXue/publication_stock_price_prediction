@@ -43,7 +43,8 @@ publication_stock_price_prediction/
 All data folders are created automatically on first run.  
 
 ## Running the Streamlit App
-**Option 1 - Deployed Website**
+**Option 1 - Deployed Website**  
+
 Visit [Lit&Stock App](https://publicationstockpriceprediction-haileyxue.streamlit.app/) hosted on Streamlit.  
 
 **Option 2 - Docker (no repo clone)**
@@ -95,7 +96,8 @@ python app/scripts/01_fetch_prices_stooq.py \
   --start 2023-09-01 \
   --end   2025-09-01
 ```
-Prices data is written to data/raw/prices/.  
+Prices data is written to `data/raw/prices/`.  
+
 2. Fetch publications (OpenAlex)  
 provide the time window and sector (in `sector_map.yaml`).  
 ```
@@ -104,27 +106,30 @@ python app/scripts/02_fetch_openalex_topics.py \
   --start 2024-09-01 \
   --end   2025-09-01
 ```
-Publication data is written to data/processed/topics/.  
+Publication data is written to `data/processed/topics/`.  
+
 3. Build features  
 provide sector.  
 ```
 python app/scripts/03_build_features.py --sector Semiconductors
 ```
-Full feature dataset is written to data/processed/features/.  
+Full feature dataset is written to `data/processed/features/`.  
+
 4. Visualize  
 provide sector.  
 ```
 python app/scripts/04_visualize.py --sector Semiconductors
 ```
-Plots are saved under data/reports/plots/.  
+Plots are saved under `data/reports/plots/`.  
+
 5. Train models  
 provide and sector and whether to use categorical features or not.  
 ``` 
 python app/scripts/05_train_eval.py --sector Semiconductors
 python app/scripts/05_train_eval.py --sector Semiconductors --use-categories
 ```
-Model outputs are written under data/reports/models/.
-Feature importance plots are saved under data/reports/plots/.  
+Model outputs are written under `data/reports/models/`.
+Feature importance plots are saved under `data/reports/plots/`.  
 
 
 # Create a 3.11 venv (Homebrew’s python@3.11)
