@@ -43,7 +43,31 @@ publication_stock_price_prediction/
 All data folders are created automatically on first run.  
 
 ## Running the Streamlit App
-**Option 1 — Local (no Docker)**
+**Option 1 - Deployed Website**
+Visit [Lit&Stock App](https://publicationstockpriceprediction-haileyxue.streamlit.app/) hosted on Streamlit.  
+
+**Option 2 - Docker (no repo clone)**
+1. Make sure your have Docker running on your local machine  
+2. Run this line in terminal to start the app:  
+```
+docker run -p 8501:8501 haileyxue391/pub-stock-app:latest
+```
+3. Visit http://localhost:8501
+
+**Option 3 — Docker**
+
+1. Clone this repo:  
+```
+git clone https://github.com/HaileyXue/publication_stock_price_prediction.git
+cd publication_stock_price_prediction
+```
+2. Run this line in terminal to build the Docker image and start the app:  
+```
+docker compose up --build
+```
+3. Visit http://localhost:8501  
+
+**Option 4 — Local (no Docker)**
 1. Clone this repo:  
 ```
 git clone https://github.com/HaileyXue/publication_stock_price_prediction.git
@@ -60,27 +84,6 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 4. Open http://localhost:8501 in your browser.
-
-**Option 2 — Docker (recommended for reproducibility)**
-
-1. Clone this repo:  
-```
-git clone https://github.com/HaileyXue/publication_stock_price_prediction.git
-cd publication_stock_price_prediction
-```
-2. Run this line to build the Docker image and start the app:  
-```
-docker compose up --build
-```
-3. Visit http://localhost:8501  
-
-**Option 3 - Docker (no repo clone)**
-1. Make sure your have Docker running on your local machine  
-2. Run this line to start the app:  
-```
-docker run -p 8501:8501 haileyxue391/pub-stock-app:latest
-```
-3. Visit http://localhost:8501
 
 ## Usage Workflow
 The Streamlit app automates the pipeline, but you can also run scripts manually.  
