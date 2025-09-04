@@ -131,6 +131,30 @@ python app/scripts/05_train_eval.py --sector Semiconductors --use-categories
 Model outputs are written under `data/reports/models/`.
 Feature importance plots are saved under `data/reports/plots/`.  
 
+## Features & Models
+
+-  **Features used:**
+  - Price & returns (ret_1d, close_mean), volume (vol_4w, vol_growth)
+  - Publication counts (pub_4w, pub_growth)
+  - Optional categorical: top 1 & top 5 publication topics
+
+- **Models:**
+  - Logistic Regression (balanced)
+  - Random Forest (balanced subsample)
+  - XGBoost (with scale_pos_weight)
+
+- **Metrics:** ROC-AUC, PR-AUC, classification report  
+- **Outputs:** ROC/PR curves, feature importance plots, JSON metrics  
+
+## Tech Stack
+- Python 3.11
+- Streamlit
+- pandas / numpy
+- scikit-learn
+- XGBoost
+- seaborn / matplotlib
+- pyalex (OpenAlex API client)
+- pandas_datareader (Stooq price reader)
 
 # Create a 3.11 venv (Homebrew’s python@3.11)
 /opt/homebrew/opt/python@3.11/bin/python3.11 -m venv .venv
