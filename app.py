@@ -24,8 +24,8 @@ CONFIG_PATH   = CONFIG_DIR / "sector_map.yaml"
 for p in [RAW_PRICES, TOPICS_DIR, FEATURES_DIR, PLOTS_DIR, MODELS_DIR]:
     p.mkdir(parents=True, exist_ok=True)
 
-st.set_page_config(page_title="📚→📈 Literature & Market App", layout="wide")
-st.title("📚→📈 Literature & Market App")
+st.set_page_config(page_title="Literature & Market Prediction", layout="wide")
+st.title("Literature & Market App")
 
 # =========================
 # Sector list (from YAML if present)
