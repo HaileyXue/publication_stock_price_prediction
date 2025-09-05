@@ -94,10 +94,10 @@ The Streamlit app automates the pipeline, but you can also run scripts manually.
 ```
 python app/scripts/01_fetch_prices_stooq.py \
   --sector Semiconductors \
-  --start 2023-09-01 \
+  --start 2024-09-01 \
   --end   2025-09-01
 ```
-Provide the time window and sector (in `sector_map.yaml`). Prices data is written to `data/raw/prices/`.  
+Provide the time window and sector (in `sector_map.yaml`). Prices data is written to `data/raw/prices/sector_Semiconductors_20230901-20250901_daily_agg.csv`.  
 
 2. Fetch publications (OpenAlex)    
 ```
@@ -106,28 +106,56 @@ python app/scripts/02_fetch_openalex_topics.py \
   --start 2024-09-01 \
   --end   2025-09-01
 ```
-Provide the time window and sector (in `sector_map.yaml`). Publication data is written to `data/processed/topics/`.  
+Provide the time window and sector (in `sector_map.yaml`). Publication data is written to `data/processed/topics/daily_topic_counts_Semiconductors_20230901-20250901.csv` and `data/processed/topics/daily_top5_wide_Semiconductors_20230901-20250901.csv`.  
 
 3. Build features    
 ```
-python app/scripts/03_build_features.py --sector Semiconductors
+python app/scripts/03_build_features.py \
+  --sector Semiconductors \
+  --start  2024-09-01 \
+  --end    2025-09-01
 ```
-Provide sector. Full feature dataset is written to `data/processed/features/`.  
+Provide sector. Full feature dataset is written to `data/processed/features/features_Semiconductors_20230901-20250901.csv`.  
 
 4. Visualize  
  
 ```
-python app/scripts/04_visualize.py --sector Semiconductors
+python app/scripts/04_visualize.py \
+  --sector Semiconductors \
+  --start  2024-09-01 \
+  --end    2025-09-01
 ```
 Provide sector. Plots are saved under `data/reports/plots/`.  
 
-5. Train models  
- 
+5. Train models   
+
+Baseline (no publication numerics):
 ``` 
-python app/scripts/05_train_eval.py --sector Semiconductors
-python app/scripts/05_train_eval.py --sector Semiconductors --use-categories
+python app/scripts/05_train_eval.py \
+  --sector Semiconductors \
+  --start  2024-09-01 \
+  --end    2025-09-01
 ```
-Provide and sector and whether to use categorical features or not. Model outputs are written under `data/reports/models/`. Feature importance plots are saved under `data/reports/plots/`.  
+
+With publication numerics (pub_4w, pub_growth):  
+```
+python app/scripts/05_train_eval.py \
+  --sector Semiconductors \
+  --start  2024-09-01 \
+  --end    2025-09-01 \
+  --include-pub
+```
+
+Add categorical topics (top1, top5) to either run:
+```
+... --use-categories
+```
+
+Fast mode & row cap (optional, speeds things up):
+```
+... --fast --max-rows 3000
+```
+Provide and sector, whether to use categorical features and whether to use publication numerics. Model outputs are written under `data/reports/models/`. Feature importance plots are saved under `data/reports/plots/`.  
 
 ## Features & Models
 

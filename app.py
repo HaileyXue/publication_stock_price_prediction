@@ -181,7 +181,7 @@ def ensure_plots(sector, start, end, force=False):
            for arg in SCRIPT_CMDS["s4_visualize"]]
     run_py(cmd, kind="plots")
 
-def run_modeling(sector, start, end, with_categories=False, fast=False, max_rows=None):
+def run_modeling(sector, start, end, with_categories=False, include_pub_numeric=True, fast=False, max_rows=None):
     key = ("s5_train_eval_fast_withcat" if with_categories else "s5_train_eval_fast_nocat") if fast \
           else ("s5_train_eval_withcat" if with_categories else "s5_train_eval_nocat")
     cmd_tpl = SCRIPT_CMDS[key]
@@ -192,6 +192,11 @@ def run_modeling(sector, start, end, with_categories=False, fast=False, max_rows
     else:
         cmd = [arg.format(sector=sector, start=fmt_date(start), end=fmt_date(end))
                for arg in cmd_tpl]
+
+    # NEW: include-pub toggle
+    if include_pub_numeric:
+        cmd.append("--include-pub")
+
     run_py(cmd, kind="model", stream=True)
 
 # =========================
@@ -204,12 +209,26 @@ default_start = today.replace(year=today.year - 1)
 start_date = st.sidebar.date_input("Start date", value=default_start)
 end_date   = st.sidebar.date_input("End date",   value=today)
 force_all  = st.sidebar.checkbox("Force refresh all steps", value=False)
+
+# Persist toggles
 if "with_categories" not in st.session_state:
     st.session_state.with_categories = False
-st.session_state.with_categories = st.sidebar.checkbox("Include categorical features (top1..top5) for modeling & feature view", value=st.session_state.with_categories)
+if "include_pub_numeric" not in st.session_state:
+    st.session_state.include_pub_numeric = True
 
-st.sidebar.markdown("---")
-st.sidebar.caption("Files are skipped unless Force refresh is enabled.")
+st.session_state.include_pub_numeric = st.sidebar.checkbox(
+    "Include publication numeric features (pub_4w, pub_growth)",
+    value=st.session_state.include_pub_numeric
+)
+st.session_state.with_categories = st.sidebar.checkbox(
+    "Include categorical features (top1..top5) for modeling & feature view",
+    value=st.session_state.with_categories
+)
+
+# Enforce dependency: categoricals require pub numerics
+if st.session_state.with_categories and not st.session_state.include_pub_numeric:
+    st.session_state.include_pub_numeric = True
+    st.sidebar.info("Publication numerics are required when using categorical topics; enabled automatically.")
 
 # =========================
 # Tabs
@@ -237,14 +256,38 @@ with tab_build:
         st.markdown("**Modeling Options**")
         fast_mode = st.checkbox("Fast mode (smaller models + early stopping)", value=True, key="fast_mode")
         max_rows  = st.number_input("Max rows (most recent)", min_value=500, max_value=20000, value=3000, step=500, key="max_rows")
+
         if st.button("Run Modeling"):
+            # Always make sure features are built for the date range
             ensure_features(sector, start_date, end_date, force=False)
-            run_modeling(
-                sector, start_date, end_date,
-                with_categories=st.session_state.with_categories,
-                fast=fast_mode,
-                max_rows=int(max_rows)
-            )
+
+            if st.session_state.with_categories and st.session_state.include_pub_numeric:
+                # Produce BOTH suffixes so we can show 3 tables:
+                #  - nocat:   gives baseline (nopub) + withpub
+                #  - withcat: gives (nopub) + withpub, we use withpub table here
+                run_modeling(
+                    sector, start_date, end_date,
+                    with_categories=False,
+                    include_pub_numeric=True,
+                    fast=fast_mode,
+                    max_rows=int(max_rows)
+                )
+                run_modeling(
+                    sector, start_date, end_date,
+                    with_categories=True,
+                    include_pub_numeric=True,
+                    fast=fast_mode,
+                    max_rows=int(max_rows)
+                )
+            else:
+                # Single run according to toggles
+                run_modeling(
+                    sector, start_date, end_date,
+                    with_categories=st.session_state.with_categories,
+                    include_pub_numeric=st.session_state.include_pub_numeric,
+                    fast=fast_mode,
+                    max_rows=int(max_rows)
+                )
             st.success("Modeling complete.")
 
     # -------- Artifacts Status (date-scoped only) --------
@@ -276,31 +319,38 @@ with tab_build:
 # ---------- TAB: Features ----------
 with tab_features:
     st.subheader("Feature Table (model inputs only)")
-    fcsv = FEATURES_DIR / f"features_{sector}_{date_tag(start_date, end_date)}.csv"
+    tag = date_tag(start_date, end_date)
+    fcsv = FEATURES_DIR / f"features_{sector}_{tag}.csv"
+
     if fcsv.exists():
         df = pd.read_csv(fcsv, parse_dates=["date"]).sort_values("date")
-        used_cols = NUM_FEATURES.copy()
-        if st.session_state.with_categories:
-            used_cols += CAT_FEATURES
-        used_cols = [c for c in used_cols if c in df.columns]
-        show_cols = ["date"] + used_cols
+
+        # --- Select columns based on toggles ---
+        base_num = ["ret_1d", "close_mean", "vol_4w", "vol_growth"]
+        pub_num  = ["pub_4w", "pub_growth"] if st.session_state.include_pub_numeric else []
+        cats     = ["top1","top2","top3","top4","top5"] if st.session_state.with_categories else []
+
+        selected_cols = base_num + pub_num + cats
+        # keep only those that actually exist
+        selected_cols = [c for c in selected_cols if c in df.columns]
+        show_cols = ["date"] + selected_cols
 
         st.caption(
-            f"Showing **{len(used_cols)}** model input columns "
-            f"({'with' if st.session_state.with_categories else 'without'} categorical features)."
+            f"Showing **{len(selected_cols)}** feature column(s) "
+            f"({'with' if st.session_state.include_pub_numeric else 'without'} publication numerics; "
+            f"{'with' if st.session_state.with_categories else 'without'} categorical topics)."
         )
         st.dataframe(df[show_cols].head(200), use_container_width=True)
-        st.caption("Note: for speed, only the **first 200 rows** (head) are shown here.")
+        st.caption("Note: for speed, only the **first 200 rows** are shown.")
+
         # --- Feature explanations (only for columns shown) ---
         expl = {
-            # numeric
-            "close_mean": "Equal-weighted average closing price across sector tickers.",
             "ret_1d": "1-day return of the sector average price (close_mean).",
+            "close_mean": "Equal-weighted average closing price across sector tickers.",
             "vol_4w": "Rolling 20-trading-day (~4 weeks) sum of total traded volume.",
             "vol_growth": "Day-over-day percent change in total traded volume.",
             "pub_4w": "Rolling 20-trading-day sum of mapped publication counts.",
             "pub_growth": "Day-over-day percent change in mapped publication counts.",
-            # categorical (topic names)
             "top1": "Most frequent topic name on that day.",
             "top2": "2nd most frequent topic name.",
             "top3": "3rd most frequent topic name.",
@@ -308,22 +358,21 @@ with tab_features:
             "top5": "5th most frequent topic name.",
         }
 
-        # Only describe columns actually displayed in the table
-        described_cols = [c for c in show_cols if c in expl]
+        described_cols = [c for c in selected_cols if c in expl]
         nums = [c for c in described_cols if c in {"ret_1d","close_mean","vol_4w","vol_growth","pub_4w","pub_growth"}]
-        cats = [c for c in described_cols if c in {"top1","top2","top3","top4","top5"}]
+        catz = [c for c in described_cols if c in {"top1","top2","top3","top4","top5"}]
 
         with st.expander("What do these features mean?"):
             if nums:
                 st.markdown("**Numeric features**")
                 for c in nums:
                     st.markdown(f"- **{c}** — {expl[c]}")
-            if cats:
+            if catz:
                 st.markdown("**Categorical features (topics)**")
-                for c in cats:
+                for c in catz:
                     st.markdown(f"- **{c}** — {expl[c]}")
     else:
-        st.info("Features not found yet. Run **Build / Update Data** in the Build & Run tab.")
+        st.info("Features not found yet for this date range. Run **Build / Update Data (01–03)** in the Build & Run tab.")
 
 # ---------- TAB: Plots ----------
 with tab_plots:
@@ -360,64 +409,151 @@ with tab_plots:
             for p in missing:
                 st.write(p.name)
 
+    # --- Top 5 topics (only when categorical features are selected) ---
+    if st.session_state.with_categories:
+        fcsv_tagged = FEATURES_DIR / f"features_{sector}_{tag}.csv"
+        if fcsv_tagged.exists():
+            df_feat = pd.read_csv(fcsv_tagged)
+
+            # Prefer count-weighted aggregation if *_count columns exist; otherwise fallback to frequency
+            count_frames = []
+            for i in range(1, 5 + 1):
+                name_col  = f"top{i}"
+                count_col = f"top{i}_count"
+                if name_col in df_feat.columns and count_col in df_feat.columns:
+                    tmp = df_feat[[name_col, count_col]].dropna()
+                    if not tmp.empty:
+                        tmp.columns = ["topic", "count"]
+                        count_frames.append(tmp)
+
+            if count_frames:
+                tt = pd.concat(count_frames, ignore_index=True)
+                top5 = (tt.groupby("topic", dropna=True)["count"]
+                          .sum()
+                          .sort_values(ascending=False)
+                          .head(5)
+                          .reset_index())
+            else:
+                # Fallback: topic frequency (when *_count not present)
+                vals = []
+                for i in range(1, 5 + 1):
+                    c = f"top{i}"
+                    if c in df_feat.columns:
+                        vals.append(df_feat[c])
+                if vals:
+                    s = pd.concat(vals, ignore_index=True).dropna()
+                    top5 = (s.value_counts()
+                              .head(5)
+                              .rename_axis("topic")
+                              .reset_index(name="count"))
+                else:
+                    top5 = pd.DataFrame(columns=["topic", "count"])
+
+            if not top5.empty:
+                st.markdown("---")
+                st.subheader("Top 5 topics in this date range")
+                st.dataframe(top5, hide_index=True, use_container_width=True)
+        else:
+            st.info("Features file for this date range not found; generate features to see top topics.")
+
+
 # ---------- TAB: Modeling ----------
 with tab_model:
     st.subheader("Modeling Results")
-    variant_label = "With categorical features" if st.session_state.with_categories else "No categorical features"
-    mj_path = MODELS_DIR / f"{sector}_metrics{'_withcat' if st.session_state.with_categories else '_nocat'}_{date_tag(start_date, end_date)}.json"
-
-    if mj_path.exists():
-        try:
-            metrics = json.loads(mj_path.read_text())
-            model_name_map = {"logit": "Logistic Regression","rf": "Random Forest","xgb": "XGBoost"}
-            rows = []
-            for model_key, vals in metrics.items():
-                pretty = model_name_map.get(model_key, model_key)
-                rows.append({"Model": pretty,
-                             "ROC-AUC": round(vals.get("roc_auc", float("nan")), 4),
-                             "PR-AUC":  round(vals.get("pr_auc",  float("nan")), 4)})
-            metrics_df = pd.DataFrame(rows).sort_values("Model")
-            st.caption(f"{variant_label} ({date_tag(start_date, end_date)})")
-            st.dataframe(metrics_df, use_container_width=True)
-        except Exception:
-            st.error("Could not parse metrics JSON.")
-    else:
-        st.info(f"No metrics found ({variant_label}). Run **Modeling** in the Build & Run tab.")
-
-    st.markdown("---")
-    st.subheader("Feature Importance")
-    suffix = "_withcat" if st.session_state.with_categories else "_nocat"
     tag = date_tag(start_date, end_date)
-    fi_csvs = sorted(glob.glob(str(MODELS_DIR / f"{sector}_*feature_importance{suffix}_{tag}.csv")))
-    fi_pngs = sorted(glob.glob(str(PLOTS_DIR  / f"{sector}_*feature_importance{suffix}_{tag}.png")))
-    if fi_csvs:
-        with st.expander("Tables (CSV)"):
-            for p in fi_csvs:
-                st.write(Path(p).name)
-                try:
-                    st.dataframe(pd.read_csv(p), use_container_width=True)
-                except Exception:
-                    st.code(Path(p).read_text()[:4000])
-    else:
-        st.info("No feature-importance CSVs yet for this variant/date range.")
 
-    if fi_pngs:
-        with st.expander("Bar charts (Top-N)"):
-            cols = st.columns(2)
-            for i, p in enumerate(fi_pngs):
-                with cols[i % 2]:
-                    st.image(str(p), caption=Path(p).name, use_container_width=True)
+    # We may have two JSONs (nocat and withcat). Load if present.
+    suffix_nocat  = "_nocat"
+    suffix_withcat = "_withcat"
+
+    path_nocat   = MODELS_DIR / f"{sector}_metrics{suffix_nocat}_{tag}.json"
+    path_withcat = MODELS_DIR / f"{sector}_metrics{suffix_withcat}_{tag}.json"
+
+    metrics_nocat = json.loads(path_nocat.read_text()) if path_nocat.exists() else None
+    metrics_withcat = json.loads(path_withcat.read_text()) if path_withcat.exists() else None
+
+    def _render_table(blob, label_suffix):
+        if not blob:
+            st.info(f"No metrics found for {label_suffix}.")
+            return
+        name_map = {"logit": "Logistic Regression","rf": "Random Forest","xgb": "XGBoost"}
+        rows = []
+        for mk, vals in blob.items():
+            rows.append({
+                "Model":  name_map.get(mk, mk),
+                "ROC-AUC": round(vals.get("roc_auc", float("nan")), 4),
+                "PR-AUC":  round(vals.get("pr_auc",  float("nan")), 4),
+            })
+        dfm = pd.DataFrame(rows).sort_values("Model")
+        st.caption(label_suffix)
+        st.dataframe(dfm, use_container_width=True)
+
+    st.markdown("**Evaluation tables**")
+
+    # Case A: both toggles ON (we asked the app to run both nocat & withcat)
+    if st.session_state.include_pub_numeric and st.session_state.with_categories:
+        # (1) Baseline: no pub numerics, no categoricals  -> from nocat["nopub"]
+        if metrics_nocat and "nopub" in metrics_nocat:
+            _render_table(metrics_nocat["nopub"], "Baseline — no publication numerics, no categoricals")
+        else:
+            st.info("Baseline (nocat/nopub) missing. Run Modeling to generate.")
+
+        # (2) With pub numerics, no categoricals        -> from nocat["withpub"]
+        if metrics_nocat and "withpub" in metrics_nocat:
+            _render_table(metrics_nocat["withpub"], "With publication numerics, no categoricals")
+        else:
+            st.info("With publication numerics (nocat) missing. Run Modeling to generate.")
+
+        # (3) With pub numerics + categoricals          -> from withcat["withpub"]
+        if metrics_withcat and "withpub" in metrics_withcat:
+            _render_table(metrics_withcat["withpub"], "With publication numerics + categoricals")
+        else:
+            st.info("With publication numerics + categoricals missing. Run Modeling to generate.")
+
+    # Case B: only pub numerics ON (no categoricals) → two tables
+    elif st.session_state.include_pub_numeric and not st.session_state.with_categories:
+        if metrics_nocat and "nopub" in metrics_nocat:
+            _render_table(metrics_nocat["nopub"], "Baseline — no publication numerics, no categoricals")
+        else:
+            st.info("Baseline (nocat/nopub) missing. Run Modeling to generate.")
+        if metrics_nocat and "withpub" in metrics_nocat:
+            _render_table(metrics_nocat["withpub"], "With publication numerics, no categoricals")
+        else:
+            st.info("With publication numerics (nocat) missing. Run Modeling to generate.")
+
+    # Case C: neither pub numerics nor categoricals → only baseline table
     else:
-        st.info("No feature-importance plots yet for this variant/date range.")
+        if metrics_nocat and "nopub" in metrics_nocat:
+            _render_table(metrics_nocat["nopub"], "Baseline — no publication numerics, no categoricals")
+        else:
+            st.info("Baseline (nocat/nopub) missing. Run Modeling to generate.")
 
     st.markdown("---")
-    st.subheader("ROC & PR Curves")
-    roc_imgs = sorted(glob.glob(str(PLOTS_DIR / f"{sector}_ROC_*{suffix}_{tag}.png")))
-    pr_imgs  = sorted(glob.glob(str(PLOTS_DIR / f"{sector}_PR_*{suffix}_{tag}.png")))
-    if roc_imgs or pr_imgs:
-        cols = st.columns(3)
-        for i, p in enumerate(roc_imgs + pr_imgs):
-            with cols[i % 3]:
-                st.image(str(p), caption=Path(p).name, use_container_width=True)
-    else:
-        st.info("No ROC/PR curves yet for this variant/date range.")
+    st.subheader("ROC curves")
+
+    # Show ONLY ROC images; rows by model order: logit → rf → xgb
+    model_order = [("logit", "Logistic Regression"),
+                   ("rf",    "Random Forest"),
+                   ("xgb",   "XGBoost")]
+
+    def _roc_paths_for(model_key):
+        paths = []
+        # always try baseline (nocat, nopub)
+        paths.append(PLOTS_DIR / f"{sector}_ROC_{model_key}_nocat_nopub_{tag}.png")
+        # with pubs, no categoricals
+        if st.session_state.include_pub_numeric:
+            paths.append(PLOTS_DIR / f"{sector}_ROC_{model_key}_nocat_withpub_{tag}.png")
+        # with pubs + categoricals (only if requested)
+        if st.session_state.include_pub_numeric and st.session_state.with_categories:
+            paths.append(PLOTS_DIR / f"{sector}_ROC_{model_key}_withcat_withpub_{tag}.png")
+        return [p for p in paths if p.exists()]
+
+    for mk, title in model_order:
+        imgs = _roc_paths_for(mk)
+        if not imgs:
+            continue
+        st.markdown(f"**{title}**")
+        cols = st.columns(len(imgs))
+        for i, pth in enumerate(imgs):
+            with cols[i]:
+                st.image(str(pth), use_container_width=True)
