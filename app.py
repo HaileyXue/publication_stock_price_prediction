@@ -92,8 +92,15 @@ SCRIPT_CMDS = {
 NUM_FEATURES = ["ret_1d","close_mean","vol_4w","vol_growth","pub_4w","pub_growth"]
 CAT_FEATURES = ["top1", "top5"]
 
-def run_py(cmd_list, label="Extracting and writing…", stream=False):
-    with st.status(label, expanded=stream) as status:
+def run_py(cmd_list, label=None, kind="generic", stream=False):
+    default_labels = {
+        "generic": "Working…",
+        "plots":   "Generating plots…",
+        "model":   "Training & evaluating models…",
+    }
+    msg = label or default_labels.get(kind, default_labels["generic"])
+
+    with st.status(msg, expanded=stream) as status:
         try:
             if stream:
                 subprocess.run(cmd_list, check=True)
@@ -172,7 +179,7 @@ def ensure_plots(sector, start, end, force=False):
     ensure_features(sector, start, end, force=False)
     cmd = [arg.format(sector=sector, start=fmt_date(start), end=fmt_date(end))
            for arg in SCRIPT_CMDS["s4_visualize"]]
-    run_py(cmd, label="Extracting and writing…")
+    run_py(cmd, kind="plots")
 
 def run_modeling(sector, start, end, with_categories=False, fast=False, max_rows=None):
     key = ("s5_train_eval_fast_withcat" if with_categories else "s5_train_eval_fast_nocat") if fast \
@@ -185,7 +192,7 @@ def run_modeling(sector, start, end, with_categories=False, fast=False, max_rows
     else:
         cmd = [arg.format(sector=sector, start=fmt_date(start), end=fmt_date(end))
                for arg in cmd_tpl]
-    run_py(cmd, label="Extracting and writing…", stream=True)
+    run_py(cmd, kind="model", stream=True)
 
 # =========================
 # Sidebar Controls
