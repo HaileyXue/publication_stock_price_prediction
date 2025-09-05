@@ -387,6 +387,7 @@ with tab_plots:
         PLOTS_DIR / f"{sector}_{tag}_pub_feats.png",
         PLOTS_DIR / f"{sector}_{tag}_corr_all.png",
         PLOTS_DIR / f"{sector}_{tag}_corr_core.png",
+        PLOTS_DIR / f"{sector}_{tag}_class_balance.png",
     ]
 
     # Only show Cramér's V heatmap if categorical features are selected

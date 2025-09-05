@@ -1,0 +1,23 @@
+feature,importance
+close_mean,0.2473512671081242
+vol_4w,0.1693698709155795
+pub_4w,0.14924979796380095
+ret_1d,0.11485091777802349
+vol_growth,0.11419987898876889
+pub_growth,0.10795795893973498
+top5_Artificial Intelligence in Healthcare,0.015675358249504574
+top5_infrequent_sklearn,0.013689625820005508
+top5_Ethics and Social Impacts of AI,0.011888707664500755
+top5_AI in Service Interactions,0.01026749994810488
+top5_Machine Learning in Healthcare,0.00987096948467409
+top5_Ethics in Clinical Research,0.005225842419641809
+"top5_Healthcare cost, quality, practices",0.004636984957400837
+top5_Biomedical and Engineering Education,0.004506535769653441
+top5_Clinical Reasoning and Diagnostic Skills,0.004375998359756389
+top5_Explainable Artificial Intelligence (XAI),0.0043064322699595155
+top5_Radiomics and Machine Learning in Medical Imaging,0.0042673414513889766
+top5_Topic Modeling,0.0032135803275136605
+top5_Online Learning and Analytics,0.0022533976466174127
+top5_COVID-19 diagnosis using AI,0.002247625956103679
+top5_AI in cancer detection,0.000594407981142476
+top1_Artificial Intelligence in Healthcare and Education,0.0

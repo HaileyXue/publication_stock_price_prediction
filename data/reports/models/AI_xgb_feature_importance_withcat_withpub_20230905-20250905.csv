@@ -1,0 +1,23 @@
+feature,importance
+top5_Artificial Intelligence in Healthcare,0.15140647
+close_mean,0.13064028
+vol_4w,0.11045563
+pub_4w,0.10741746
+top5_Ethics and Social Impacts of AI,0.101705804
+ret_1d,0.09087721
+vol_growth,0.09043925
+top5_Machine Learning in Healthcare,0.073902376
+pub_growth,0.072754495
+top5_AI in Service Interactions,0.07040099
+top5_Explainable Artificial Intelligence (XAI),0.0
+top5_Topic Modeling,0.0
+top5_Radiomics and Machine Learning in Medical Imaging,0.0
+top5_Online Learning and Analytics,0.0
+"top5_Healthcare cost, quality, practices",0.0
+top5_COVID-19 diagnosis using AI,0.0
+top5_Ethics in Clinical Research,0.0
+top5_Clinical Reasoning and Diagnostic Skills,0.0
+top5_Biomedical and Engineering Education,0.0
+top5_AI in cancer detection,0.0
+top1_Artificial Intelligence in Healthcare and Education,0.0
+top5_infrequent_sklearn,0.0

@@ -166,6 +166,23 @@ def main():
     _corr_heatmap(df, cols_hm_core, title=f"{args.sector} {tag} correlations — core",
                   outpath=PLOTS_DIR / f"{args.sector}_{tag}_corr_core.png")
 
+    # --- Class balance bar plot for the label y_up_5d ---
+    if "y_up_5d" in df.columns:
+        lbl = df["y_up_5d"].dropna().astype(int)
+        counts = lbl.value_counts().reindex([0, 1], fill_value=0)
+        fig, ax = plt.subplots(figsize=(8, 5))
+        ax.bar(["Class 0", "Class 1"], [counts.get(0, 0), counts.get(1, 0)])
+        ax.set_title(f"{args.sector} {tag}: Class distribution (y_up_5d)")
+        ax.set_ylabel("Count")
+        # Optional: annotate bars
+        for i, v in enumerate([counts.get(0, 0), counts.get(1, 0)]):
+            ax.text(i, v, f"{v}", ha="center", va="bottom")
+        fig.tight_layout()
+        fig.savefig(PLOTS_DIR / f"{args.sector}_{tag}_class_balance.png", bbox_inches="tight")
+        plt.close(fig)
+    else:
+        print("[WARN] Class balance plot skipped: 'y_up_5d' not found")
+
     # Heatmap 3 — categorical associations
     cols_cats = ["top1","top2","top3","top4","top5"]
     _categorical_assoc_heatmap(df, cols_cats,
