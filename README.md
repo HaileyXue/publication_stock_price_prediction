@@ -53,7 +53,7 @@ Visit [Lit&Stock App](https://publicationstockpriceprediction-haileyxue.streamli
 1. Make sure your have Docker running on your local machine  
 2. Run this line in terminal to start the app:  
 ```
-docker run -p 8501:8501 haileyxue391/pub-stock-app:latest
+docker run -p 8501:8501 haileyxue391/pub-stock-app:2025-09-05
 ```
 3. Visit http://localhost:8501
 
