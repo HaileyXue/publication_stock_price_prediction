@@ -1,5 +1,7 @@
 # Tickers are ETFs (or baskets) you trust Stooq to serve; add more sectors as needed.
-
+AI:
+  tickers: ["AIQ", "THNQ", "IRBO", "BOTZ", "ROBT"]
+  primary_topic_name: "Artificial intelligence"
 Biotech:
   tickers: ["XBI", "IBB", "BBH", "FBT"]
   primary_topic_name: "Biotechnology"

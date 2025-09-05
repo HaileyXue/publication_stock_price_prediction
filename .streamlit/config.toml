@@ -1,0 +1,15 @@
+[theme]
+# Button/slider accents etc.
+primaryColor = "#545eeaff"
+
+# Main page background
+backgroundColor = "#FFFFFF"
+
+# Sidebar + widget container background
+secondaryBackgroundColor = "#e2e4fcff"  # ← set this to your desired sidebar color
+
+# Text colors
+textColor = "#0F0F0F"
+
+# Optional: "light" or "dark"
+base = "light"

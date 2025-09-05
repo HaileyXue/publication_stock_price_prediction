@@ -40,7 +40,7 @@ def load_sectors_from_yaml():
     except Exception:
         pass
     return [
-        "Biotech","Semiconductors","Energy","Financials","Healthcare",
+        "AI","Biotech","Semiconductors","Energy","Financials","Healthcare",
         "Technology","Industrials","Consumer Discretionary","Consumer Staples",
         "Utilities","Materials","Real Estate","Communication Services",
     ]
