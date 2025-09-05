@@ -11,6 +11,11 @@ PROCESSED_DIR = DATA_DIR / "processed"
 TOPICS_DIR = PROCESSED_DIR / "topics"
 TOPICS_DIR.mkdir(parents=True, exist_ok=True)
 
+def _tag(start: str, end: str) -> str:
+    s = pd.to_datetime(start).strftime("%Y%m%d")
+    e = pd.to_datetime(end).strftime("%Y%m%d")
+    return f"{s}-{e}"
+
 def resolve_topic_id(display_name: str):
     cand = Topics().search(display_name).get()
     if not cand:
@@ -49,7 +54,7 @@ def build_topic_tables(records: list, N=5):
     rows = []
     for r in records:
         d = r.get("publication_date")
-        if not d: 
+        if not d:
             continue
         try:
             dt = pd.to_datetime(d).normalize()
@@ -109,9 +114,10 @@ def main():
     recs = fetch_works_with_topics(topic_id, args.start, args.end, primary_only=args.primary_only)
 
     daily_topic_counts, daily_top5_wide = build_topic_tables(recs, N=5)
-    # robust CSVs (quote all to survive commas inside topic names)
-    out_counts = TOPICS_DIR / f"daily_topic_counts_{args.sector}.csv"
-    out_wide   = TOPICS_DIR / f"daily_top5_wide_{args.sector}.csv"
+    tag = _tag(args.start, args.end)
+
+    out_counts = TOPICS_DIR / f"daily_topic_counts_{args.sector}_{tag}.csv"
+    out_wide   = TOPICS_DIR / f"daily_top5_wide_{args.sector}_{tag}.csv"
     daily_topic_counts.to_csv(out_counts, index=False, encoding="utf-8", quoting=csv.QUOTE_ALL)
     daily_top5_wide.to_csv(out_wide,     index=False, encoding="utf-8", quoting=csv.QUOTE_ALL)
     print(f"[OpenAlex] wrote {out_counts} and {out_wide}")

@@ -11,6 +11,11 @@ TOPICS_DIR = PROCESSED_DIR / "topics"
 FEATURES_DIR = PROCESSED_DIR / "features"
 FEATURES_DIR.mkdir(parents=True, exist_ok=True)
 
+def _tag(start: str, end: str) -> str:
+    s = pd.to_datetime(start).strftime("%Y%m%d")
+    e = pd.to_datetime(end).strftime("%Y%m%d")
+    return f"{s}-{e}"
+
 def _map_calendar_to_trading(left_df, left_date_col, px_dates, tolerance_days=4):
     trade_ref = px_dates[["date"]].rename(columns={"date":"trade_date"}).sort_values("trade_date")
     mapped = pd.merge_asof(
@@ -26,10 +31,11 @@ def _map_calendar_to_trading(left_df, left_date_col, px_dates, tolerance_days=4)
 def safe_pct_change(s: pd.Series):
     return s.pct_change().replace([np.inf, -np.inf], np.nan)
 
-def build_features(sector: str) -> pd.DataFrame:
-    px_path   = RAW_PRICES_DIR / f"sector_{sector}_daily_agg.csv"
-    counts_p  = TOPICS_DIR / f"daily_topic_counts_{sector}.csv"
-    wide_p    = TOPICS_DIR / f"daily_top5_wide_{sector}.csv"
+def build_features(sector: str, start: str, end: str) -> pd.DataFrame:
+    tag = _tag(start, end)
+    px_path   = RAW_PRICES_DIR / f"sector_{sector}_{tag}_daily_agg.csv"
+    counts_p  = TOPICS_DIR / f"daily_topic_counts_{sector}_{tag}.csv"
+    wide_p    = TOPICS_DIR / f"daily_top5_wide_{sector}_{tag}.csv"
     if not px_path.exists():   raise FileNotFoundError(px_path)
     if not counts_p.exists():  raise FileNotFoundError(counts_p)
     if not wide_p.exists():    raise FileNotFoundError(wide_p)
@@ -91,7 +97,7 @@ def build_features(sector: str) -> pd.DataFrame:
 
     top5 = topN_wide(trade_topic_counts, N=5)
 
-    # (F) merge top-5 + compute shares safely using pub_count
+    # (F) merge top-5 + compute shares
     out = df.merge(top5, on="date", how="left")
     denom = out["pub_count"].astype(float).where(out["pub_count"] > 0)
     for i in range(1,6):
@@ -99,7 +105,7 @@ def build_features(sector: str) -> pd.DataFrame:
         if ccol in out.columns:
             out[scol] = (out[ccol].astype(float) / denom)
 
-    # (G) final cleanup (replace inf with NaN) and column ordering
+    # (G) cleanup & ordering
     num_cols = out.select_dtypes(include=[np.number]).columns
     out[num_cols] = out[num_cols].replace([np.inf,-np.inf], np.nan)
 
@@ -111,19 +117,20 @@ def build_features(sector: str) -> pd.DataFrame:
                "total_publications",
                "top1_share","top2_share","top3_share","top4_share","top5_share",
                "top_list"]
-    # keep any extras at the end
     ordered = [c for c in ordered if c in out.columns] + [c for c in out.columns if c not in ordered]
     out = out.loc[:, ordered]
-
     return out
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sector", required=True)
+    ap.add_argument("--start",  required=True)
+    ap.add_argument("--end",    required=True)
     args = ap.parse_args()
 
-    out = build_features(args.sector)
-    out_path = FEATURES_DIR / f"features_{args.sector}.csv"
+    out = build_features(args.sector, args.start, args.end)
+    tag = _tag(args.start, args.end)
+    out_path = FEATURES_DIR / f"features_{args.sector}_{tag}.csv"
     out.to_csv(out_path, index=False)
     print(f"[Features] wrote {out_path} | rows={len(out)} | cols={len(out.columns)}")
 

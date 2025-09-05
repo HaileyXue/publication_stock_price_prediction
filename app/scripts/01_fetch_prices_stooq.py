@@ -12,11 +12,13 @@ PROCESSED_DIR = DATA_DIR / "processed"
 RAW_PRICES_DIR.mkdir(parents=True, exist_ok=True)
 PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 
+def _tag(start: str, end: str) -> str:
+    s = pd.to_datetime(start).strftime("%Y%m%d")
+    e = pd.to_datetime(end).strftime("%Y%m%d")
+    return f"{s}-{e}"
+
 def fetch_stooq_ticker(ticker: str, start: str, end: str) -> pd.DataFrame:
-    """
-    Fetch OHLCV from Stooq for a single ticker, robust to common quirks.
-    Returns columns: date, close, volume, ticker (ascending by date).
-    """
+    """Fetch OHLCV; returns columns: date, close, volume, ticker."""
     tried = []
     for sym in (ticker, f"{ticker}.US", ticker.lower(), f"{ticker.lower()}.us"):
         tried.append(sym)
@@ -33,26 +35,66 @@ def fetch_stooq_ticker(ticker: str, start: str, end: str) -> pd.DataFrame:
     raise RuntimeError(f"Stooq fetch failed for {ticker}. Tried: {tried}")
 
 def build_sector_daily_agg(tickers, start, end, out_path: Path) -> pd.DataFrame:
-    """
-    Outer-join per-ticker series on date (UNION of trading days).
-    Equal-weight close across available tickers. Sum volume across tickers.
-    Adds volume features (vol_4w, vol_growth, vol_z). Also ret_1d and ret_fwd_5d.
-    """
+    """Outer-join by date, equal-weight close, sum volume, build features."""
     frames = []
+    req_start = pd.to_datetime(start)
+    req_end   = pd.to_datetime(end)
+
     for t in tickers:
         p = RAW_PRICES_DIR / f"{t}.csv"
-        if not p.exists():
+
+        def _read_cache(path: Path):
+            if not path.exists():
+                return pd.DataFrame(columns=["date","close","volume","ticker"])
+            dfc = pd.read_csv(path, parse_dates=["date"])
+            return dfc.sort_values("date").reset_index(drop=True)
+
+        def _merge_and_write(path: Path, old_df: pd.DataFrame, add_df: pd.DataFrame):
+            if add_df is None or add_df.empty:
+                return old_df
+            merged = (pd.concat([old_df, add_df], ignore_index=True)
+                        .drop_duplicates(subset=["date"])
+                        .sort_values("date")
+                        .reset_index(drop=True))
+            path.write_text(merged.to_csv(index=False))
+            return merged
+
+        # 1) Read cache (may be empty)
+        cached = _read_cache(p)
+
+        # 2) Ensure coverage
+        need_fetch = False
+        if cached.empty:
+            need_fetch = True
+        else:
+            have_start = cached["date"].min()
+            have_end   = cached["date"].max()
+            if req_start < have_start or req_end > have_end:
+                need_fetch = True
+
+        if need_fetch:
             try:
-                # only fetch if ticker dataset does not exist
-                df = fetch_stooq_ticker(t, start, end)
-                p.write_text(df.to_csv(index=False))
+                fresh = fetch_stooq_ticker(t, start, end)
             except Exception as e:
                 print(f"[WARN] {t}: {e}", file=sys.stderr)
-                continue
-        df = pd.read_csv(p, parse_dates=["date"])
-        mask = (df["date"] >= pd.to_datetime(start)) & (df["date"] <= pd.to_datetime(end))
-        df = df.loc[mask, ["date","close","volume"]].rename(columns={"close": f"close_{t}", "volume": f"vol_{t}"})
+                # If we have *some* cache, proceed with it; otherwise skip ticker.
+                if cached.empty:
+                    continue
+                fresh = None
+            cached = _merge_and_write(p, cached, fresh)
+
+        # 3) Subset to the requested window and rename for aggregation
+        df = cached.loc[
+            (cached["date"] >= req_start) & (cached["date"] <= req_end),
+            ["date","close","volume"]
+        ].rename(columns={"close": f"close_{t}", "volume": f"vol_{t}"})
+
+        if df.empty:
+            print(f"[WARN] {t}: no rows after subsetting {start}..{end}")
+            continue
+
         frames.append(df)
+
 
     if not frames:
         raise FileNotFoundError("No per-ticker price files found for sector.")
@@ -62,7 +104,6 @@ def build_sector_daily_agg(tickers, start, end, out_path: Path) -> pd.DataFrame:
         agg = agg.merge(f, on="date", how="outer")
 
     agg = agg.sort_values("date").reset_index(drop=True)
-
     close_cols = [c for c in agg.columns if c.startswith("close_")]
     vol_cols   = [c for c in agg.columns if c.startswith("vol_")]
 
@@ -111,7 +152,8 @@ def main():
         print(f"[WARN] clipping start to {start_dt.date()} (max 3y)")
 
     tickers = cfg[args.sector]["tickers"]
-    out_path = RAW_PRICES_DIR / f"sector_{args.sector}_daily_agg.csv"
+    tag = _tag(start_dt, end_dt)
+    out_path = RAW_PRICES_DIR / f"sector_{args.sector}_{tag}_daily_agg.csv"
     build_sector_daily_agg(tickers, start_dt.strftime("%Y-%m-%d"), end_dt.strftime("%Y-%m-%d"), out_path)
 
 if __name__ == "__main__":

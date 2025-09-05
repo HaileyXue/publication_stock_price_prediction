@@ -13,8 +13,12 @@ REPORTS_DIR = DATA_DIR / "reports"
 PLOTS_DIR = REPORTS_DIR / "plots"
 PLOTS_DIR.mkdir(parents=True, exist_ok=True)
 
+def _tag(start: str, end: str) -> str:
+    s = pd.to_datetime(start).strftime("%Y%m%d")
+    e = pd.to_datetime(end).strftime("%Y%m%d")
+    return f"{s}-{e}"
+
 def _corr_heatmap(df, cols, title, outpath):
-    # keep only requested cols that exist and are numeric
     cols = [c for c in cols if c in df.columns]
     if not cols:
         print(f"[WARN] no requested columns present for: {title}")
@@ -32,46 +36,31 @@ def _corr_heatmap(df, cols, title, outpath):
     plt.savefig(outpath, bbox_inches="tight")
     plt.close()
 
-# ---------- NEW: categorical (Cramér's V) heatmap helpers ----------
+# ---------- categorical (Cramér's V) helpers ----------
 def _cramers_v_from_table(ct: pd.DataFrame) -> float:
-    """
-    Compute Cramér's V from a contingency table without SciPy.
-    Returns a value in [0, 1]. If table degenerate, returns np.nan/0.
-    """
-    obs = ct.to_numpy(dtype=float)
-    n = obs.sum()
-    if n <= 0:
-        return np.nan
-    row_sum = obs.sum(axis=1, keepdims=True)
-    col_sum = obs.sum(axis=0, keepdims=True)
+    obs = ct.to_numpy(dtype=float); n = obs.sum()
+    if n <= 0: return np.nan
+    row_sum = obs.sum(axis=1, keepdims=True); col_sum = obs.sum(axis=0, keepdims=True)
     expected = (row_sum @ col_sum) / n
     with np.errstate(divide='ignore', invalid='ignore'):
         chi2 = np.nansum((obs - expected) ** 2 / expected)
     r, k = obs.shape
-    if min(r, k) < 2:
-        return 0.0
+    if min(r, k) < 2: return 0.0
     return float(np.sqrt(chi2 / (n * (min(r, k) - 1))))
 
 def _categorical_assoc_heatmap(df, cols, title, outpath):
-    """
-    Build pairwise Cramér's V for the given categorical columns and plot a heatmap.
-    """
     cols = [c for c in cols if c in df.columns]
     if len(cols) < 2:
         print(f"[WARN] need at least 2 categorical columns for: {title}")
         return
-
     n = len(cols)
     M = np.zeros((n, n), dtype=float)
     for i in range(n):
         for j in range(i, n):
-            # crosstab ignores NaN by default; that's fine here
             ct = pd.crosstab(df[cols[i]], df[cols[j]])
             val = _cramers_v_from_table(ct) if not ct.empty else np.nan
             M[i, j] = M[j, i] = val
-
     assoc = pd.DataFrame(M, index=cols, columns=cols)
-
     plt.figure(figsize=(min(1.2*len(cols)+2, 18), min(1.2*len(cols)+2, 18)))
     sns.heatmap(assoc, annot=True, fmt=".2f", cmap="viridis", vmin=0, vmax=1, square=True,
                 cbar_kws={"shrink": .8})
@@ -80,116 +69,98 @@ def _categorical_assoc_heatmap(df, cols, title, outpath):
     plt.savefig(outpath, bbox_inches="tight")
     plt.close()
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--sector", required=True)
-    args = ap.parse_args()
-
-    feat_p = FEATURES_DIR / f"features_{args.sector}.csv"
-    df = pd.read_csv(feat_p, parse_dates=["date"])
-
-    # Timeseries plots
-    lines = [
-        (["close_mean"],            f"{args.sector}_price.png"),
-        (["volume_sum","vol_4w"],   f"{args.sector}_volume.png"),
-        (["pub_count","pub_4w"],    f"{args.sector}_pubs.png"),
-        (["pub_z","vol_z"],         f"{args.sector}_zscores.png"),
-    ]
-    for cols, fname in lines:
-        ax = df.plot(x="date", y=cols, figsize=(12,5), title=f"{args.sector}: {', '.join(cols)}")
-        ax.figure.savefig(PLOTS_DIR / fname, bbox_inches="tight"); plt_close(ax)
-
-    # ============================
-    # Relationship plots
-    # ============================
-
-    # 1) LEVELS (absolute values) — z-scored close_mean vs z-scored pub_count on one axis
-    if {"close_mean", "pub_count"}.issubset(df.columns):
-        z = lambda s: (s - s.mean()) / (s.std(ddof=0) if s.std(ddof=0) != 0 else 1)
-        df["_close_mean_z"] = z(df["close_mean"])
-        df["_pub_count_z"]  = z(df["pub_count"])
-
-        ax = df.plot(
-            x="date",
-            y=["_close_mean_z", "_pub_count_z"],
-            figsize=(12, 5),
-            title=f"{args.sector}: Levels (z-scored) — Price vs Publications"
-        )
-        ax.set_ylabel("Z-score")
-        ax.figure.savefig(PLOTS_DIR / f"{args.sector}_levels_price_vs_pubs_z.png", bbox_inches="tight")
-        plt_close(ax)
-        df.drop(columns=["_close_mean_z", "_pub_count_z"], inplace=True, errors="ignore")
-    else:
-        print("[WARN] Levels plot skipped: require 'close_mean' and 'pub_count'")
-
-    # 2) GROWTH — ret_1d vs pub_growth (fallback: compute pub_growth if missing)
-    need_growth = "pub_growth" not in df.columns
-    can_compute_growth = {"pub_count"}.issubset(df.columns)
-    if need_growth and can_compute_growth:
-        df["pub_growth"] = df["pub_count"].pct_change().replace([float("inf"), float("-inf")], pd.NA).fillna(0)
-
-    if "ret_1d" in df.columns and "pub_growth" in df.columns:
-        fig, ax1 = plt.subplots(figsize=(12, 5))
-        df.plot(x="date", y="ret_1d", ax=ax1, label="Daily return (ret_1d)")
-        ax1.axhline(0, linestyle="--", linewidth=1, color="black")
-        ax1.set_ylabel("Daily return")
-        ax1.set_xlabel("Date")
-
-        ax2 = ax1.twinx()
-        df.plot(x="date", y="pub_growth", ax=ax2, label="Publications (growth)", linestyle="--")
-        ax2.set_ylabel("Publications (growth, pct change)")
-
-        ax1.set_title(f"{args.sector}: Growth — Daily Return vs Publication Growth")
-        h1, l1 = ax1.get_legend_handles_labels()
-        h2, l2 = ax2.get_legend_handles_labels()
-        ax1.legend(h1 + h2, l1 + l2, loc="upper left")
-
-        fig.tight_layout()
-        fig.savefig(PLOTS_DIR / f"{args.sector}_growth_ret_vs_pub_growth.png", bbox_inches="tight")
-        plt.close(fig)
-    else:
-        print("[WARN] Growth plot skipped: need 'ret_1d' and 'pub_growth' (or 'pub_count' to compute it)")
-
-    # Heatmap 1: full feature subset (counts + shares)
-    cols_hm_full = [
-        "close_mean","ret_1d",
-        "volume_sum","vol_4w","vol_growth","vol_z",
-        "pub_count","pub_4w","pub_growth","pub_z",
-        "top1_count","top2_count","top3_count","top4_count","top5_count",
-        "top1_share","top2_share","top3_share","top4_share","top5_share",
-    ]
-    _corr_heatmap(
-        df,
-        cols_hm_full,
-        title=f"{args.sector} correlations — all",
-        outpath=PLOTS_DIR / f"{args.sector}_corr_all.png",
-    )
-
-    # Heatmap 2: compact core subset
-    cols_hm_core = [
-        "ret_1d","close_mean",
-        "vol_4w","vol_growth",
-        "pub_4w","pub_growth",
-    ]
-    _corr_heatmap(
-        df,
-        cols_hm_core,
-        title=f"{args.sector} correlations — core",
-        outpath=PLOTS_DIR / f"{args.sector}_corr_core.png",
-    )
-
-    # ---------- NEW: Heatmap 3 — categorical associations (Cramér's V) ----------
-    cols_cats = ["top1","top2","top3","top4","top5"]
-    _categorical_assoc_heatmap(
-        df,
-        cols_cats,
-        title=f"{args.sector} categorical associations — top topics (Cramér's V)",
-        outpath=PLOTS_DIR / f"{args.sector}_cat_assoc_top_topics.png",
-    )
-
 def plt_close(ax):
     import matplotlib.pyplot as plt
     plt.close(ax.figure)
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--sector", required=True)
+    ap.add_argument("--start",  required=True)  # YYYY-MM-DD
+    ap.add_argument("--end",    required=True)  # YYYY-MM-DD
+    args = ap.parse_args()
+
+    tag = _tag(args.start, args.end)
+
+    feat_p = FEATURES_DIR / f"features_{args.sector}_{tag}.csv"
+    if not feat_p.exists():
+        print(f"[WARN] Features not found for {args.sector} {tag}: {feat_p}")
+        return
+    df = pd.read_csv(feat_p, parse_dates=["date"])
+
+    # scope to date range (redundant but safe)
+    mask = (df["date"] >= pd.to_datetime(args.start)) & (df["date"] <= pd.to_datetime(args.end))
+    df = df.loc[mask].copy()
+    if df.empty:
+        print(f"[WARN] No rows for {args.sector} in {tag}; skipping plots.")
+        return
+
+    # 1) close_mean (price)
+    if "close_mean" in df.columns:
+        ax = df.plot(x="date", y=["close_mean"], figsize=(12,5),
+                     title=f"{args.sector} {tag}: close_mean")
+        ax.figure.savefig(PLOTS_DIR / f"{args.sector}_{tag}_price.png", bbox_inches="tight"); plt_close(ax)
+    else:
+        print("[WARN] Missing 'close_mean' for price plot")
+
+    # 2) vol_4w & vol_growth
+    vol_cols = [c for c in ["vol_4w","vol_growth"] if c in df.columns]
+    if vol_cols:
+        ax = df.plot(x="date", y=vol_cols, figsize=(12,5),
+                     title=f"{args.sector} {tag}: {', '.join(vol_cols)}")
+        ax.figure.savefig(PLOTS_DIR / f"{args.sector}_{tag}_volume_feats.png", bbox_inches="tight"); plt_close(ax)
+    else:
+        print("[WARN] Missing vol_4w/vol_growth for volume features plot")
+
+    # 3) pub_4w & pub_growth
+    pub_cols = [c for c in ["pub_4w","pub_growth"] if c in df.columns]
+    if pub_cols:
+        ax = df.plot(x="date", y=pub_cols, figsize=(12,5),
+                     title=f"{args.sector} {tag}: {', '.join(pub_cols)}")
+        ax.figure.savefig(PLOTS_DIR / f"{args.sector}_{tag}_pub_feats.png", bbox_inches="tight"); plt_close(ax)
+    else:
+        print("[WARN] Missing pub_4w/pub_growth for publication features plot")
+
+    # 4) close_mean & pub_count (NO z-scores; twin y-axes for readability)
+    if {"close_mean","pub_count"}.issubset(df.columns):
+        fig, ax1 = plt.subplots(figsize=(12,5))
+        df.plot(x="date", y="close_mean", ax=ax1, label="close_mean")
+        ax1.set_ylabel("close_mean"); ax1.set_xlabel("Date")
+
+        ax2 = ax1.twinx()
+        df.plot(x="date", y="pub_count", ax=ax2, label="pub_count", linestyle="--")
+        ax2.set_ylabel("pub_count")
+
+        ax1.set_title(f"{args.sector} {tag}: close_mean vs pub_count")
+        h1,l1 = ax1.get_legend_handles_labels(); h2,l2 = ax2.get_legend_handles_labels()
+        ax1.legend(h1+h2, l1+l2, loc="upper left")
+        fig.tight_layout()
+        fig.savefig(PLOTS_DIR / f"{args.sector}_{tag}_levels_price_vs_pubs.png", bbox_inches="tight")
+        plt.close(fig)
+    else:
+        print("[WARN] Levels plot skipped: need 'close_mean' and 'pub_count'")
+
+    # Heatmap 1 — all
+    cols_hm_full = [
+        "close_mean","ret_1d",
+        "volume_sum","vol_4w","vol_growth",
+        "pub_count","pub_4w","pub_growth",
+        "top1_count","top2_count","top3_count","top4_count","top5_count",
+        "top1_share","top2_share","top3_share","top4_share","top5_share",
+    ]
+    _corr_heatmap(df, cols_hm_full, title=f"{args.sector} {tag} correlations — all",
+                  outpath=PLOTS_DIR / f"{args.sector}_{tag}_corr_all.png")
+
+    # Heatmap 2 — core
+    cols_hm_core = ["ret_1d","close_mean","vol_4w","vol_growth","pub_4w","pub_growth"]
+    _corr_heatmap(df, cols_hm_core, title=f"{args.sector} {tag} correlations — core",
+                  outpath=PLOTS_DIR / f"{args.sector}_{tag}_corr_core.png")
+
+    # Heatmap 3 — categorical associations
+    cols_cats = ["top1","top2","top3","top4","top5"]
+    _categorical_assoc_heatmap(df, cols_cats,
+                               title=f"{args.sector} {tag} categorical associations — top topics (Cramér's V)",
+                               outpath=PLOTS_DIR / f"{args.sector}_{tag}_cat_assoc_top_topics.png")
 
 if __name__ == "__main__":
     main()
