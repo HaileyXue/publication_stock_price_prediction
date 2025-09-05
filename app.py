@@ -462,17 +462,16 @@ with tab_model:
     st.subheader("Modeling Results")
     tag = date_tag(start_date, end_date)
 
-    # We may have two JSONs (nocat and withcat). Load if present.
-    suffix_nocat  = "_nocat"
+    suffix_nocat   = "_nocat"
     suffix_withcat = "_withcat"
 
     path_nocat   = MODELS_DIR / f"{sector}_metrics{suffix_nocat}_{tag}.json"
     path_withcat = MODELS_DIR / f"{sector}_metrics{suffix_withcat}_{tag}.json"
 
-    metrics_nocat = json.loads(path_nocat.read_text()) if path_nocat.exists() else None
+    metrics_nocat   = json.loads(path_nocat.read_text()) if path_nocat.exists() else None
     metrics_withcat = json.loads(path_withcat.read_text()) if path_withcat.exists() else None
 
-    def _render_table(blob, label_suffix):
+    def _as_table(blob, label_suffix):
         if not blob:
             st.info(f"No metrics found for {label_suffix}.")
             return
@@ -490,60 +489,100 @@ with tab_model:
 
     st.markdown("**Evaluation tables**")
 
-    # Case A: both toggles ON (we asked the app to run both nocat & withcat)
+    # A) pubs + cats ON → show 3 tables (baseline, +pub (nocat), +pub+cats)
     if st.session_state.include_pub_numeric and st.session_state.with_categories:
-        # (1) Baseline: no pub numerics, no categoricals  -> from nocat["nopub"]
         if metrics_nocat and "nopub" in metrics_nocat:
-            _render_table(metrics_nocat["nopub"], "Baseline — no publication numerics, no categoricals")
+            _as_table(metrics_nocat["nopub"], "Baseline — no publication numerics, no categoricals")
         else:
             st.info("Baseline (nocat/nopub) missing. Run Modeling to generate.")
 
-        # (2) With pub numerics, no categoricals        -> from nocat["withpub"]
         if metrics_nocat and "withpub" in metrics_nocat:
-            _render_table(metrics_nocat["withpub"], "With publication numerics, no categoricals")
+            _as_table(metrics_nocat["withpub"], "With publication numerics, no categoricals")
         else:
             st.info("With publication numerics (nocat) missing. Run Modeling to generate.")
 
-        # (3) With pub numerics + categoricals          -> from withcat["withpub"]
         if metrics_withcat and "withpub" in metrics_withcat:
-            _render_table(metrics_withcat["withpub"], "With publication numerics + categoricals")
+            _as_table(metrics_withcat["withpub"], "With publication numerics + categoricals")
         else:
             st.info("With publication numerics + categoricals missing. Run Modeling to generate.")
 
-    # Case B: only pub numerics ON (no categoricals) → two tables
+    # B) only pubs ON → show 2 tables (baseline, +pub (nocat))
     elif st.session_state.include_pub_numeric and not st.session_state.with_categories:
         if metrics_nocat and "nopub" in metrics_nocat:
-            _render_table(metrics_nocat["nopub"], "Baseline — no publication numerics, no categoricals")
+            _as_table(metrics_nocat["nopub"], "Baseline — no publication numerics, no categoricals")
         else:
             st.info("Baseline (nocat/nopub) missing. Run Modeling to generate.")
         if metrics_nocat and "withpub" in metrics_nocat:
-            _render_table(metrics_nocat["withpub"], "With publication numerics, no categoricals")
+            _as_table(metrics_nocat["withpub"], "With publication numerics, no categoricals")
         else:
             st.info("With publication numerics (nocat) missing. Run Modeling to generate.")
 
-    # Case C: neither pub numerics nor categoricals → only baseline table
+    # C) neither pubs nor cats → only baseline table
     else:
         if metrics_nocat and "nopub" in metrics_nocat:
-            _render_table(metrics_nocat["nopub"], "Baseline — no publication numerics, no categoricals")
+            _as_table(metrics_nocat["nopub"], "Baseline — no publication numerics, no categoricals")
         else:
             st.info("Baseline (nocat/nopub) missing. Run Modeling to generate.")
 
     st.markdown("---")
+    st.subheader("Feature Importance")
+
+    # Decide exactly one variant to display, based on toggles
+    if st.session_state.include_pub_numeric and st.session_state.with_categories:
+        target_suffix  = "_withcat"
+        target_variant = "withpub"
+        fi_label = "With publication numerics + categoricals"
+    elif st.session_state.include_pub_numeric and not st.session_state.with_categories:
+        target_suffix  = "_nocat"
+        target_variant = "withpub"
+        fi_label = "With publication numerics (no categoricals)"
+    else:
+        target_suffix  = "_nocat"
+        target_variant = "nopub"
+        fi_label = "Baseline — no publication numerics, no categoricals"
+
+    # Load CSVs/PNGs for ONLY that chosen combo
+    fi_csvs = sorted(glob.glob(str(MODELS_DIR / f"{sector}_*feature_importance{target_suffix}_{target_variant}_{tag}.csv")))
+    fi_pngs = sorted(glob.glob(str(PLOTS_DIR  / f"{sector}_*feature_importance{target_suffix}_{target_variant}_{tag}.png")))
+
+    st.caption(f"{fi_label} • {tag}")
+
+    if fi_csvs:
+        with st.expander("Tables (CSV)"):
+            for p in fi_csvs:
+                st.write(Path(p).name)
+                try:
+                    st.dataframe(pd.read_csv(p), use_container_width=True)
+                except Exception:
+                    st.code(Path(p).read_text()[:4000])
+    else:
+        st.info("No feature-importance CSVs found for this selection/date range. Run Modeling to generate them.")
+
+    if fi_pngs:
+        with st.expander("Bar charts (Top-N)"):
+            cols = st.columns(2)
+            for i, p in enumerate(fi_pngs):
+                with cols[i % 2]:
+                    st.image(str(p), use_container_width=True)
+    else:
+        st.info("No feature-importance plots found for this selection/date range. Run Modeling to generate them.")
+
+    st.markdown("---")
     st.subheader("ROC curves")
 
-    # Show ONLY ROC images; rows by model order: logit → rf → xgb
+    # ONLY ROC plots; rows ordered: Logit → RF → XGB
     model_order = [("logit", "Logistic Regression"),
                    ("rf",    "Random Forest"),
                    ("xgb",   "XGBoost")]
 
     def _roc_paths_for(model_key):
         paths = []
-        # always try baseline (nocat, nopub)
+        # baseline (nocat, nopub)
         paths.append(PLOTS_DIR / f"{sector}_ROC_{model_key}_nocat_nopub_{tag}.png")
         # with pubs, no categoricals
         if st.session_state.include_pub_numeric:
             paths.append(PLOTS_DIR / f"{sector}_ROC_{model_key}_nocat_withpub_{tag}.png")
-        # with pubs + categoricals (only if requested)
+        # with pubs + categoricals
         if st.session_state.include_pub_numeric and st.session_state.with_categories:
             paths.append(PLOTS_DIR / f"{sector}_ROC_{model_key}_withcat_withpub_{tag}.png")
         return [p for p in paths if p.exists()]
@@ -552,8 +591,23 @@ with tab_model:
         imgs = _roc_paths_for(mk)
         if not imgs:
             continue
+
         st.markdown(f"**{title}**")
-        cols = st.columns(len(imgs))
-        for i, pth in enumerate(imgs):
-            with cols[i]:
-                st.image(str(pth), use_container_width=True)
+
+        if len(imgs) == 1:
+            # Do NOT let a single image take the full window width:
+            # show it centered at ~1/2 width using side spacers.
+            left, mid, right = st.columns([1, 1, 1])
+            with left:
+                st.image(str(imgs[0]), use_container_width=True)
+        elif len(imgs) == 2:
+            # Two variants → standard two columns
+            left, mid, right = st.columns([1, 1, 1])
+            with left: st.image(str(imgs[0]), use_container_width=True)
+            with mid: st.image(str(imgs[1]), use_container_width=True)
+        else:
+            # 3 variants → one column per image
+            cols = st.columns(len(imgs))
+            for i, pth in enumerate(imgs):
+                with cols[i]:
+                    st.image(str(pth), use_container_width=True)

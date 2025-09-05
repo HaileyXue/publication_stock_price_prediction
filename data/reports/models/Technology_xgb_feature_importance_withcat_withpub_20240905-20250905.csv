@@ -1,0 +1,17 @@
+feature,importance
+top5_infrequent_sklearn,0.19137968
+close_mean,0.15304178
+pub_growth,0.12416088
+pub_4w,0.113716155
+vol_4w,0.096290305
+ret_1d,0.09102736
+vol_growth,0.08739138
+top1_Information Technology Governance and Strategy,0.07854684
+top5_nan,0.064445615
+top1_Big Data and Business Intelligence,0.0
+top1_Collaboration in agile enterprises,0.0
+top1_ERP Systems Implementation and Impact,0.0
+top1_nan,0.0
+top1_infrequent_sklearn,0.0
+top5_ERP Systems Implementation and Impact,0.0
+top5_Software Engineering Techniques and Practices,0.0

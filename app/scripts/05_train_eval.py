@@ -175,7 +175,7 @@ def main():
     # Candidate columns
     numeric_base = ["ret_1d","close_mean","vol_4w","vol_growth"]
     numeric_pub  = ["pub_4w","pub_growth"]
-    cat_cols_all = ["top1","top2","top3","top4","top5"]
+    cat_cols_all = ["top1","top5"]
 
     d = df.dropna(subset=[label_col]).copy()
     if args.max_rows is not None and len(d) > args.max_rows:

@@ -1,0 +1,21 @@
+feature,importance
+pub_4w,0.22514830491730375
+vol_4w,0.19362389131032037
+close_mean,0.18370465085722937
+vol_growth,0.12767962004281838
+ret_1d,0.11816940603523639
+pub_growth,0.09532537380137118
+"top5_Insurance, Mortality, Demography, Risk Management",0.015547545848492784
+top5_infrequent_sklearn,0.012930708875666504
+top5_Healthcare Systems and Reforms,0.004914493895004124
+top5_Climate Change and Health Impacts,0.004615587380753455
+top5_Health disparities and outcomes,0.004541456370493947
+top5_Employment and Welfare Studies,0.004407203707676748
+top5_Healthcare Policy and Management,0.002950035054458122
+top5_nan,0.0025728008271549505
+top5_Global Maternal and Child Health,0.002167750122346646
+"top5_Health Systems, Economic Evaluations, Quality of Life",0.000876379975035193
+"top5_Financial Literacy, Pension, Retirement Analysis",0.0008247909786381475
+top1_infrequent_sklearn,0.0
+top1_Global Health Care Issues,0.0
+"top5_Energy, Environment, Economic Growth",0.0

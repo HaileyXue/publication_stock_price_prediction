@@ -1,0 +1,204 @@
+{
+  "nopub": {
+    "logit": {
+      "roc_auc": 0.6460755813953489,
+      "pr_auc": 0.7551978150070471,
+      "classification_report": {
+        "0": {
+          "precision": 0.36363636363636365,
+          "recall": 0.125,
+          "f1-score": 0.18604651162790697,
+          "support": 32.0
+        },
+        "1": {
+          "precision": 0.5625,
+          "recall": 0.8372093023255814,
+          "f1-score": 0.6728971962616822,
+          "support": 43.0
+        },
+        "accuracy": 0.5333333333333333,
+        "macro avg": {
+          "precision": 0.4630681818181818,
+          "recall": 0.4811046511627907,
+          "f1-score": 0.4294718539447946,
+          "support": 75.0
+        },
+        "weighted avg": {
+          "precision": 0.4776515151515152,
+          "recall": 0.5333333333333333,
+          "f1-score": 0.4651742374846048,
+          "support": 75.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_ROC_logit_withcat_nopub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_PR_logit_withcat_nopub_20240905-20250905.png"
+    },
+    "rf": {
+      "roc_auc": 0.6184593023255814,
+      "pr_auc": 0.722254173537147,
+      "classification_report": {
+        "0": {
+          "precision": 0.5238095238095238,
+          "recall": 0.34375,
+          "f1-score": 0.41509433962264153,
+          "support": 32.0
+        },
+        "1": {
+          "precision": 0.6111111111111112,
+          "recall": 0.7674418604651163,
+          "f1-score": 0.6804123711340206,
+          "support": 43.0
+        },
+        "accuracy": 0.5866666666666667,
+        "macro avg": {
+          "precision": 0.5674603174603174,
+          "recall": 0.5555959302325582,
+          "f1-score": 0.5477533553783311,
+          "support": 75.0
+        },
+        "weighted avg": {
+          "precision": 0.573862433862434,
+          "recall": 0.5866666666666667,
+          "f1-score": 0.5672100110224989,
+          "support": 75.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_ROC_rf_withcat_nopub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_PR_rf_withcat_nopub_20240905-20250905.png"
+    },
+    "xgb": {
+      "roc_auc": 0.5784883720930234,
+      "pr_auc": 0.6432935041807375,
+      "classification_report": {
+        "0": {
+          "precision": 0.43902439024390244,
+          "recall": 0.5625,
+          "f1-score": 0.4931506849315068,
+          "support": 32.0
+        },
+        "1": {
+          "precision": 0.5882352941176471,
+          "recall": 0.46511627906976744,
+          "f1-score": 0.5194805194805194,
+          "support": 43.0
+        },
+        "accuracy": 0.5066666666666667,
+        "macro avg": {
+          "precision": 0.5136298421807748,
+          "recall": 0.5138081395348837,
+          "f1-score": 0.5063156022060131,
+          "support": 75.0
+        },
+        "weighted avg": {
+          "precision": 0.524571975131516,
+          "recall": 0.5066666666666667,
+          "f1-score": 0.5082464567396074,
+          "support": 75.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_ROC_xgb_withcat_nopub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_PR_xgb_withcat_nopub_20240905-20250905.png"
+    }
+  },
+  "withpub": {
+    "logit": {
+      "roc_auc": 0.6329941860465117,
+      "pr_auc": 0.728015255596518,
+      "classification_report": {
+        "0": {
+          "precision": 0.47368421052631576,
+          "recall": 0.28125,
+          "f1-score": 0.35294117647058826,
+          "support": 32.0
+        },
+        "1": {
+          "precision": 0.5892857142857143,
+          "recall": 0.7674418604651163,
+          "f1-score": 0.6666666666666666,
+          "support": 43.0
+        },
+        "accuracy": 0.56,
+        "macro avg": {
+          "precision": 0.5314849624060151,
+          "recall": 0.5243459302325582,
+          "f1-score": 0.5098039215686274,
+          "support": 75.0
+        },
+        "weighted avg": {
+          "precision": 0.5399624060150375,
+          "recall": 0.56,
+          "f1-score": 0.5328104575163398,
+          "support": 75.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_ROC_logit_withcat_withpub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_PR_logit_withcat_withpub_20240905-20250905.png"
+    },
+    "rf": {
+      "roc_auc": 0.6686046511627907,
+      "pr_auc": 0.7647149946109417,
+      "classification_report": {
+        "0": {
+          "precision": 0.6071428571428571,
+          "recall": 0.53125,
+          "f1-score": 0.5666666666666667,
+          "support": 32.0
+        },
+        "1": {
+          "precision": 0.6808510638297872,
+          "recall": 0.7441860465116279,
+          "f1-score": 0.7111111111111111,
+          "support": 43.0
+        },
+        "accuracy": 0.6533333333333333,
+        "macro avg": {
+          "precision": 0.6439969604863222,
+          "recall": 0.637718023255814,
+          "f1-score": 0.6388888888888888,
+          "support": 75.0
+        },
+        "weighted avg": {
+          "precision": 0.6494022289766971,
+          "recall": 0.6533333333333333,
+          "f1-score": 0.6494814814814814,
+          "support": 75.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_ROC_rf_withcat_withpub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_PR_rf_withcat_withpub_20240905-20250905.png"
+    },
+    "xgb": {
+      "roc_auc": 0.5116279069767442,
+      "pr_auc": 0.6036301527862806,
+      "classification_report": {
+        "0": {
+          "precision": 0.4186046511627907,
+          "recall": 0.5625,
+          "f1-score": 0.48,
+          "support": 32.0
+        },
+        "1": {
+          "precision": 0.5625,
+          "recall": 0.4186046511627907,
+          "f1-score": 0.48,
+          "support": 43.0
+        },
+        "accuracy": 0.48,
+        "macro avg": {
+          "precision": 0.4905523255813954,
+          "recall": 0.4905523255813954,
+          "f1-score": 0.48,
+          "support": 75.0
+        },
+        "weighted avg": {
+          "precision": 0.5011046511627907,
+          "recall": 0.48,
+          "f1-score": 0.48,
+          "support": 75.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_ROC_xgb_withcat_withpub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Healthcare_PR_xgb_withcat_withpub_20240905-20250905.png"
+    }
+  }
+}
