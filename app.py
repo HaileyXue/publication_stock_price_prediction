@@ -284,6 +284,37 @@ with tab_features:
         )
         st.dataframe(df[show_cols].head(200), use_container_width=True)
         st.caption("Note: for speed, only the **first 200 rows** (head) are shown here.")
+        # --- Feature explanations (only for columns shown) ---
+        expl = {
+            # numeric
+            "close_mean": "Equal-weighted average closing price across sector tickers.",
+            "ret_1d": "1-day return of the sector average price (close_mean).",
+            "vol_4w": "Rolling 20-trading-day (~4 weeks) sum of total traded volume.",
+            "vol_growth": "Day-over-day percent change in total traded volume.",
+            "pub_4w": "Rolling 20-trading-day sum of mapped publication counts.",
+            "pub_growth": "Day-over-day percent change in mapped publication counts.",
+            # categorical (topic names)
+            "top1": "Most frequent topic name on that day.",
+            "top2": "2nd most frequent topic name.",
+            "top3": "3rd most frequent topic name.",
+            "top4": "4th most frequent topic name.",
+            "top5": "5th most frequent topic name.",
+        }
+
+        # Only describe columns actually displayed in the table
+        described_cols = [c for c in show_cols if c in expl]
+        nums = [c for c in described_cols if c in {"ret_1d","close_mean","vol_4w","vol_growth","pub_4w","pub_growth"}]
+        cats = [c for c in described_cols if c in {"top1","top2","top3","top4","top5"}]
+
+        with st.expander("What do these features mean?"):
+            if nums:
+                st.markdown("**Numeric features**")
+                for c in nums:
+                    st.markdown(f"- **{c}** — {expl[c]}")
+            if cats:
+                st.markdown("**Categorical features (topics)**")
+                for c in cats:
+                    st.markdown(f"- **{c}** — {expl[c]}")
     else:
         st.info("Features not found yet. Run **Build / Update Data** in the Build & Run tab.")
 
@@ -292,27 +323,30 @@ with tab_plots:
     st.subheader("Visualization Outputs")
     tag = date_tag(start_date, end_date)
 
-    # Show ONLY these plots, in this order (2 per row)
+    # Base plots in the exact order (2 per row)
     ordered_plots = [
-        PLOTS_DIR / f"{sector}_{tag}_price.png",
+        PLOTS_DIR / f"{sector}_{tag}_price.png",                    # 1st (left)
+        PLOTS_DIR / f"{sector}_{tag}_levels_price_vs_pubs.png",     # 2nd (right)
         PLOTS_DIR / f"{sector}_{tag}_volume_feats.png",
         PLOTS_DIR / f"{sector}_{tag}_pub_feats.png",
-        PLOTS_DIR / f"{sector}_{tag}_levels_price_vs_pubs.png",
         PLOTS_DIR / f"{sector}_{tag}_corr_all.png",
         PLOTS_DIR / f"{sector}_{tag}_corr_core.png",
-        PLOTS_DIR / f"{sector}_{tag}_cat_assoc_top_topics.png",
     ]
+
+    # Only show Cramér's V heatmap if categorical features are selected
+    if st.session_state.with_categories:
+        ordered_plots.append(PLOTS_DIR / f"{sector}_{tag}_cat_assoc_top_topics.png")
 
     existing = [p for p in ordered_plots if p.exists()]
     missing  = [p for p in ordered_plots if not p.exists()]
 
     if not existing:
-        st.info("No plots for this date range. Run **Generate Plots** in the Build & Run tab.")
+        st.info("No plots for this date range. Use **Generate Plots (04)**.")
     else:
         cols = st.columns(2)
         for i, p in enumerate(existing):
             with cols[i % 2]:
-                st.image(str(p), caption=p.name, use_container_width=True)
+                st.image(str(p), use_container_width=True)  # no caption
 
     if missing:
         with st.expander("Missing expected plots"):

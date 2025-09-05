@@ -121,19 +121,29 @@ def main():
     else:
         print("[WARN] Missing pub_4w/pub_growth for publication features plot")
 
-    # 4) close_mean & pub_count (NO z-scores; twin y-axes for readability)
+     # 4) close_mean & pub_count (NO z-scores) — colored lines
     if {"close_mean","pub_count"}.issubset(df.columns):
         fig, ax1 = plt.subplots(figsize=(12,5))
-        df.plot(x="date", y="close_mean", ax=ax1, label="close_mean")
-        ax1.set_ylabel("close_mean"); ax1.set_xlabel("Date")
 
+        # left axis: close_mean (blue)
+        ax1.plot(df["date"], df["close_mean"], label="close_mean", color="tab:blue")
+        ax1.set_ylabel("close_mean", color="tab:blue")
+        ax1.tick_params(axis="y", labelcolor="tab:blue")
+        ax1.set_xlabel("Date")
+
+        # right axis: pub_count (orange)
         ax2 = ax1.twinx()
-        df.plot(x="date", y="pub_count", ax=ax2, label="pub_count", linestyle="--")
-        ax2.set_ylabel("pub_count")
+        ax2.plot(df["date"], df["pub_count"], label="pub_count", color="tab:orange")
+        ax2.set_ylabel("pub_count", color="tab:orange")
+        ax2.tick_params(axis="y", labelcolor="tab:orange")
 
         ax1.set_title(f"{args.sector} {tag}: close_mean vs pub_count")
-        h1,l1 = ax1.get_legend_handles_labels(); h2,l2 = ax2.get_legend_handles_labels()
-        ax1.legend(h1+h2, l1+l2, loc="upper left")
+
+        # unified legend
+        h1, l1 = ax1.get_legend_handles_labels()
+        h2, l2 = ax2.get_legend_handles_labels()
+        ax1.legend(h1 + h2, l1 + l2, loc="upper left")
+
         fig.tight_layout()
         fig.savefig(PLOTS_DIR / f"{args.sector}_{tag}_levels_price_vs_pubs.png", bbox_inches="tight")
         plt.close(fig)
