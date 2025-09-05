@@ -12,6 +12,3 @@ seaborn
 setuptools==65.5.0
 xgboost>=1.6
 streamlit
-csv
-itertools
-pathlib
