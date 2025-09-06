@@ -340,7 +340,7 @@ with tab_features:
             f"({'with' if st.session_state.include_pub_numeric else 'without'} publication numerics; "
             f"{'with' if st.session_state.with_categories else 'without'} categorical topics)."
         )
-        st.dataframe(df[show_cols].head(200), use_container_width=True)
+        st.dataframe(df[show_cols].head(200), width="stretch")
         st.caption("Note: for speed, only the **first 200 rows** are shown.")
 
         # --- Feature explanations (only for columns shown) ---
@@ -383,8 +383,8 @@ with tab_plots:
     ordered_plots = [
         PLOTS_DIR / f"{sector}_{tag}_price.png",                    # 1st (left)
         PLOTS_DIR / f"{sector}_{tag}_levels_price_vs_pubs.png",     # 2nd (right)
-        PLOTS_DIR / f"{sector}_{tag}_volume_feats.png",
-        PLOTS_DIR / f"{sector}_{tag}_pub_feats.png",
+        PLOTS_DIR / f"{sector}_{tag}_ret5d_vs_pub_growth.png",
+        PLOTS_DIR / f"{sector}_{tag}_ret5d_vs_pub4w.png",
         PLOTS_DIR / f"{sector}_{tag}_corr_all.png",
         PLOTS_DIR / f"{sector}_{tag}_corr_core.png",
         PLOTS_DIR / f"{sector}_{tag}_class_balance.png",
@@ -403,7 +403,7 @@ with tab_plots:
         cols = st.columns(2)
         for i, p in enumerate(existing):
             with cols[i % 2]:
-                st.image(str(p), use_container_width=True)  # no caption
+                st.image(str(p), width="stretch")  # no caption
 
     if missing:
         with st.expander("Missing expected plots"):
@@ -453,7 +453,7 @@ with tab_plots:
             if not top5.empty:
                 st.markdown("---")
                 st.subheader("Top 5 topics in this date range")
-                st.dataframe(top5, hide_index=True, use_container_width=True)
+                st.dataframe(top5, hide_index=True, width="stretch")
         else:
             st.info("Features file for this date range not found; generate features to see top topics.")
 
@@ -486,7 +486,7 @@ with tab_model:
             })
         dfm = pd.DataFrame(rows).sort_values("Model")
         st.caption(label_suffix)
-        st.dataframe(dfm, use_container_width=True)
+        st.dataframe(dfm, width="stretch")
 
     st.markdown("**Evaluation tables**")
 
@@ -553,7 +553,7 @@ with tab_model:
             for p in fi_csvs:
                 st.write(Path(p).name)
                 try:
-                    st.dataframe(pd.read_csv(p), use_container_width=True)
+                    st.dataframe(pd.read_csv(p), width="stretch")
                 except Exception:
                     st.code(Path(p).read_text()[:4000])
     else:
@@ -564,7 +564,7 @@ with tab_model:
             cols = st.columns(2)
             for i, p in enumerate(fi_pngs):
                 with cols[i % 2]:
-                    st.image(str(p), use_container_width=True)
+                    st.image(str(p), width="stretch")
     else:
         st.info("No feature-importance plots found for this selection/date range. Run Modeling to generate them.")
 
@@ -600,15 +600,15 @@ with tab_model:
             # show it centered at ~1/2 width using side spacers.
             left, mid, right = st.columns([1, 1, 1])
             with left:
-                st.image(str(imgs[0]), use_container_width=True)
+                st.image(str(imgs[0]), width="stretch")
         elif len(imgs) == 2:
             # Two variants → standard two columns
             left, mid, right = st.columns([1, 1, 1])
-            with left: st.image(str(imgs[0]), use_container_width=True)
-            with mid: st.image(str(imgs[1]), use_container_width=True)
+            with left: st.image(str(imgs[0]), width="stretch")
+            with mid: st.image(str(imgs[1]), width="stretch")
         else:
             # 3 variants → one column per image
             cols = st.columns(len(imgs))
             for i, pth in enumerate(imgs):
                 with cols[i]:
-                    st.image(str(pth), use_container_width=True)
+                    st.image(str(pth), width="stretch")

@@ -103,25 +103,7 @@ def main():
     else:
         print("[WARN] Missing 'close_mean' for price plot")
 
-    # 2) vol_4w & vol_growth
-    vol_cols = [c for c in ["vol_4w","vol_growth"] if c in df.columns]
-    if vol_cols:
-        ax = df.plot(x="date", y=vol_cols, figsize=(12,5),
-                     title=f"{args.sector} {tag}: {', '.join(vol_cols)}")
-        ax.figure.savefig(PLOTS_DIR / f"{args.sector}_{tag}_volume_feats.png", bbox_inches="tight"); plt_close(ax)
-    else:
-        print("[WARN] Missing vol_4w/vol_growth for volume features plot")
-
-    # 3) pub_4w & pub_growth
-    pub_cols = [c for c in ["pub_4w","pub_growth"] if c in df.columns]
-    if pub_cols:
-        ax = df.plot(x="date", y=pub_cols, figsize=(12,5),
-                     title=f"{args.sector} {tag}: {', '.join(pub_cols)}")
-        ax.figure.savefig(PLOTS_DIR / f"{args.sector}_{tag}_pub_feats.png", bbox_inches="tight"); plt_close(ax)
-    else:
-        print("[WARN] Missing pub_4w/pub_growth for publication features plot")
-
-     # 4) close_mean & pub_count (NO z-scores) — colored lines
+    # 2) close_mean & pub_count (NO z-scores) — colored lines
     if {"close_mean","pub_count"}.issubset(df.columns):
         fig, ax1 = plt.subplots(figsize=(12,5))
 
@@ -131,9 +113,9 @@ def main():
         ax1.tick_params(axis="y", labelcolor="tab:blue")
         ax1.set_xlabel("Date")
 
-        # right axis: pub_count (orange)
+        # right axis: pub_count (orange, dashed per your convention)
         ax2 = ax1.twinx()
-        ax2.plot(df["date"], df["pub_count"], label="pub_count", color="tab:orange")
+        ax2.plot(df["date"], df["pub_count"], label="pub_count", color="tab:orange", linestyle="--")
         ax2.set_ylabel("pub_count", color="tab:orange")
         ax2.tick_params(axis="y", labelcolor="tab:orange")
 
@@ -149,6 +131,72 @@ def main():
         plt.close(fig)
     else:
         print("[WARN] Levels plot skipped: need 'close_mean' and 'pub_count'")
+
+    # --- NEW: 5d forward return vs publication growth (colored) ---
+    # If pub_growth missing but pub_count exists, compute safe pct_change
+    if "pub_growth" not in df.columns and "pub_count" in df.columns:
+        g = df["pub_count"].astype(float).pct_change()
+        g = g.replace([np.inf, -np.inf], np.nan).fillna(0)
+        df["pub_growth"] = g
+
+    if {"ret_fwd_5d", "pub_growth"}.issubset(df.columns):
+        fig, ax1 = plt.subplots(figsize=(12, 5))
+        # left axis: 5d forward return (blue)
+        ax1.plot(df["date"], df["ret_fwd_5d"],
+                 label="5d forward return (ret_fwd_5d)", color="#1f77b4")
+        ax1.axhline(0, linestyle="--", linewidth=1, color="black")
+        ax1.set_xlabel("Date")
+        ax1.set_ylabel("5d forward return", color="#1f77b4")
+        ax1.tick_params(axis="y", colors="#1f77b4")
+
+        # right axis: pub_growth (orange, dashed)
+        ax2 = ax1.twinx()
+        ax2.plot(df["date"], df["pub_growth"],
+                 linestyle="--", label="Publication growth (pub_growth)", color="#ff7f0e")
+        ax2.set_ylabel("Publication growth (pct change)", color="#ff7f0e")
+        ax2.tick_params(axis="y", colors="#ff7f0e")
+
+        # combined legend
+        h1, l1 = ax1.get_legend_handles_labels()
+        h2, l2 = ax2.get_legend_handles_labels()
+        ax1.legend(h1 + h2, l1 + l2, loc="upper left")
+
+        ax1.set_title(f"{args.sector} {tag}: 5d return vs publication growth")
+        fig.tight_layout()
+        fig.savefig(PLOTS_DIR / f"{args.sector}_{tag}_ret5d_vs_pub_growth.png", bbox_inches="tight")
+        plt.close(fig)
+    else:
+        print("[WARN] Plot skipped: need 'ret_fwd_5d' and 'pub_growth' (or 'pub_count' to compute it)")
+
+    # --- NEW: 5d forward return vs 4-week publications (colored) ---
+    if {"ret_fwd_5d", "pub_4w"}.issubset(df.columns):
+        fig, ax1b = plt.subplots(figsize=(12, 5))
+        # left axis: 5d forward return (blue)
+        ax1b.plot(df["date"], df["ret_fwd_5d"],
+                  label="5d forward return (ret_fwd_5d)", color="#1f77b4")
+        ax1b.axhline(0, linestyle="--", linewidth=1, color="black")
+        ax1b.set_xlabel("Date")
+        ax1b.set_ylabel("5d forward return", color="#1f77b4")
+        ax1b.tick_params(axis="y", colors="#1f77b4")
+
+        # right axis: pub_4w (orange, dashed)
+        ax2b = ax1b.twinx()
+        ax2b.plot(df["date"], df["pub_4w"],
+                  linestyle="--", label="Publications 4w (pub_4w)", color="#ff7f0e")
+        ax2b.set_ylabel("Publications (4-week sum)", color="#ff7f0e")
+        ax2b.tick_params(axis="y", colors="#ff7f0e")
+
+        # combined legend
+        h1b, l1b = ax1b.get_legend_handles_labels()
+        h2b, l2b = ax2b.get_legend_handles_labels()
+        ax1b.legend(h1b + h2b, l1b + l2b, loc="upper left")
+
+        ax1b.set_title(f"{args.sector} {tag}: 5d return vs 4w publications")
+        fig.tight_layout()
+        fig.savefig(PLOTS_DIR / f"{args.sector}_{tag}_ret5d_vs_pub4w.png", bbox_inches="tight")
+        plt.close(fig)
+    else:
+        print("[WARN] Plot skipped: need 'ret_fwd_5d' and 'pub_4w'")
 
     # Heatmap 1 — all
     cols_hm_full = [
@@ -174,7 +222,6 @@ def main():
         ax.bar(["Class 0", "Class 1"], [counts.get(0, 0), counts.get(1, 0)])
         ax.set_title(f"{args.sector} {tag}: Class distribution (y_up_5d)")
         ax.set_ylabel("Count")
-        # Optional: annotate bars
         for i, v in enumerate([counts.get(0, 0), counts.get(1, 0)]):
             ax.text(i, v, f"{v}", ha="center", va="bottom")
         fig.tight_layout()

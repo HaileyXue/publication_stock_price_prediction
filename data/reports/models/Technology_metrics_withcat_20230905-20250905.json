@@ -1,0 +1,204 @@
+{
+  "nopub": {
+    "logit": {
+      "roc_auc": 0.5200810611643331,
+      "pr_auc": 0.6339392480273117,
+      "classification_report": {
+        "0": {
+          "precision": 0.40816326530612246,
+          "recall": 0.6779661016949152,
+          "f1-score": 0.5095541401273885,
+          "support": 59.0
+        },
+        "1": {
+          "precision": 0.6415094339622641,
+          "recall": 0.3695652173913043,
+          "f1-score": 0.4689655172413793,
+          "support": 92.0
+        },
+        "accuracy": 0.4900662251655629,
+        "macro avg": {
+          "precision": 0.5248363496341932,
+          "recall": 0.5237656595431097,
+          "f1-score": 0.4892598286843839,
+          "support": 151.0
+        },
+        "weighted avg": {
+          "precision": 0.5503344409111889,
+          "recall": 0.4900662251655629,
+          "f1-score": 0.48482464803789943,
+          "support": 151.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_ROC_logit_withcat_nopub_20230905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_PR_logit_withcat_nopub_20230905-20250905.png"
+    },
+    "rf": {
+      "roc_auc": 0.4950257921886514,
+      "pr_auc": 0.6248162158272546,
+      "classification_report": {
+        "0": {
+          "precision": 0.41,
+          "recall": 0.6949152542372882,
+          "f1-score": 0.5157232704402516,
+          "support": 59.0
+        },
+        "1": {
+          "precision": 0.6470588235294118,
+          "recall": 0.358695652173913,
+          "f1-score": 0.46153846153846156,
+          "support": 92.0
+        },
+        "accuracy": 0.4900662251655629,
+        "macro avg": {
+          "precision": 0.5285294117647059,
+          "recall": 0.5268054532056006,
+          "f1-score": 0.48863086598935657,
+          "support": 151.0
+        },
+        "weighted avg": {
+          "precision": 0.5544331904947409,
+          "recall": 0.4900662251655629,
+          "f1-score": 0.48271000938750536,
+          "support": 151.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_ROC_rf_withcat_nopub_20230905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_PR_rf_withcat_nopub_20230905-20250905.png"
+    },
+    "xgb": {
+      "roc_auc": 0.4738393515106854,
+      "pr_auc": 0.5749991135695021,
+      "classification_report": {
+        "0": {
+          "precision": 0.37383177570093457,
+          "recall": 0.6779661016949152,
+          "f1-score": 0.4819277108433735,
+          "support": 59.0
+        },
+        "1": {
+          "precision": 0.5681818181818182,
+          "recall": 0.2717391304347826,
+          "f1-score": 0.36764705882352944,
+          "support": 92.0
+        },
+        "accuracy": 0.4304635761589404,
+        "macro avg": {
+          "precision": 0.47100679694137637,
+          "recall": 0.4748526160648489,
+          "f1-score": 0.42478738483345146,
+          "support": 151.0
+        },
+        "weighted avg": {
+          "precision": 0.4922437221131286,
+          "recall": 0.4304635761589404,
+          "f1-score": 0.41229976391737577,
+          "support": 151.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_ROC_xgb_withcat_nopub_20230905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_PR_xgb_withcat_nopub_20230905-20250905.png"
+    }
+  },
+  "withpub": {
+    "logit": {
+      "roc_auc": 0.5147383935151069,
+      "pr_auc": 0.6277812575898922,
+      "classification_report": {
+        "0": {
+          "precision": 0.4077669902912621,
+          "recall": 0.711864406779661,
+          "f1-score": 0.5185185185185185,
+          "support": 59.0
+        },
+        "1": {
+          "precision": 0.6458333333333334,
+          "recall": 0.33695652173913043,
+          "f1-score": 0.44285714285714284,
+          "support": 92.0
+        },
+        "accuracy": 0.48344370860927155,
+        "macro avg": {
+          "precision": 0.5268001618122977,
+          "recall": 0.5244104642593957,
+          "f1-score": 0.48068783068783066,
+          "support": 151.0
+        },
+        "weighted avg": {
+          "precision": 0.5528140337341135,
+          "recall": 0.48344370860927155,
+          "f1-score": 0.4724201969235081,
+          "support": 151.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_ROC_logit_withcat_withpub_20230905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_PR_logit_withcat_withpub_20230905-20250905.png"
+    },
+    "rf": {
+      "roc_auc": 0.4817612380250553,
+      "pr_auc": 0.6048001149195505,
+      "classification_report": {
+        "0": {
+          "precision": 0.37894736842105264,
+          "recall": 0.6101694915254238,
+          "f1-score": 0.4675324675324675,
+          "support": 59.0
+        },
+        "1": {
+          "precision": 0.5892857142857143,
+          "recall": 0.358695652173913,
+          "f1-score": 0.44594594594594594,
+          "support": 92.0
+        },
+        "accuracy": 0.45695364238410596,
+        "macro avg": {
+          "precision": 0.48411654135338344,
+          "recall": 0.48443257184966837,
+          "f1-score": 0.45673920673920676,
+          "support": 151.0
+        },
+        "weighted avg": {
+          "precision": 0.507100532788926,
+          "recall": 0.45695364238410596,
+          "f1-score": 0.4543804146453153,
+          "support": 151.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_ROC_rf_withcat_withpub_20230905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_PR_rf_withcat_withpub_20230905-20250905.png"
+    },
+    "xgb": {
+      "roc_auc": 0.453942520265291,
+      "pr_auc": 0.5830260837994892,
+      "classification_report": {
+        "0": {
+          "precision": 0.3364485981308411,
+          "recall": 0.6101694915254238,
+          "f1-score": 0.43373493975903615,
+          "support": 59.0
+        },
+        "1": {
+          "precision": 0.4772727272727273,
+          "recall": 0.22826086956521738,
+          "f1-score": 0.3088235294117647,
+          "support": 92.0
+        },
+        "accuracy": 0.37748344370860926,
+        "macro avg": {
+          "precision": 0.4068606627017842,
+          "recall": 0.4192151805453206,
+          "f1-score": 0.37127923458540046,
+          "support": 151.0
+        },
+        "weighted avg": {
+          "precision": 0.4222487297934473,
+          "recall": 0.37748344370860926,
+          "f1-score": 0.35762997451434103,
+          "support": 151.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_ROC_xgb_withcat_withpub_20230905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_PR_xgb_withcat_withpub_20230905-20250905.png"
+    }
+  }
+}

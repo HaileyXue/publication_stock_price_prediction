@@ -1,0 +1,18 @@
+feature,importance
+vol_4w,0.2852147937988823
+close_mean,0.27778285950538956
+ret_1d,0.18255297464986997
+vol_growth,0.15800411590157684
+top1_Information Technology Governance and Strategy,0.017262628838394477
+top5_nan,0.01554188755549511
+top1_Big Data and Business Intelligence,0.01508833258691799
+top1_infrequent_sklearn,0.014564854102336036
+top5_infrequent_sklearn,0.011853170647975022
+top1_nan,0.010375551848084462
+top5_ERP Systems Implementation and Impact,0.005876319539283934
+top1_ERP Systems Implementation and Impact,0.0027286313284409234
+top1_Collaboration in agile enterprises,0.0012482035054612898
+top5_Management and Optimization Techniques,0.0008681957383724346
+top5_Software Engineering Techniques and Practices,0.000505454890387946
+top5_Technology Adoption and User Behaviour,0.0004047697094144545
+top1_Business Process Modeling and Analysis,0.00012725585371723024
