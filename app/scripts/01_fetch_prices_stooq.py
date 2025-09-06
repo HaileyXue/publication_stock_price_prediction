@@ -113,8 +113,9 @@ def build_sector_daily_agg(tickers, start, end, out_path: Path) -> pd.DataFrame:
     agg["volume_sum"] = agg["volume_sum"].fillna(0)
 
     # Returns
-    agg["ret_1d"]     = agg["close_mean"].pct_change()
-    agg["ret_fwd_5d"] = agg["close_mean"].shift(-5)/agg["close_mean"] - 1
+    # Past 5-day return (look-back) and forward 5-day return (label)
+    agg["ret_5d"]     = agg["close_mean"].pct_change(5)
+    agg["ret_fwd_5d"] = agg["close_mean"].shift(-5) / agg["close_mean"] - 1
 
     # Volume features
     lv = np.log1p(agg["volume_sum"])
@@ -124,7 +125,11 @@ def build_sector_daily_agg(tickers, start, end, out_path: Path) -> pd.DataFrame:
     roll_std          = lv.rolling(126, min_periods=30).std()
     agg["vol_z"]      = (lv - roll_mean) / roll_std
 
-    out = agg[["date","close_mean","ret_1d","ret_fwd_5d","volume_sum","vol_4w","vol_growth","vol_z"]]
+    out = agg[[
+        "date","close_mean",
+        "ret_5d","ret_fwd_5d",
+        "volume_sum","vol_4w","vol_growth","vol_z"
+    ]]
     out.to_csv(out_path, index=False)
     print(f"[Prices] wrote {out_path} | rows={len(out)}")
     return out

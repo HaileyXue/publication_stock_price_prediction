@@ -1,15 +1,28 @@
 feature,importance
-close_mean,0.16293822
-top1_nan,0.14280584
-top5_infrequent_sklearn,0.13470438
-top5_nan,0.12931445
-top1_Information Technology Governance and Strategy,0.12507594
-vol_4w,0.10229651
-vol_growth,0.10206539
-ret_1d,0.10079931
-top1_Big Data and Business Intelligence,0.0
-top1_Collaboration in agile enterprises,0.0
-top1_ERP Systems Implementation and Impact,0.0
-top1_infrequent_sklearn,0.0
-top5_ERP Systems Implementation and Impact,0.0
+top5_4w_Collaboration in agile enterprises,0.17050873
+top5_4w_Business Process Modeling and Analysis,0.13917007
+top5_infrequent_sklearn,0.12965867
+top5_nan,0.10487909
+top2_Information Technology Governance and Strategy,0.0951117
+top2_nan,0.08789746
+vol_4w,0.07919366
+ret_5d,0.06811198
+top2_Big Data and Business Intelligence,0.0669693
+vol_growth,0.058499314
+top2_ERP Systems Implementation and Impact,0.0
+top5_4w_Technology Adoption and User Behaviour,0.0
+top5_4w_Software Engineering Techniques and Practices,0.0
+top5_4w_Service-Oriented Architecture and Web Services,0.0
+top5_4w_Innovation and Knowledge Management,0.0
+top5_4w_ERP Systems Implementation and Impact,0.0
+top5_4w_Digital Transformation in Industry,0.0
+top2_4w_infrequent_sklearn,0.0
+top2_Digital Transformation in Industry,0.0
+top2_4w_ERP Systems Implementation and Impact,0.0
+top2_4w_Big Data and Business Intelligence,0.0
+top2_Business Process Modeling and Analysis,0.0
+top2_Collaboration in agile enterprises,0.0
 top5_Software Engineering Techniques and Practices,0.0
+top5_ERP Systems Implementation and Impact,0.0
+top2_infrequent_sklearn,0.0
+top5_4w_infrequent_sklearn,0.0

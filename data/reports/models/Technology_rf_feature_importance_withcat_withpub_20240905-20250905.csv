@@ -1,17 +1,32 @@
 feature,importance
-close_mean,0.2679971229077647
-pub_4w,0.16226094087175233
-vol_4w,0.14918416582049981
-ret_1d,0.14644575429382536
-vol_growth,0.12257054125418783
-pub_growth,0.08487632868989264
-top5_nan,0.015906593469988003
-top1_Information Technology Governance and Strategy,0.012556285793229588
-top5_infrequent_sklearn,0.010597109529964899
-top1_nan,0.01008157932712659
-top1_Big Data and Business Intelligence,0.00882832019109634
-top1_infrequent_sklearn,0.0076506007110440505
-top1_ERP Systems Implementation and Impact,0.0007298060530464389
-top1_Collaboration in agile enterprises,0.0002348260089285749
-top5_Software Engineering Techniques and Practices,8.002507765288626e-05
+vol_4w,0.14646223934177136
+pub_4w,0.1401258517314388
+ret_5d,0.11537693002581682
+vol_growth,0.09583074871744432
+top5_4w_share,0.08719416622193434
+top3_4w_share,0.08485302905285172
+top5_4w_infrequent_sklearn,0.06693784223767288
+pub_growth,0.06325569497550158
+top5_4w_Business Process Modeling and Analysis,0.025937378560098426
+top2_Information Technology Governance and Strategy,0.01816329430825215
+top2_ERP Systems Implementation and Impact,0.017655026130370434
+top2_4w_Big Data and Business Intelligence,0.017475957409725518
+top2_nan,0.01652991022958051
+top5_nan,0.014907233205497578
+top5_4w_Collaboration in agile enterprises,0.014056328846182705
+top2_Big Data and Business Intelligence,0.013394920335891404
+top5_infrequent_sklearn,0.012435322856936298
+top2_infrequent_sklearn,0.009990301339665613
+top5_4w_ERP Systems Implementation and Impact,0.009907716310204593
+top2_4w_ERP Systems Implementation and Impact,0.006643050120305326
+top5_4w_Digital Transformation in Industry,0.005584139689460464
+top2_Business Process Modeling and Analysis,0.005269104069356191
+top5_4w_Innovation and Knowledge Management,0.004724252430789311
+top5_4w_Software Engineering Techniques and Practices,0.002987725486757114
+top5_4w_Technology Adoption and User Behaviour,0.0013397840417713749
+top2_4w_infrequent_sklearn,0.0012072738981348725
+top2_Collaboration in agile enterprises,0.0009944140018193937
+top5_4w_Service-Oriented Architecture and Web Services,0.0005392682296893717
+top2_Digital Transformation in Industry,0.00022109619507955895
+top5_Software Engineering Techniques and Practices,0.0
 top5_ERP Systems Implementation and Impact,0.0

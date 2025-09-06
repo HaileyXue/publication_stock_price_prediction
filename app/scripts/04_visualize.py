@@ -18,6 +18,8 @@ def _tag(start: str, end: str) -> str:
     e = pd.to_datetime(end).strftime("%Y%m%d")
     return f"{s}-{e}"
 
+import matplotlib as mpl
+
 def _corr_heatmap(df, cols, title, outpath):
     cols = [c for c in cols if c in df.columns]
     if not cols:
@@ -27,14 +29,21 @@ def _corr_heatmap(df, cols, title, outpath):
     if sub.empty:
         print(f"[WARN] no numeric data for: {title}")
         return
-    corr = sub.corr()
+
+    corr = sub.corr()  # pairwise, keeps NaNs where undefined
+    mask = corr.isna()
+
+    cmap = mpl.colormaps['coolwarm'].copy()
+    cmap.set_bad(color='#d9d9d9')  # grey for NaNs
+
     plt.figure(figsize=(min(1.2*len(cols)+2, 18), min(1.2*len(cols)+2, 18)))
-    sns.heatmap(corr, annot=True, fmt=".2f", cmap="coolwarm", center=0, square=True,
-                cbar_kws={"shrink": .8})
+    sns.heatmap(corr, annot=True, fmt=".2f", cmap=cmap, center=0, square=True,
+                cbar_kws={"shrink": .8}, vmin=-1, vmax=1, mask=mask)
     plt.title(title)
     plt.tight_layout()
     plt.savefig(outpath, bbox_inches="tight")
     plt.close()
+
 
 # ---------- categorical (Cramér's V) helpers ----------
 def _cramers_v_from_table(ct: pd.DataFrame) -> float:
@@ -200,17 +209,18 @@ def main():
 
     # Heatmap 1 — all
     cols_hm_full = [
-        "close_mean","ret_1d",
+        "close_mean","ret_5d",
         "volume_sum","vol_4w","vol_growth",
         "pub_count","pub_4w","pub_growth",
-        "top1_count","top2_count","top3_count","top4_count","top5_count",
-        "top1_share","top2_share","top3_share","top4_share","top5_share",
+        "top1_4w_count","top2_4w_count","top3_4w_count","top4_4w_count","top5_4w_count",
+        "top1_4w_share","top2_4w_share","top3_4w_share","top4_4w_share","top5_4w_share",
     ]
     _corr_heatmap(df, cols_hm_full, title=f"{args.sector} {tag} correlations — all",
                   outpath=PLOTS_DIR / f"{args.sector}_{tag}_corr_all.png")
 
     # Heatmap 2 — core
-    cols_hm_core = ["ret_1d","close_mean","vol_4w","vol_growth","pub_4w","pub_growth"]
+    cols_hm_core = ["ret_5d", "vol_4w","vol_growth","pub_4w", "pub_growth",
+                    "top3_4w_share", "top5_4w_share"]
     _corr_heatmap(df, cols_hm_core, title=f"{args.sector} {tag} correlations — core",
                   outpath=PLOTS_DIR / f"{args.sector}_{tag}_corr_core.png")
 
@@ -231,7 +241,8 @@ def main():
         print("[WARN] Class balance plot skipped: 'y_up_5d' not found")
 
     # Heatmap 3 — categorical associations
-    cols_cats = ["top1","top2","top3","top4","top5"]
+    cols_cats = ["top1","top2","top3","top4","top5",
+                 "top1_4w","top2_4w","top3_4w","top4_4w","top5_4w"]
     _categorical_assoc_heatmap(df, cols_cats,
                                title=f"{args.sector} {tag} categorical associations — top topics (Cramér's V)",
                                outpath=PLOTS_DIR / f"{args.sector}_{tag}_cat_assoc_top_topics.png")

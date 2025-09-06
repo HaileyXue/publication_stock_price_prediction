@@ -1,19 +1,34 @@
 feature,importance
-vol_4w,0.25402308
-close_mean,0.23711972
-vol_growth,0.19746141
-ret_1d,0.15996212
-top5_infrequent_sklearn,0.15143377
-top1_infrequent_sklearn,0.0
-top5_Climate Change and Health Impacts,0.0
-top5_Employment and Welfare Studies,0.0
-"top5_Energy, Environment, Economic Growth",0.0
-top1_Global Health Care Issues,0.0
-top5_Global Maternal and Child Health,0.0
-"top5_Health Systems, Economic Evaluations, Quality of Life",0.0
-top5_Health disparities and outcomes,0.0
+top5_4w_Health disparities and outcomes,0.34792125
+top2_Healthcare Systems and Reforms,0.095239945
+top5_4w_Employment and Welfare Studies,0.09472083
+top2_4w_Healthcare Systems and Reforms,0.061776232
+vol_4w,0.056025237
+top2_infrequent_sklearn,0.049207408
+"top5_4w_Insurance, Mortality, Demography, Risk Management",0.046289712
+ret_5d,0.04564977
+top2_4w_Health disparities and outcomes,0.043889962
+top5_4w_Healthcare Policy and Management,0.04322494
+top2_Health disparities and outcomes,0.043016545
+vol_growth,0.038433116
+top5_infrequent_sklearn,0.034604985
 top5_Healthcare Policy and Management,0.0
-top5_Healthcare Systems and Reforms,0.0
-"top5_Insurance, Mortality, Demography, Risk Management",0.0
+top2_4w_infrequent_sklearn,0.0
+"top5_4w_Health Systems, Economic Evaluations, Quality of Life",0.0
 top5_nan,0.0
+"top5_Insurance, Mortality, Demography, Risk Management",0.0
+top5_Healthcare Systems and Reforms,0.0
+top5_Global Maternal and Child Health,0.0
+top5_Health disparities and outcomes,0.0
+"top5_Health Systems, Economic Evaluations, Quality of Life",0.0
 "top5_Financial Literacy, Pension, Retirement Analysis",0.0
+"top5_Energy, Environment, Economic Growth",0.0
+top5_Employment and Welfare Studies,0.0
+top5_Climate Change and Health Impacts,0.0
+"top2_Insurance, Mortality, Demography, Risk Management",0.0
+top2_Healthcare Policy and Management,0.0
+"top2_Health Systems, Economic Evaluations, Quality of Life",0.0
+top2_Global Maternal and Child Health,0.0
+top2_Employment and Welfare Studies,0.0
+top2_Climate Change and Health Impacts,0.0
+top5_4w_infrequent_sklearn,0.0

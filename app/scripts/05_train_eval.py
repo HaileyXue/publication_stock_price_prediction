@@ -13,7 +13,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (
     roc_auc_score, average_precision_score, precision_recall_curve,
-    roc_curve, classification_report
+    roc_curve, classification_report, accuracy_score
 )
 from xgboost import XGBClassifier
 
@@ -103,7 +103,8 @@ def export_feature_importance(model: Pipeline, model_name: str, sector: str,
 def eval_and_plot(model_name, model, X_train, y_train, X_test, y_test,
                   sector, suffix, variant, tag, fast=False):
     """
-    Fits the model, evaluates ROC-AUC / PR-AUC, saves ROC/PR plots, and returns metrics.
+    Fits the model, evaluates ROC-AUC / PR-AUC / Accuracy (threshold=0.5),
+    saves ROC/PR plots, and returns metrics.
     """
     # Fit
     print(f"[{model_name}{suffix}{variant}_{tag}] Fitting…")
@@ -114,6 +115,7 @@ def eval_and_plot(model_name, model, X_train, y_train, X_test, y_test,
     preds   = (p > 0.5).astype(int)
     roc_auc = roc_auc_score(y_test, p)
     pr_auc  = average_precision_score(y_test, p)
+    acc     = accuracy_score(y_test, preds)
     rep     = classification_report(y_test, preds, digits=3, output_dict=True)
 
     # ROC
@@ -128,7 +130,6 @@ def eval_and_plot(model_name, model, X_train, y_train, X_test, y_test,
     plt.savefig(roc_path, bbox_inches="tight"); plt.close()
 
     # PR
-    from sklearn.metrics import precision_recall_curve
     prec, rec, _ = precision_recall_curve(y_test, p)
     plt.figure(figsize=(6,5))
     plt.plot(rec, prec, label=f"{model_name} (AP={pr_auc:.3f})")
@@ -138,10 +139,11 @@ def eval_and_plot(model_name, model, X_train, y_train, X_test, y_test,
     pr_path = PLOTS_DIR / f"{sector}_PR_{model_name}{suffix}{variant}_{tag}.png"
     plt.savefig(pr_path, bbox_inches="tight"); plt.close()
 
-    print(f"[{model_name}{suffix}{variant}_{tag}] ROC-AUC={roc_auc:.3f} | AP={pr_auc:.3f}")
+    print(f"[{model_name}{suffix}{variant}_{tag}] ROC-AUC={roc_auc:.3f} | AP={pr_auc:.3f} | ACC={acc:.3f}")
     return {
         "roc_auc": roc_auc,
         "pr_auc": pr_auc,
+        "accuracy": acc,
         "classification_report": rep,
         "roc_plot": str(roc_path),
         "pr_plot":  str(pr_path),
@@ -173,9 +175,12 @@ def main():
     label_col = "y_up_5d"
 
     # Candidate columns
-    numeric_base = ["ret_1d","close_mean","vol_4w","vol_growth"]
-    numeric_pub  = ["pub_4w","pub_growth"]
-    cat_cols_all = ["top1","top5"]
+    # Candidate columns for modeling
+    numeric_base = ["ret_5d", "vol_4w", "vol_growth"]
+    numeric_pub  = ["pub_4w", "pub_growth", "top3_4w_share", "top5_4w_share"]  # gated by --include-pub
+
+    # Categorical columns (if --use-categories is on)
+    cat_cols_all = ["top2","top5","top2_4w","top5_4w"]
 
     d = df.dropna(subset=[label_col]).copy()
     if args.max_rows is not None and len(d) > args.max_rows:
@@ -235,7 +240,7 @@ def main():
     print(f"[Info] Fast mode: {args.fast}. RF trees={rf_params['n_estimators']}, XGB trees={xgb_params['n_estimators']}")
 
     # Build model constructors (pipelines will be created per-variant)
-    def make_models(train_df, use_categories):
+    def make_models(train_df, use_categories, num_cols_all, cat_cols_all):
         pre = build_preprocessor(train_df, num_cols_all, cat_cols_all, use_categories)
         logit = Pipeline([("pre", pre),
             ("clf", LogisticRegression(penalty="l2", solver="lbfgs", class_weight="balanced", max_iter=2000))])
@@ -247,7 +252,7 @@ def main():
 
     # -------- Variant A: baseline (no publication numerics) --------
     num_cols_all = numeric_base[:]  # no pubs
-    models = make_models(train, args.use_categories)
+    models = make_models(train, args.use_categories, num_cols_all, cat_cols_all)
     suffix, variant = suffix_base, "_nopub"
     res_nopub = {}
     for name, mdl in models.items():
@@ -259,7 +264,7 @@ def main():
     # -------- Variant B: add publication numerics (if requested) --------
     if args.include_pub:
         num_cols_all = numeric_base + numeric_pub
-        models = make_models(train, args.use_categories)
+        models = make_models(train, args.use_categories, num_cols_all, cat_cols_all)
         variant = "_withpub"
         res_withpub = {}
         for name, mdl in models.items():

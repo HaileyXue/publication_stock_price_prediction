@@ -1,0 +1,210 @@
+{
+  "nopub": {
+    "logit": {
+      "roc_auc": 0.8637992831541219,
+      "pr_auc": 0.8698996550003917,
+      "accuracy": 0.47368421052631576,
+      "classification_report": {
+        "0": {
+          "precision": 0.43478260869565216,
+          "recall": 0.967741935483871,
+          "f1-score": 0.6,
+          "support": 31.0
+        },
+        "1": {
+          "precision": 0.8571428571428571,
+          "recall": 0.13333333333333333,
+          "f1-score": 0.23076923076923078,
+          "support": 45.0
+        },
+        "accuracy": 0.47368421052631576,
+        "macro avg": {
+          "precision": 0.6459627329192547,
+          "recall": 0.5505376344086022,
+          "f1-score": 0.41538461538461535,
+          "support": 76.0
+        },
+        "weighted avg": {
+          "precision": 0.6848643347499183,
+          "recall": 0.47368421052631576,
+          "f1-score": 0.38137651821862345,
+          "support": 76.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_ROC_logit_nocat_nopub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_PR_logit_nocat_nopub_20240905-20250905.png"
+    },
+    "rf": {
+      "roc_auc": 0.6838709677419355,
+      "pr_auc": 0.753144761639687,
+      "accuracy": 0.5131578947368421,
+      "classification_report": {
+        "0": {
+          "precision": 0.453125,
+          "recall": 0.9354838709677419,
+          "f1-score": 0.6105263157894737,
+          "support": 31.0
+        },
+        "1": {
+          "precision": 0.8333333333333334,
+          "recall": 0.2222222222222222,
+          "f1-score": 0.3508771929824561,
+          "support": 45.0
+        },
+        "accuracy": 0.5131578947368421,
+        "macro avg": {
+          "precision": 0.6432291666666667,
+          "recall": 0.578853046594982,
+          "f1-score": 0.4807017543859649,
+          "support": 76.0
+        },
+        "weighted avg": {
+          "precision": 0.6782483552631579,
+          "recall": 0.5131578947368421,
+          "f1-score": 0.456786703601108,
+          "support": 76.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_ROC_rf_nocat_nopub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_PR_rf_nocat_nopub_20240905-20250905.png"
+    },
+    "xgb": {
+      "roc_auc": 0.6039426523297491,
+      "pr_auc": 0.7139976218467663,
+      "accuracy": 0.5131578947368421,
+      "classification_report": {
+        "0": {
+          "precision": 0.453125,
+          "recall": 0.9354838709677419,
+          "f1-score": 0.6105263157894737,
+          "support": 31.0
+        },
+        "1": {
+          "precision": 0.8333333333333334,
+          "recall": 0.2222222222222222,
+          "f1-score": 0.3508771929824561,
+          "support": 45.0
+        },
+        "accuracy": 0.5131578947368421,
+        "macro avg": {
+          "precision": 0.6432291666666667,
+          "recall": 0.578853046594982,
+          "f1-score": 0.4807017543859649,
+          "support": 76.0
+        },
+        "weighted avg": {
+          "precision": 0.6782483552631579,
+          "recall": 0.5131578947368421,
+          "f1-score": 0.456786703601108,
+          "support": 76.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_ROC_xgb_nocat_nopub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_PR_xgb_nocat_nopub_20240905-20250905.png"
+    }
+  },
+  "withpub": {
+    "logit": {
+      "roc_auc": 0.7512544802867384,
+      "pr_auc": 0.7937034961501993,
+      "accuracy": 0.5789473684210527,
+      "classification_report": {
+        "0": {
+          "precision": 0.4915254237288136,
+          "recall": 0.9354838709677419,
+          "f1-score": 0.6444444444444445,
+          "support": 31.0
+        },
+        "1": {
+          "precision": 0.8823529411764706,
+          "recall": 0.3333333333333333,
+          "f1-score": 0.4838709677419355,
+          "support": 45.0
+        },
+        "accuracy": 0.5789473684210527,
+        "macro avg": {
+          "precision": 0.6869391824526421,
+          "recall": 0.6344086021505376,
+          "f1-score": 0.5641577060931899,
+          "support": 76.0
+        },
+        "weighted avg": {
+          "precision": 0.7229364537965052,
+          "recall": 0.5789473684210527,
+          "f1-score": 0.5493680437653273,
+          "support": 76.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_ROC_logit_nocat_withpub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_PR_logit_nocat_withpub_20240905-20250905.png"
+    },
+    "rf": {
+      "roc_auc": 0.6157706093189964,
+      "pr_auc": 0.7356548987578878,
+      "accuracy": 0.5,
+      "classification_report": {
+        "0": {
+          "precision": 0.4461538461538462,
+          "recall": 0.9354838709677419,
+          "f1-score": 0.6041666666666666,
+          "support": 31.0
+        },
+        "1": {
+          "precision": 0.8181818181818182,
+          "recall": 0.2,
+          "f1-score": 0.32142857142857145,
+          "support": 45.0
+        },
+        "accuracy": 0.5,
+        "macro avg": {
+          "precision": 0.6321678321678322,
+          "recall": 0.567741935483871,
+          "f1-score": 0.46279761904761907,
+          "support": 76.0
+        },
+        "weighted avg": {
+          "precision": 0.6664335664335664,
+          "recall": 0.5,
+          "f1-score": 0.4367559523809524,
+          "support": 76.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_ROC_rf_nocat_withpub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_PR_rf_nocat_withpub_20240905-20250905.png"
+    },
+    "xgb": {
+      "roc_auc": 0.603225806451613,
+      "pr_auc": 0.735892905255672,
+      "accuracy": 0.5263157894736842,
+      "classification_report": {
+        "0": {
+          "precision": 0.4603174603174603,
+          "recall": 0.9354838709677419,
+          "f1-score": 0.6170212765957447,
+          "support": 31.0
+        },
+        "1": {
+          "precision": 0.8461538461538461,
+          "recall": 0.24444444444444444,
+          "f1-score": 0.3793103448275862,
+          "support": 45.0
+        },
+        "accuracy": 0.5263157894736842,
+        "macro avg": {
+          "precision": 0.6532356532356532,
+          "recall": 0.5899641577060931,
+          "f1-score": 0.49816581071166544,
+          "support": 76.0
+        },
+        "weighted avg": {
+          "precision": 0.6887732150890046,
+          "recall": 0.5263157894736842,
+          "f1-score": 0.47627138278565084,
+          "support": 76.0
+        }
+      },
+      "roc_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_ROC_xgb_nocat_withpub_20240905-20250905.png",
+      "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Semiconductors_PR_xgb_nocat_withpub_20240905-20250905.png"
+    }
+  }
+}

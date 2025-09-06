@@ -1,7 +1,8 @@
 feature,importance
-close_mean,0.24897802
-vol_4w,0.1682876
-ret_1d,0.16344969
-pub_4w,0.1622574
-vol_growth,0.13552783
-pub_growth,0.121499486
+top3_4w_share,0.15576711
+top5_4w_share,0.15573384
+vol_4w,0.15399203
+pub_4w,0.14513333
+ret_5d,0.14076489
+pub_growth,0.12457212
+vol_growth,0.124036655

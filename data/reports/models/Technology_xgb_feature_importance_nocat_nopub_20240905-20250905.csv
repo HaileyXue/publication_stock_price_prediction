@@ -1,5 +1,4 @@
 feature,importance
-close_mean,0.3389624
-vol_4w,0.22796512
-ret_1d,0.21704145
-vol_growth,0.21603107
+ret_5d,0.35869554
+vol_4w,0.3449411
+vol_growth,0.29636332

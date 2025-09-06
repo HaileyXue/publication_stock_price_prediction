@@ -1,32 +1,33 @@
 {
   "nopub": {
     "logit": {
-      "roc_auc": 0.6122994652406418,
-      "pr_auc": 0.6596038280863608,
+      "roc_auc": 0.4186211798152097,
+      "pr_auc": 0.5451789992136594,
+      "accuracy": 0.423841059602649,
       "classification_report": {
         "0": {
-          "precision": 0.4552238805970149,
-          "recall": 0.9242424242424242,
-          "f1-score": 0.61,
-          "support": 66.0
+          "precision": 0.3148148148148148,
+          "recall": 0.2537313432835821,
+          "f1-score": 0.2809917355371901,
+          "support": 67.0
         },
         "1": {
-          "precision": 0.7058823529411765,
-          "recall": 0.1411764705882353,
-          "f1-score": 0.23529411764705882,
-          "support": 85.0
+          "precision": 0.4845360824742268,
+          "recall": 0.5595238095238095,
+          "f1-score": 0.5193370165745856,
+          "support": 84.0
         },
-        "accuracy": 0.48344370860927155,
+        "accuracy": 0.423841059602649,
         "macro avg": {
-          "precision": 0.5805531167690957,
-          "recall": 0.5327094474153298,
-          "f1-score": 0.4226470588235294,
+          "precision": 0.3996754486445208,
+          "recall": 0.40662757640369585,
+          "f1-score": 0.40016437605588784,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.596323020658298,
-          "recall": 0.48344370860927155,
-          "f1-score": 0.3990728476821192,
+          "precision": 0.40922929483726916,
+          "recall": 0.423841059602649,
+          "f1-score": 0.41358116339905254,
           "support": 151.0
         }
       },
@@ -34,32 +35,33 @@
       "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/AI_PR_logit_nocat_nopub_20230905-20250905.png"
     },
     "rf": {
-      "roc_auc": 0.5442067736185383,
-      "pr_auc": 0.6252474999626934,
+      "roc_auc": 0.4331911869225302,
+      "pr_auc": 0.5046812975918642,
+      "accuracy": 0.4966887417218543,
       "classification_report": {
         "0": {
-          "precision": 0.46153846153846156,
-          "recall": 0.8181818181818182,
-          "f1-score": 0.5901639344262295,
-          "support": 66.0
+          "precision": 0.37142857142857144,
+          "recall": 0.19402985074626866,
+          "f1-score": 0.2549019607843137,
+          "support": 67.0
         },
         "1": {
-          "precision": 0.6470588235294118,
-          "recall": 0.25882352941176473,
-          "f1-score": 0.3697478991596639,
-          "support": 85.0
+          "precision": 0.5344827586206896,
+          "recall": 0.7380952380952381,
+          "f1-score": 0.62,
+          "support": 84.0
         },
-        "accuracy": 0.5033112582781457,
+        "accuracy": 0.4966887417218543,
         "macro avg": {
-          "precision": 0.5542986425339367,
-          "recall": 0.5385026737967915,
-          "f1-score": 0.4799559167929467,
+          "precision": 0.4529556650246305,
+          "recall": 0.4660625444207534,
+          "f1-score": 0.43745098039215685,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.5659704533876719,
-          "recall": 0.5033112582781457,
-          "f1-score": 0.46608868278610976,
+          "precision": 0.4621342119857762,
+          "recall": 0.4966887417218543,
+          "f1-score": 0.4580028567718478,
           "support": 151.0
         }
       },
@@ -67,32 +69,33 @@
       "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/AI_PR_rf_nocat_nopub_20230905-20250905.png"
     },
     "xgb": {
-      "roc_auc": 0.5247771836007129,
-      "pr_auc": 0.5847324244662888,
+      "roc_auc": 0.49218194740582805,
+      "pr_auc": 0.5779522589331773,
+      "accuracy": 0.5231788079470199,
       "classification_report": {
         "0": {
-          "precision": 0.4528301886792453,
-          "recall": 0.7272727272727273,
-          "f1-score": 0.5581395348837209,
-          "support": 66.0
+          "precision": 0.43902439024390244,
+          "recall": 0.26865671641791045,
+          "f1-score": 0.3333333333333333,
+          "support": 67.0
         },
         "1": {
-          "precision": 0.6,
-          "recall": 0.3176470588235294,
-          "f1-score": 0.4153846153846154,
-          "support": 85.0
+          "precision": 0.5545454545454546,
+          "recall": 0.7261904761904762,
+          "f1-score": 0.6288659793814433,
+          "support": 84.0
         },
-        "accuracy": 0.4966887417218543,
+        "accuracy": 0.5231788079470199,
         "macro avg": {
-          "precision": 0.5264150943396226,
-          "recall": 0.5224598930481283,
-          "f1-score": 0.48676207513416814,
+          "precision": 0.49678492239467853,
+          "recall": 0.4974235963041933,
+          "f1-score": 0.4810996563573883,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.5356741222041734,
-          "recall": 0.4966887417218543,
-          "f1-score": 0.47778080536435685,
+          "precision": 0.5032877637626467,
+          "recall": 0.5231788079470199,
+          "f1-score": 0.49773560000910305,
           "support": 151.0
         }
       },
@@ -102,32 +105,33 @@
   },
   "withpub": {
     "logit": {
-      "roc_auc": 0.6345811051693405,
-      "pr_auc": 0.6830313862095836,
+      "roc_auc": 0.5120824449182657,
+      "pr_auc": 0.5815708848741785,
+      "accuracy": 0.5231788079470199,
       "classification_report": {
         "0": {
-          "precision": 0.46511627906976744,
-          "recall": 0.9090909090909091,
-          "f1-score": 0.6153846153846154,
-          "support": 66.0
+          "precision": 0.4657534246575342,
+          "recall": 0.5074626865671642,
+          "f1-score": 0.4857142857142857,
+          "support": 67.0
         },
         "1": {
-          "precision": 0.7272727272727273,
-          "recall": 0.18823529411764706,
-          "f1-score": 0.29906542056074764,
-          "support": 85.0
+          "precision": 0.5769230769230769,
+          "recall": 0.5357142857142857,
+          "f1-score": 0.5555555555555556,
+          "support": 84.0
         },
-        "accuracy": 0.5033112582781457,
+        "accuracy": 0.5231788079470199,
         "macro avg": {
-          "precision": 0.5961945031712473,
-          "recall": 0.548663101604278,
-          "f1-score": 0.45722501797268156,
+          "precision": 0.5213382507903055,
+          "recall": 0.521588486140725,
+          "f1-score": 0.5206349206349207,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.6126877896475925,
-          "recall": 0.5033112582781457,
-          "f1-score": 0.4373241414771402,
+          "precision": 0.5275961451231341,
+          "recall": 0.5231788079470199,
+          "f1-score": 0.5245663828445286,
           "support": 151.0
         }
       },
@@ -135,32 +139,33 @@
       "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/AI_PR_logit_nocat_withpub_20230905-20250905.png"
     },
     "rf": {
-      "roc_auc": 0.5390374331550802,
-      "pr_auc": 0.6087554832439157,
+      "roc_auc": 0.44012082444918266,
+      "pr_auc": 0.5034970190499617,
+      "accuracy": 0.5033112582781457,
       "classification_report": {
         "0": {
-          "precision": 0.4473684210526316,
-          "recall": 0.7727272727272727,
-          "f1-score": 0.5666666666666667,
-          "support": 66.0
+          "precision": 0.43103448275862066,
+          "recall": 0.373134328358209,
+          "f1-score": 0.4,
+          "support": 67.0
         },
         "1": {
-          "precision": 0.5945945945945946,
-          "recall": 0.25882352941176473,
-          "f1-score": 0.36065573770491804,
-          "support": 85.0
+          "precision": 0.5483870967741935,
+          "recall": 0.6071428571428571,
+          "f1-score": 0.576271186440678,
+          "support": 84.0
         },
-        "accuracy": 0.48344370860927155,
+        "accuracy": 0.5033112582781457,
         "macro avg": {
-          "precision": 0.5209815078236131,
-          "recall": 0.5157754010695187,
-          "f1-score": 0.4636612021857923,
+          "precision": 0.4897107897664071,
+          "recall": 0.49013859275053306,
+          "f1-score": 0.488135593220339,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.5302440816557233,
-          "recall": 0.48344370860927155,
-          "f1-score": 0.4507002497014439,
+          "precision": 0.49631673161496587,
+          "recall": 0.5033112582781457,
+          "f1-score": 0.4980581434504434,
           "support": 151.0
         }
       },
@@ -168,32 +173,33 @@
       "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/AI_PR_rf_nocat_withpub_20230905-20250905.png"
     },
     "xgb": {
-      "roc_auc": 0.4989304812834224,
-      "pr_auc": 0.5735022650688063,
+      "roc_auc": 0.4580668088130775,
+      "pr_auc": 0.5310233028046512,
+      "accuracy": 0.5099337748344371,
       "classification_report": {
         "0": {
-          "precision": 0.42063492063492064,
-          "recall": 0.803030303030303,
-          "f1-score": 0.5520833333333334,
-          "support": 66.0
+          "precision": 0.4444444444444444,
+          "recall": 0.417910447761194,
+          "f1-score": 0.4307692307692308,
+          "support": 67.0
         },
         "1": {
-          "precision": 0.48,
-          "recall": 0.1411764705882353,
-          "f1-score": 0.21818181818181817,
-          "support": 85.0
+          "precision": 0.5568181818181818,
+          "recall": 0.5833333333333334,
+          "f1-score": 0.5697674418604651,
+          "support": 84.0
         },
-        "accuracy": 0.4304635761589404,
+        "accuracy": 0.5099337748344371,
         "macro avg": {
-          "precision": 0.45031746031746034,
-          "recall": 0.4721033868092691,
-          "f1-score": 0.38513257575757576,
+          "precision": 0.5006313131313131,
+          "recall": 0.5006218905472637,
+          "f1-score": 0.5002683363148479,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.4540523494165878,
-          "recall": 0.4304635761589404,
-          "f1-score": 0.3641255267910897,
+          "precision": 0.5069569870894374,
+          "recall": 0.5099337748344371,
+          "f1-score": 0.5080927389259439,
           "support": 151.0
         }
       },

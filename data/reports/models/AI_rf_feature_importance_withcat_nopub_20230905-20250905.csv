@@ -1,21 +1,61 @@
 feature,importance
-close_mean,0.30960435791459434
-vol_4w,0.2086262193813967
-ret_1d,0.1739049141576329
-vol_growth,0.1635101173665147
-top5_Artificial Intelligence in Healthcare,0.020864121949811635
-top5_Ethics and Social Impacts of AI,0.019896469957955302
-top5_infrequent_sklearn,0.01907058887903257
-top5_AI in Service Interactions,0.0178677174885613
-top5_Machine Learning in Healthcare,0.011436007660588735
-top5_Ethics in Clinical Research,0.00815885611850186
-top5_Biomedical and Engineering Education,0.007479006727255288
-"top5_Healthcare cost, quality, practices",0.007298764004249511
-top5_Radiomics and Machine Learning in Medical Imaging,0.006650300918578807
-top5_Clinical Reasoning and Diagnostic Skills,0.006253368627159489
-top5_Topic Modeling,0.005263100975130139
-top5_Explainable Artificial Intelligence (XAI),0.004691364536338774
-top5_COVID-19 diagnosis using AI,0.004386935068958104
-top5_Online Learning and Analytics,0.0038618330426277046
-top5_AI in cancer detection,0.001175955225112327
-top1_Artificial Intelligence in Healthcare and Education,0.0
+vol_4w,0.1771131029173579
+ret_5d,0.1755020339489082
+vol_growth,0.1494221955623385
+top5_4w_Clinical Reasoning and Diagnostic Skills,0.041666906426382024
+top5_4w_Artificial Intelligence in Healthcare,0.023684377781460354
+top2_COVID-19 diagnosis using AI,0.020517214044426548
+top5_4w_Explainable Artificial Intelligence (XAI),0.0203237802579501
+top3_COVID-19 diagnosis using AI,0.01921096059483001
+top5_4w_Online Learning and Analytics,0.018954607538518856
+top5_Artificial Intelligence in Healthcare,0.018462236336285024
+top5_4w_AI in Service Interactions,0.016749064545328565
+top5_infrequent_sklearn,0.01585618806375659
+top3_Radiomics and Machine Learning in Medical Imaging,0.01556713461750598
+top3_Machine Learning in Healthcare,0.014928273134861572
+top5_4w_Ethics and Social Impacts of AI,0.014798641890669994
+top4_Radiomics and Machine Learning in Medical Imaging,0.013664397869328064
+top5_Ethics and Social Impacts of AI,0.013151060459470874
+top4_Machine Learning in Healthcare,0.01238303797503667
+top4_Ethics and Social Impacts of AI,0.011501338905789232
+top2_Radiomics and Machine Learning in Medical Imaging,0.00937555152880619
+top5_AI in Service Interactions,0.00901649549075587
+top5_Biomedical and Engineering Education,0.008817340831051013
+"top5_Healthcare cost, quality, practices",0.00870344583426463
+top4_AI in Service Interactions,0.008482632195975892
+top5_Clinical Reasoning and Diagnostic Skills,0.008081513613563879
+top4_Artificial Intelligence in Healthcare,0.007963326815517346
+top5_4w_Ethics in Clinical Research,0.007845883942322262
+top5_Machine Learning in Healthcare,0.007269539417372137
+top3_AI in Service Interactions,0.007213642287571212
+top3_Artificial Intelligence in Healthcare,0.0071410792077684715
+top4_infrequent_sklearn,0.007051487384926802
+top2_Machine Learning in Healthcare,0.006714645637021658
+top5_Ethics in Clinical Research,0.006502941166339044
+top2_infrequent_sklearn,0.006475189008027875
+top5_Radiomics and Machine Learning in Medical Imaging,0.006468811828599133
+top5_Explainable Artificial Intelligence (XAI),0.006075012012619438
+top5_COVID-19 diagnosis using AI,0.005519054525710091
+top2_Artificial Intelligence in Healthcare,0.005459191917878479
+top4_Clinical Reasoning and Diagnostic Skills,0.005281377792102531
+top3_infrequent_sklearn,0.005272400122091605
+top3_Ethics in Clinical Research,0.005147031927926379
+top5_Online Learning and Analytics,0.005079784877033488
+top4_Online Learning and Analytics,0.004856021053526261
+top5_Topic Modeling,0.004650123029232927
+top4_Explainable Artificial Intelligence (XAI),0.004399911746088682
+top4_COVID-19 diagnosis using AI,0.00417782827965727
+top3_Clinical Reasoning and Diagnostic Skills,0.0041083025998795136
+top3_Online Learning and Analytics,0.004064698211211444
+top2_AI in Service Interactions,0.0034917470935105204
+top5_4w_infrequent_sklearn,0.00275836502819425
+top4_AI in cancer detection,0.0026615360626558115
+top3_Ethics and Social Impacts of AI,0.0023170820887388932
+top4_Ethics in Clinical Research,0.0019902789932646683
+top3_Explainable Artificial Intelligence (XAI),0.0019061696351888931
+top5_AI in cancer detection,0.0015508958696760456
+top4_Biomedical and Engineering Education,0.0007058053950529897
+top2_Ethics in Clinical Research,0.0005927119799708596
+top2_4w_infrequent_sklearn,0.0005222901513579284
+top2_4w_COVID-19 diagnosis using AI,0.0004565400739164374
+top3_Topic Modeling,0.0003757604734261853

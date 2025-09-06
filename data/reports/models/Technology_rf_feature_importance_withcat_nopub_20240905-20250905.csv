@@ -1,15 +1,28 @@
 feature,importance
-close_mean,0.33298430602520396
-ret_1d,0.1915860653465658
-vol_4w,0.19033631048475388
-vol_growth,0.16919255640778214
-top5_nan,0.026480239364209804
-top1_Information Technology Governance and Strategy,0.020154433901350785
-top1_nan,0.019501762202900307
-top5_infrequent_sklearn,0.01626910177344957
-top1_infrequent_sklearn,0.01592462074869349
-top1_Big Data and Business Intelligence,0.014702189555073738
-top1_ERP Systems Implementation and Impact,0.0020232389334989727
-top1_Collaboration in agile enterprises,0.000552551010150546
-top5_Software Engineering Techniques and Practices,0.00017914351230010643
-top5_ERP Systems Implementation and Impact,0.0001134807340668117
+vol_4w,0.2300898503332602
+ret_5d,0.16939832333797605
+vol_growth,0.1640888752637457
+top5_4w_infrequent_sklearn,0.09340023727409091
+top5_4w_Business Process Modeling and Analysis,0.04082248325304242
+top2_nan,0.03413121595440832
+top2_4w_Big Data and Business Intelligence,0.03357002640497014
+top5_4w_Collaboration in agile enterprises,0.031563993213517695
+top2_ERP Systems Implementation and Impact,0.028216598136069682
+top5_nan,0.0254919974336732
+top2_Big Data and Business Intelligence,0.023948711824974128
+top2_Information Technology Governance and Strategy,0.0236762410950928
+top2_infrequent_sklearn,0.01851999816677506
+top5_infrequent_sklearn,0.017606346158175527
+top2_4w_ERP Systems Implementation and Impact,0.01380627928254814
+top5_4w_Digital Transformation in Industry,0.012395935558089016
+top5_4w_ERP Systems Implementation and Impact,0.011060581604331482
+top2_Business Process Modeling and Analysis,0.008127939473838776
+top5_4w_Software Engineering Techniques and Practices,0.0060747128809715755
+top5_4w_Innovation and Knowledge Management,0.005879424330875016
+top5_4w_Technology Adoption and User Behaviour,0.004025435183834141
+top2_4w_infrequent_sklearn,0.0020024300266263035
+top2_Collaboration in agile enterprises,0.0012372893717936444
+top2_Digital Transformation in Industry,0.0004243326810215154
+top5_4w_Service-Oriented Architecture and Web Services,0.00034854908645274424
+top5_Software Engineering Techniques and Practices,9.219266984599466e-05
+top5_ERP Systems Implementation and Impact,0.0
