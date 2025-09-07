@@ -15,10 +15,14 @@ It provides a complete pipeline for:
 publication_stock_price_prediction/  
 ├── app.py                 # Main Streamlit app  
 ├── docker-compose.yml     # Compose config for running in Docker  
+├── .dockerignore     
 ├── Dockerfile             # Container build recipe  
 ├── requirements.txt       # Python dependencies  
 ├── README.md              # This file  
-├── .gitignore             # This file  
+├── .gitignore    
+
+├── .streamlit        
+│   ├── config.toml        # App theme
 
 ├── app/  
 │   ├── config/  
@@ -160,9 +164,9 @@ Provide and sector, whether to use categorical features and whether to use publi
 ## Features & Models
 
 -  **Features used:**
-  - Price & returns (ret_1d, close_mean), volume (vol_4w, vol_growth)
-  - Publication counts (pub_4w, pub_growth)
-  - Optional categorical: top 1 & top 5 publication topics
+  - Price & returns (ret_5d), volume (vol_4w, vol_growth)
+  - Publication counts (pub_4w, pub_growth, top3_4w_share, top5_4w_share)
+  - Publication topics (top2, top5, top2_4w, top5_4w)
 
 - **Models:**
   - Logistic Regression (balanced)
