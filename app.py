@@ -259,16 +259,78 @@ with tab_build:
         fast_mode = st.checkbox("Fast mode (smaller models + early stopping)", value=True, key="fast_mode")
         max_rows  = st.number_input("Max rows (most recent)", min_value=500, max_value=20000, value=3000, step=500, key="max_rows")
 
+        # --- helpers to run/wait per variant ---
+        import time, json
+
+        def _vlabel(use_pubs: bool, use_cats: bool) -> str:
+            return f"pubs={'on' if use_pubs else 'off'}, cats={'on' if use_cats else 'off'}"
+
+        def _safe_load_json(path: Path, retries=12, sleep_s=0.25):
+            for _ in range(retries):
+                if path.exists():
+                    try:
+                        return json.loads(path.read_text())
+                    except json.JSONDecodeError:
+                        time.sleep(sleep_s)
+                else:
+                    time.sleep(sleep_s)
+            return {}
+
+        def _wait_for_metrics(use_cats: bool, use_pubs: bool, timeout_s: float = 120.0) -> bool:
+            """
+            Wait until the date-scoped metrics file exists AND contains the right variant key.
+            Variant keys are 'nopub' or 'withpub' inside each *_metrics*.json.
+            """
+            p = metrics_json_path(sector, with_cat=use_cats, start=start_date, end=end_date)
+            vkey = "withpub" if use_pubs else "nopub"
+            t0 = time.time()
+            while time.time() - t0 < timeout_s:
+                blob = _safe_load_json(p, retries=1, sleep_s=0.25)
+                if blob and vkey in blob and blob[vkey]:
+                    return True
+                time.sleep(0.3)
+            return False
+
         if st.button("Run Modeling"):
             ensure_features(sector, start_date, end_date, force=False)
-            run_modeling(
-                sector, start_date, end_date,
-                with_categories=st.session_state.with_categories,
-                include_pub=st.session_state.include_pub_numeric,
-                fast=fast_mode,
-                max_rows=int(max_rows)
-            )
-            st.success("Modeling complete.")
+
+            pubs = st.session_state.include_pub_numeric
+            cats = st.session_state.with_categories
+
+            # If BOTH toggles are on -> run all four variants sequentially
+            if pubs and cats:
+                variants = [(False, False), (True, False), (False, True), (True, True)]
+                with st.status("Running all 4 model variants…", expanded=True) as status:
+                    for use_pubs, use_cats in variants:
+                        lbl = _vlabel(use_pubs, use_cats)
+                        st.write(f"• Training: {lbl}")
+                        run_modeling(
+                            sector, start_date, end_date,
+                            with_categories=use_cats,
+                            include_pub=use_pubs,
+                            fast=fast_mode,
+                            max_rows=int(max_rows)
+                        )
+                        ok = _wait_for_metrics(use_cats, use_pubs, timeout_s=120.0)
+                        if ok:
+                            st.write(f"  ↳ ✅ Metrics saved for {lbl}")
+                        else:
+                            st.warning(f"  ↳ ⚠️ Metrics not detected for {lbl} (check trainer write).")
+                    status.update(label="All variants finished (or attempted).", state="complete")
+                st.success("Modeling complete.")
+                st.rerun()
+
+            # Otherwise, keep current behavior (run exactly what the toggles imply)
+            else:
+                run_modeling(
+                    sector, start_date, end_date,
+                    with_categories=cats,
+                    include_pub=pubs,
+                    fast=fast_mode,
+                    max_rows=int(max_rows)
+                )
+                st.success("Modeling complete.")
+
 
 
     # -------- Artifacts Status (date-scoped only) --------
@@ -452,24 +514,34 @@ with tab_plots:
 # ---------- TAB: Modeling ----------
 with tab_model:
     st.subheader("Modeling Results")
-    tag = date_tag(start_date, end_date)
+    tag = date_tag(start_date, end_date)  # same tag used by trainer
 
     pubs = st.session_state.include_pub_numeric
     cats = st.session_state.with_categories
 
+    # File paths (date-scoped)
     suffix_nocat   = "_nocat"
     suffix_withcat = "_withcat"
+    path_nocat     = MODELS_DIR / f"{sector}_metrics{suffix_nocat}_{tag}.json"
+    path_withcat   = MODELS_DIR / f"{sector}_metrics{suffix_withcat}_{tag}.json"
 
-    path_nocat   = MODELS_DIR / f"{sector}_metrics{suffix_nocat}_{tag}.json"
-    path_withcat = MODELS_DIR / f"{sector}_metrics{suffix_withcat}_{tag}.json"
+    # ---- Helpers: read-only (no training kicks off here) ----
+    import time, json, glob, re
+    from pathlib import Path
 
-    metrics_nocat   = json.loads(path_nocat.read_text()) if path_nocat.exists() else {}
-    metrics_withcat = json.loads(path_withcat.read_text()) if path_withcat.exists() else {}
+    def safe_load_metrics(path: Path, retries: int = 6, sleep_s: float = 0.2) -> dict:
+        """Robust read that tolerates just-written JSON; NEVER triggers training."""
+        if not path.exists():
+            return {}
+        for _ in range(retries):
+            try:
+                return json.loads(path.read_text())
+            except json.JSONDecodeError:
+                time.sleep(sleep_s)
+        return {}
 
-    # ---- Which scenarios to show (order fixed) ----
-    scenarios = [  # (suffix, variant_key_in_json, human label)
-        ("_nocat",   "nopub",   "Baseline — no publication numerics, no categoricals"),
-    ]
+    # Scenarios to display (purely for rendering)
+    scenarios = [("_nocat", "nopub",   "Baseline — no publication numerics, no categoricals")]
     if pubs:
         scenarios.append(("_nocat",   "withpub", "With publication numerics (no categoricals)"))
     if cats:
@@ -477,15 +549,19 @@ with tab_model:
     if pubs and cats:
         scenarios.append(("_withcat", "withpub", "With publication numerics + categoricals"))
 
+    # Load available metrics (read-only)
+    metrics_nocat   = safe_load_metrics(path_nocat)
+    metrics_withcat = safe_load_metrics(path_withcat)
+
     def _get_metrics(suffix, variant):
         if suffix == "_nocat":
-            return metrics_nocat.get(variant)
+            return metrics_nocat.get(variant) if metrics_nocat else None
         else:
-            return metrics_withcat.get(variant)
+            return metrics_withcat.get(variant) if metrics_withcat else None
 
     def _as_table(blob, label_suffix):
         if not blob:
-            st.info(f"No metrics found for {label_suffix}.")
+            st.info(f"No metrics found for **{label_suffix}** (tag {tag}). Use **Run Modeling** in the Build & Run tab.")
             return
         name_map = {"logit": "Logistic Regression","rf": "Random Forest","xgb": "XGBoost"}
         rows = []
@@ -500,7 +576,7 @@ with tab_model:
         st.caption(label_suffix)
         st.dataframe(dfm, width="stretch")
 
-    # ---------- Evaluation tables (one per scenario) ----------
+    # ---------- Evaluation tables ----------
     st.markdown("**Evaluation tables**")
     for suf, var, label in scenarios:
         _as_table(_get_metrics(suf, var), label)
@@ -508,7 +584,15 @@ with tab_model:
     st.markdown("---")
     st.subheader("Feature Importance")
 
-    # ---------- Feature importance (CSV + bar plots) for each scenario ----------
+    # ---------- Feature importance (CSV + bar plots), read-only ----------
+    name_map = {"logit": "Logistic Regression", "rf": "Random Forest", "xgb": "XGBoost"}
+
+    def _model_name_from_path(path_str: str):
+        stem = Path(path_str).stem
+        m = re.search(rf"{re.escape(sector)}_(.+?)_feature_importance", stem)
+        key = m.group(1) if m else "unknown"
+        return (name_map.get(key, key), key)
+
     for suf, var, label in scenarios:
         st.markdown(f"**{label}** • {tag}")
 
@@ -517,30 +601,38 @@ with tab_model:
 
         if fi_csvs:
             with st.expander("Tables (CSV)"):
+                combined = []
                 for p in fi_csvs:
                     try:
-                        st.dataframe(pd.read_csv(p), width="stretch")
+                        df = pd.read_csv(p)
+                        human_name, _ = _model_name_from_path(p)
+                        df.insert(0, "Model", human_name)
+                        combined.append(df)
                     except Exception:
                         st.code(Path(p).read_text()[:4000])
+                if combined:
+                    df_all = pd.concat(combined, ignore_index=True)
+                    st.dataframe(df_all, width="stretch")
         else:
-            st.info("No feature-importance CSVs for this scenario/date range. Run Modeling to generate.")
+            st.info("No feature-importance CSVs for this scenario/date range yet.")
 
         if fi_pngs:
             with st.expander("Bar charts (Top-N)"):
                 cols = st.columns(min(2, len(fi_pngs)))
                 for i, p in enumerate(fi_pngs):
+                    human_name, _ = _model_name_from_path(p)
                     with cols[i % len(cols)]:
                         st.image(str(p), width="stretch")
+                        st.caption(human_name)
         else:
-            st.info("No feature-importance plots for this scenario/date range. Run Modeling to generate.")
+            st.info("No feature-importance plots for this scenario/date range yet.")
 
-        st.markdown("")  # small spacing
+        st.markdown("")  # spacing
 
-    # ---------- ROC curves (only) ----------
+    # ---------- ROC curves ----------
     st.markdown("---")
     st.subheader("ROC curves")
 
-    # Order within each model: baseline, pubs-only, cats-only, pubs+cats (only those included above)
     ordered_for_roc = [
         ("_nocat",   "nopub"),
         ("_nocat",   "withpub") if pubs else None,
@@ -557,18 +649,14 @@ with tab_model:
         return PLOTS_DIR / f"{sector}_ROC_{model_key}{suffix}_{variant}_{tag}.png"
 
     for mk, title in model_order:
-        # Collect available images for the included scenarios in the fixed order
         imgs = [p for (suf, var) in ordered_for_roc
                 for p in [_roc_path(mk, suf, var)]
                 if p.exists()]
-
         if not imgs:
             continue
 
         st.markdown(f"**{title}**")
-
         if len(imgs) == 1:
-            # Centered, not full-width
             left, mid, right = st.columns([1, 1, 1])
             with mid:
                 st.image(str(imgs[0]), width="stretch")
