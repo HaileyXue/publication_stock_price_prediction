@@ -1,0 +1,33 @@
+feature,importance
+vol_4w,0.22226023406748122
+ret_5d,0.22105155598882328
+vol_growth,0.14988401672851104
+top5_4w_Ferroelectric and Negative Capacitance Devices,0.043703300498905896
+top5_4w_infrequent_sklearn,0.03664157202661301
+top2_Advancements in Semiconductor Devices and Circuit Design,0.03492303631430468
+top2_4w_Advancements in Semiconductor Devices and Circuit Design,0.03404788733199559
+top5_4w_Electronic and Structural Properties of Oxides,0.029740894395012055
+top5_4w_Advanced Memory and Neural Computing,0.02684042890069385
+top5_infrequent_sklearn,0.022373495549687816
+top2_Advanced Memory and Neural Computing,0.017612423079205086
+top5_Electron and X-Ray Spectroscopy Techniques,0.017583418777572447
+top5_4w_Integrated Circuits and Semiconductor Failure Analysis,0.017308438760700647
+top2_infrequent_sklearn,0.017031321329714747
+top5_4w_Copper Interconnects and Reliability,0.015142489707841952
+top5_4w_Semiconductor materials and interfaces,0.01397101670098621
+top5_Electronic and Structural Properties of Oxides,0.013822156971316541
+top2_Electronic and Structural Properties of Oxides,0.012562899169130712
+top5_Advancements in Semiconductor Devices and Circuit Design,0.012047984887766577
+top5_Advancements in Battery Materials,0.009283613500983194
+top5_Ferroelectric and Negative Capacitance Devices,0.008922147845476867
+top5_Copper Interconnects and Reliability,0.0077968542454712
+top5_Integrated Circuits and Semiconductor Failure Analysis,0.005898616841316554
+top2_4w_Electronic and Structural Properties of Oxides,0.002346379407625122
+top5_Catalytic Processes in Materials Science,0.0016837944174779242
+top5_Semiconductor materials and interfaces,0.0013988514178317523
+top5_GaN-based semiconductor devices and materials,0.0013795155618837372
+top5_Advanced Memory and Neural Computing,0.001360304359341491
+top2_Advancements in Battery Materials,0.0013067219740345397
+top2_Catalytic Processes in Materials Science,7.462924229433655e-05
+top2_4w_infrequent_sklearn,0.0
+top5_Advanced ceramic materials synthesis,0.0

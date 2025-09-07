@@ -1,0 +1,37 @@
+feature,importance
+top3_4w_share,0.21394108896673716
+ret_5d,0.14219606987782474
+vol_4w,0.11580458397007697
+pub_4w,0.10301268663857915
+top5_4w_share,0.09861591358910951
+pub_growth,0.07539639833731594
+vol_growth,0.07026884622533741
+top2_Advancements in Semiconductor Devices and Circuit Design,0.02070220927964126
+top5_4w_infrequent_sklearn,0.019926761279600837
+top5_4w_Ferroelectric and Negative Capacitance Devices,0.01757672214657316
+top2_4w_Advancements in Semiconductor Devices and Circuit Design,0.01496866859710046
+top5_4w_Advanced Memory and Neural Computing,0.014039902874552403
+top5_infrequent_sklearn,0.01210137617208101
+top5_4w_Electronic and Structural Properties of Oxides,0.010303978716766478
+top5_Electron and X-Ray Spectroscopy Techniques,0.009548885210899685
+top2_infrequent_sklearn,0.008033610700488754
+top5_Electronic and Structural Properties of Oxides,0.007907961114888635
+top5_4w_Integrated Circuits and Semiconductor Failure Analysis,0.006783792450698025
+top5_4w_Semiconductor materials and interfaces,0.006568096869677849
+top2_Advanced Memory and Neural Computing,0.005649259660784694
+top2_Electronic and Structural Properties of Oxides,0.005552251588402383
+top5_Advancements in Semiconductor Devices and Circuit Design,0.004298356272865399
+top5_4w_Copper Interconnects and Reliability,0.003782082656111822
+top5_Advancements in Battery Materials,0.0029783615105439865
+top5_Copper Interconnects and Reliability,0.002365200134740172
+top5_Ferroelectric and Negative Capacitance Devices,0.0021243533871148452
+top5_Integrated Circuits and Semiconductor Failure Analysis,0.0013556838793187679
+top2_4w_Electronic and Structural Properties of Oxides,0.0011825982593551257
+top5_Semiconductor materials and interfaces,0.0008128366994873968
+top2_Advancements in Battery Materials,0.0007930241169438017
+top5_GaN-based semiconductor devices and materials,0.0005324346762026605
+top5_Catalytic Processes in Materials Science,0.00043435189299454965
+top5_Advanced Memory and Neural Computing,0.00042706369276272857
+top2_Catalytic Processes in Materials Science,1.4588554422287067e-05
+top2_4w_infrequent_sklearn,0.0
+top5_Advanced ceramic materials synthesis,0.0

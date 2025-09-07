@@ -1,20 +1,41 @@
 feature,importance
-pub_4w,0.12860534
-close_mean,0.122456424
-vol_4w,0.12026267
-top5_nan,0.08773641
-pub_growth,0.08391349
-top1_Information Technology Governance and Strategy,0.08102439
-vol_growth,0.079939924
-ret_1d,0.0763719
-top1_Big Data and Business Intelligence,0.074258715
-top1_nan,0.073653586
-top5_infrequent_sklearn,0.07177707
-top1_Collaboration in agile enterprises,0.0
-top1_infrequent_sklearn,0.0
+top2_4w_Big Data and Business Intelligence,0.10759885
+top5_4w_Collaboration in agile enterprises,0.08698178
+pub_4w,0.07512185
+top5_4w_Business Process Modeling and Analysis,0.07375242
+vol_4w,0.06274122
+top3_4w_share,0.062426817
+top5_4w_Technology Adoption and User Behaviour,0.05850608
+top2_infrequent_sklearn,0.056176797
+top5_4w_share,0.054316934
+ret_5d,0.04995982
+top2_Big Data and Business Intelligence,0.04796931
+top5_nan,0.047284935
+vol_growth,0.045485336
+pub_growth,0.04302294
+top5_infrequent_sklearn,0.035369586
+top5_4w_Service-Oriented Architecture and Web Services,0.034426965
+top2_Information Technology Governance and Strategy,0.0317567
+top2_nan,0.027101692
 top5_ERP Systems Implementation and Impact,0.0
+top5_4w_Information Retrieval and Data Mining,0.0
+top2_Business Process Modeling and Analysis,0.0
+top5_4w_Software System Performance and Reliability,0.0
+top5_4w_Software Engineering Techniques and Practices,0.0
+top5_4w_Organizational and Employee Performance,0.0
+top5_4w_Management and Optimization Techniques,0.0
+top5_4w_Innovation and Knowledge Management,0.0
+top5_4w_Information and Cyber Security,0.0
+top5_4w_Information Systems Theories and Implementation,0.0
+top5_4w_Digital Transformation in Industry,0.0
+top5_4w_ERP Systems Implementation and Impact,0.0
 top5_Management and Optimization Techniques,0.0
-top5_Software Engineering Techniques and Practices,0.0
+top5_4w_Competitive and Knowledge Intelligence,0.0
+top2_Collaboration in agile enterprises,0.0
+top2_Digital Transformation in Industry,0.0
+top2_4w_infrequent_sklearn,0.0
+top2_4w_ERP Systems Implementation and Impact,0.0
+top2_ERP Systems Implementation and Impact,0.0
 top5_Technology Adoption and User Behaviour,0.0
-top1_Business Process Modeling and Analysis,0.0
-top1_ERP Systems Implementation and Impact,0.0
+top5_Software Engineering Techniques and Practices,0.0
+top5_4w_infrequent_sklearn,0.0

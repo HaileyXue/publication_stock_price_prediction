@@ -1,20 +1,41 @@
 feature,importance
-close_mean,0.22063534968711365
-vol_4w,0.20703359499414592
-pub_4w,0.19117312325510133
-ret_1d,0.13116071837493512
-vol_growth,0.11492090713659438
-pub_growth,0.06205309143286165
-top1_Information Technology Governance and Strategy,0.013548760487119163
-top1_Big Data and Business Intelligence,0.011916372045653122
-top5_nan,0.011438048221230101
-top1_infrequent_sklearn,0.01071560287133273
-top5_infrequent_sklearn,0.009347154124591578
-top1_nan,0.007056631585168295
-top5_ERP Systems Implementation and Impact,0.004223141937908184
-top5_Management and Optimization Techniques,0.0016009089911147977
-top1_ERP Systems Implementation and Impact,0.001574889232208192
-top1_Collaboration in agile enterprises,0.001124837490313186
-top5_Software Engineering Techniques and Practices,0.00021270133388238044
-top5_Technology Adoption and User Behaviour,0.0001340706473543656
-top1_Business Process Modeling and Analysis,0.00013009615137180133
+vol_4w,0.16912617190426577
+pub_4w,0.14611874894272328
+top3_4w_share,0.13711175813070367
+top5_4w_share,0.12019245629708031
+ret_5d,0.10885457804754542
+vol_growth,0.08904662868545657
+pub_growth,0.05140919823119125
+top5_4w_Collaboration in agile enterprises,0.02139145249781142
+top5_4w_Software System Performance and Reliability,0.016631557684366964
+top5_4w_Business Process Modeling and Analysis,0.01569790729284539
+top5_4w_Technology Adoption and User Behaviour,0.013384311707259185
+top2_Big Data and Business Intelligence,0.013110239683526332
+top5_nan,0.010009650480351068
+top2_4w_Big Data and Business Intelligence,0.009071759656615124
+top2_infrequent_sklearn,0.008930962202961015
+top5_4w_Information Retrieval and Data Mining,0.008523497151354774
+top2_nan,0.007081697538785725
+top5_infrequent_sklearn,0.007009521317303676
+top2_Information Technology Governance and Strategy,0.0062137627743415885
+top2_4w_ERP Systems Implementation and Impact,0.00599874202734633
+top5_4w_Service-Oriented Architecture and Web Services,0.005250116810135655
+top5_4w_Innovation and Knowledge Management,0.003897457006464446
+top2_Business Process Modeling and Analysis,0.0035789751273704916
+top5_4w_Software Engineering Techniques and Practices,0.0031067924117155828
+top5_4w_Competitive and Knowledge Intelligence,0.0030029742064630435
+top5_4w_infrequent_sklearn,0.0025889313113411127
+top2_ERP Systems Implementation and Impact,0.0023371613104136166
+top5_4w_Digital Transformation in Industry,0.0021568101480570947
+top5_ERP Systems Implementation and Impact,0.002130816075511057
+top5_4w_Management and Optimization Techniques,0.001570412343219741
+top5_4w_ERP Systems Implementation and Impact,0.0014854127274503664
+top2_Collaboration in agile enterprises,0.0009285443825826248
+top2_4w_infrequent_sklearn,0.0007565751993119551
+top5_4w_Information Systems Theories and Implementation,0.0007415330686013553
+top5_Management and Optimization Techniques,0.000490091877211011
+top5_4w_Information and Cyber Security,0.0004669857622072289
+top5_4w_Organizational and Employee Performance,0.00042952863154032637
+top5_Software Engineering Techniques and Practices,9.725402473337832e-05
+top5_Technology Adoption and User Behaviour,6.902532183503515e-05
+top2_Digital Transformation in Industry,0.0

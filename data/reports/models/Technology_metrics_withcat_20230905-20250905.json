@@ -1,32 +1,33 @@
 {
   "nopub": {
     "logit": {
-      "roc_auc": 0.5200810611643331,
-      "pr_auc": 0.6339392480273117,
+      "roc_auc": 0.4924908424908425,
+      "pr_auc": 0.58656003867566,
+      "accuracy": 0.5231788079470199,
       "classification_report": {
         "0": {
-          "precision": 0.40816326530612246,
-          "recall": 0.6779661016949152,
-          "f1-score": 0.5095541401273885,
-          "support": 59.0
+          "precision": 0.4166666666666667,
+          "recall": 0.5,
+          "f1-score": 0.45454545454545453,
+          "support": 60.0
         },
         "1": {
-          "precision": 0.6415094339622641,
-          "recall": 0.3695652173913043,
-          "f1-score": 0.4689655172413793,
-          "support": 92.0
+          "precision": 0.620253164556962,
+          "recall": 0.5384615384615384,
+          "f1-score": 0.5764705882352941,
+          "support": 91.0
         },
-        "accuracy": 0.4900662251655629,
+        "accuracy": 0.5231788079470199,
         "macro avg": {
-          "precision": 0.5248363496341932,
-          "recall": 0.5237656595431097,
-          "f1-score": 0.4892598286843839,
+          "precision": 0.5184599156118144,
+          "recall": 0.5192307692307692,
+          "f1-score": 0.5155080213903743,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.5503344409111889,
-          "recall": 0.4900662251655629,
-          "f1-score": 0.48482464803789943,
+          "precision": 0.5393578673820102,
+          "recall": 0.5231788079470199,
+          "f1-score": 0.5280235152459538,
           "support": 151.0
         }
       },
@@ -34,32 +35,33 @@
       "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_PR_logit_withcat_nopub_20230905-20250905.png"
     },
     "rf": {
-      "roc_auc": 0.4950257921886514,
-      "pr_auc": 0.6248162158272546,
+      "roc_auc": 0.4809523809523809,
+      "pr_auc": 0.6104291798264179,
+      "accuracy": 0.5298013245033113,
       "classification_report": {
         "0": {
-          "precision": 0.41,
-          "recall": 0.6949152542372882,
-          "f1-score": 0.5157232704402516,
-          "support": 59.0
+          "precision": 0.4,
+          "recall": 0.36666666666666664,
+          "f1-score": 0.3826086956521739,
+          "support": 60.0
         },
         "1": {
-          "precision": 0.6470588235294118,
-          "recall": 0.358695652173913,
-          "f1-score": 0.46153846153846156,
-          "support": 92.0
+          "precision": 0.6041666666666666,
+          "recall": 0.6373626373626373,
+          "f1-score": 0.6203208556149733,
+          "support": 91.0
         },
-        "accuracy": 0.4900662251655629,
+        "accuracy": 0.5298013245033113,
         "macro avg": {
-          "precision": 0.5285294117647059,
-          "recall": 0.5268054532056006,
-          "f1-score": 0.48863086598935657,
+          "precision": 0.5020833333333333,
+          "recall": 0.502014652014652,
+          "f1-score": 0.5014647756335736,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.5544331904947409,
-          "recall": 0.4900662251655629,
-          "f1-score": 0.48271000938750536,
+          "precision": 0.5230408388520971,
+          "recall": 0.5298013245033113,
+          "f1-score": 0.5258656927158477,
           "support": 151.0
         }
       },
@@ -67,32 +69,33 @@
       "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_PR_rf_withcat_nopub_20230905-20250905.png"
     },
     "xgb": {
-      "roc_auc": 0.4738393515106854,
-      "pr_auc": 0.5749991135695021,
+      "roc_auc": 0.47600732600732604,
+      "pr_auc": 0.5771144875733628,
+      "accuracy": 0.5033112582781457,
       "classification_report": {
         "0": {
-          "precision": 0.37383177570093457,
-          "recall": 0.6779661016949152,
-          "f1-score": 0.4819277108433735,
-          "support": 59.0
+          "precision": 0.3770491803278688,
+          "recall": 0.38333333333333336,
+          "f1-score": 0.38016528925619836,
+          "support": 60.0
         },
         "1": {
-          "precision": 0.5681818181818182,
-          "recall": 0.2717391304347826,
-          "f1-score": 0.36764705882352944,
-          "support": 92.0
+          "precision": 0.5888888888888889,
+          "recall": 0.5824175824175825,
+          "f1-score": 0.585635359116022,
+          "support": 91.0
         },
-        "accuracy": 0.4304635761589404,
+        "accuracy": 0.5033112582781457,
         "macro avg": {
-          "precision": 0.47100679694137637,
-          "recall": 0.4748526160648489,
-          "f1-score": 0.42478738483345146,
+          "precision": 0.48296903460837887,
+          "recall": 0.48287545787545794,
+          "f1-score": 0.4829003241861102,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.4922437221131286,
-          "recall": 0.4304635761589404,
-          "f1-score": 0.41229976391737577,
+          "precision": 0.5047141702553709,
+          "recall": 0.5033112582781457,
+          "f1-score": 0.5039916227478802,
           "support": 151.0
         }
       },
@@ -102,32 +105,33 @@
   },
   "withpub": {
     "logit": {
-      "roc_auc": 0.5147383935151069,
-      "pr_auc": 0.6277812575898922,
+      "roc_auc": 0.47289377289377293,
+      "pr_auc": 0.5732107662056315,
+      "accuracy": 0.5496688741721855,
       "classification_report": {
         "0": {
-          "precision": 0.4077669902912621,
-          "recall": 0.711864406779661,
-          "f1-score": 0.5185185185185185,
-          "support": 59.0
+          "precision": 0.42857142857142855,
+          "recall": 0.4,
+          "f1-score": 0.41379310344827586,
+          "support": 60.0
         },
         "1": {
-          "precision": 0.6458333333333334,
-          "recall": 0.33695652173913043,
-          "f1-score": 0.44285714285714284,
-          "support": 92.0
+          "precision": 0.6210526315789474,
+          "recall": 0.6483516483516484,
+          "f1-score": 0.6344086021505376,
+          "support": 91.0
         },
-        "accuracy": 0.48344370860927155,
+        "accuracy": 0.5496688741721855,
         "macro avg": {
-          "precision": 0.5268001618122977,
-          "recall": 0.5244104642593957,
-          "f1-score": 0.48068783068783066,
+          "precision": 0.524812030075188,
+          "recall": 0.5241758241758242,
+          "f1-score": 0.5241008527994068,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.5528140337341135,
-          "recall": 0.48344370860927155,
-          "f1-score": 0.4724201969235081,
+          "precision": 0.5445700343574168,
+          "recall": 0.5496688741721855,
+          "f1-score": 0.5467468145867249,
           "support": 151.0
         }
       },
@@ -135,32 +139,33 @@
       "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_PR_logit_withcat_withpub_20230905-20250905.png"
     },
     "rf": {
-      "roc_auc": 0.4817612380250553,
-      "pr_auc": 0.6048001149195505,
+      "roc_auc": 0.4652014652014652,
+      "pr_auc": 0.5735487572977905,
+      "accuracy": 0.4768211920529801,
       "classification_report": {
         "0": {
-          "precision": 0.37894736842105264,
-          "recall": 0.6101694915254238,
-          "f1-score": 0.4675324675324675,
-          "support": 59.0
+          "precision": 0.32075471698113206,
+          "recall": 0.2833333333333333,
+          "f1-score": 0.3008849557522124,
+          "support": 60.0
         },
         "1": {
-          "precision": 0.5892857142857143,
-          "recall": 0.358695652173913,
-          "f1-score": 0.44594594594594594,
-          "support": 92.0
+          "precision": 0.5612244897959183,
+          "recall": 0.6043956043956044,
+          "f1-score": 0.582010582010582,
+          "support": 91.0
         },
-        "accuracy": 0.45695364238410596,
+        "accuracy": 0.4768211920529801,
         "macro avg": {
-          "precision": 0.48411654135338344,
-          "recall": 0.48443257184966837,
-          "f1-score": 0.45673920673920676,
+          "precision": 0.4409896033885252,
+          "recall": 0.44386446886446884,
+          "f1-score": 0.4414477688813972,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.507100532788926,
-          "recall": 0.45695364238410596,
-          "f1-score": 0.4543804146453153,
+          "precision": 0.46567358669070524,
+          "recall": 0.4768211920529801,
+          "f1-score": 0.4703050351529517,
           "support": 151.0
         }
       },
@@ -168,32 +173,33 @@
       "pr_plot": "/Users/xiaogouzuomeng/Documents/publication_stock_price_prediction/data/reports/plots/Technology_PR_rf_withcat_withpub_20230905-20250905.png"
     },
     "xgb": {
-      "roc_auc": 0.453942520265291,
-      "pr_auc": 0.5830260837994892,
+      "roc_auc": 0.44084249084249083,
+      "pr_auc": 0.5412162553838845,
+      "accuracy": 0.5364238410596026,
       "classification_report": {
         "0": {
-          "precision": 0.3364485981308411,
-          "recall": 0.6101694915254238,
-          "f1-score": 0.43373493975903615,
-          "support": 59.0
+          "precision": 0.375,
+          "recall": 0.25,
+          "f1-score": 0.3,
+          "support": 60.0
         },
         "1": {
-          "precision": 0.4772727272727273,
-          "recall": 0.22826086956521738,
-          "f1-score": 0.3088235294117647,
-          "support": 92.0
+          "precision": 0.5945945945945946,
+          "recall": 0.7252747252747253,
+          "f1-score": 0.6534653465346535,
+          "support": 91.0
         },
-        "accuracy": 0.37748344370860926,
+        "accuracy": 0.5364238410596026,
         "macro avg": {
-          "precision": 0.4068606627017842,
-          "recall": 0.4192151805453206,
-          "f1-score": 0.37127923458540046,
+          "precision": 0.4847972972972973,
+          "recall": 0.4876373626373626,
+          "f1-score": 0.4767326732673267,
           "support": 151.0
         },
         "weighted avg": {
-          "precision": 0.4222487297934473,
-          "recall": 0.37748344370860926,
-          "f1-score": 0.35762997451434103,
+          "precision": 0.5073384642921067,
+          "recall": 0.5364238410596026,
+          "f1-score": 0.5130155399645925,
           "support": 151.0
         }
       },

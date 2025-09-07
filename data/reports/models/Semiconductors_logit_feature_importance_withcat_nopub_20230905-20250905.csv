@@ -1,0 +1,44 @@
+feature,coef,importance,sign
+top5_4w_Silicon Carbide Semiconductor Technologies,0.9701487339794405,0.9701487339794405,1.0
+top5_4w_Copper Interconnects and Reliability,-0.941365013797422,0.941365013797422,-1.0
+top2_Catalytic Processes in Materials Science,0.9175026880184878,0.9175026880184878,1.0
+top5_Electronic and Structural Properties of Oxides,-0.8951970145113848,0.8951970145113848,-1.0
+top5_3D IC and TSV technologies,-0.8791142364725237,0.8791142364725237,-1.0
+top5_Advancements in Semiconductor Devices and Circuit Design,0.8064810121056452,0.8064810121056452,1.0
+top2_4w_infrequent_sklearn,-0.7783347024804813,0.7783347024804813,-1.0
+top2_4w_Advancements in Semiconductor Devices and Circuit Design,0.7738514899684702,0.7738514899684702,1.0
+top5_nan,0.6910786808622794,0.6910786808622794,1.0
+top5_Nanowire Synthesis and Applications,0.6395063371052263,0.6395063371052263,1.0
+top2_Advancements in Semiconductor Devices and Circuit Design,0.5667356371607964,0.5667356371607964,1.0
+top5_Silicon Carbide Semiconductor Technologies,-0.5474084489868355,0.5474084489868355,-1.0
+top5_ZnO doping and properties,0.509945894447706,0.509945894447706,1.0
+top5_4w_Semiconductor materials and interfaces,0.49306333175653555,0.49306333175653555,1.0
+top5_Diamond and Carbon-based Materials Research,0.46298228325150287,0.46298228325150287,1.0
+top2_Semiconductor materials and interfaces,-0.4054832435062902,0.4054832435062902,-1.0
+top2_Electronic and Structural Properties of Oxides,-0.38292240035047803,0.38292240035047803,-1.0
+top5_4w_Integrated Circuits and Semiconductor Failure Analysis,-0.3614647208061397,0.3614647208061397,-1.0
+top5_4w_infrequent_sklearn,-0.3343101223534277,0.3343101223534277,-1.0
+top2_GaN-based semiconductor devices and materials,-0.32937013553434674,0.32937013553434674,-1.0
+top5_4w_Ferroelectric and Negative Capacitance Devices,-0.3244970474035505,0.3244970474035505,-1.0
+top5_Integrated Circuits and Semiconductor Failure Analysis,0.29644903893228697,0.29644903893228697,1.0
+top5_Advanced ceramic materials synthesis,-0.2924535637892994,0.2924535637892994,-1.0
+top5_Advanced Memory and Neural Computing,-0.28267514474686933,0.28267514474686933,-1.0
+vol_4w,0.2716123688163611,0.2716123688163611,1.0
+ret_5d,-0.2546164159369316,0.2546164159369316,-1.0
+top5_Copper Interconnects and Reliability,-0.25349898382995034,0.25349898382995034,-1.0
+top5_Semiconductor materials and interfaces,-0.25164465352764576,0.25164465352764576,-1.0
+top5_4w_Advanced Memory and Neural Computing,0.24927024968699568,0.24927024968699568,1.0
+top2_Advancements in Battery Materials,-0.24886395618146062,0.24886395618146062,-1.0
+top5_Advancements in Battery Materials,0.24635346797366567,0.24635346797366567,1.0
+top5_4w_Electronic and Structural Properties of Oxides,0.2446713764255568,0.2446713764255568,1.0
+top5_Electron and X-Ray Spectroscopy Techniques,0.20473300020471022,0.20473300020471022,1.0
+top2_Advanced Memory and Neural Computing,-0.17782773044916117,0.17782773044916117,-1.0
+top5_Ferroelectric and Negative Capacitance Devices,-0.1736191718093119,0.1736191718093119,-1.0
+top5_Catalytic Processes in Materials Science,0.16113417511264533,0.16113417511264533,1.0
+top5_Ferroelectric and Piezoelectric Materials,-0.14014817289819145,0.14014817289819145,-1.0
+top2_infrequent_sklearn,0.13859825165358092,0.13859825165358092,1.0
+top5_infrequent_sklearn,-0.1321786169270038,0.1321786169270038,-1.0
+top5_Metal and Thin Film Mechanics,-0.09845317998465392,0.09845317998465392,-1.0
+top2_Copper Interconnects and Reliability,-0.08285232332314,0.08285232332314,-1.0
+top5_GaN-based semiconductor devices and materials,-0.0767559150240099,0.0767559150240099,-1.0
+vol_growth,-0.025917464393186682,0.025917464393186682,-1.0

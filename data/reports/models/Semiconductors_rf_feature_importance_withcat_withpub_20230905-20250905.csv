@@ -1,0 +1,48 @@
+feature,importance
+top5_4w_share,0.1418960537995204
+top3_4w_share,0.13978886413290648
+vol_4w,0.13640418226791415
+pub_4w,0.12737081313589574
+ret_5d,0.11302230850501763
+pub_growth,0.09049698399903325
+vol_growth,0.08490928939257433
+top2_Advancements in Semiconductor Devices and Circuit Design,0.025500514126837574
+top5_4w_Advanced Memory and Neural Computing,0.015882318719107218
+top5_infrequent_sklearn,0.01309564996125039
+top5_Electronic and Structural Properties of Oxides,0.01296594516213094
+top5_4w_Semiconductor materials and interfaces,0.011410684512706486
+top2_Electronic and Structural Properties of Oxides,0.010200884519741799
+top5_4w_Ferroelectric and Negative Capacitance Devices,0.009564752718221489
+top5_4w_Integrated Circuits and Semiconductor Failure Analysis,0.00909761140098402
+top2_Advanced Memory and Neural Computing,0.008778887389582104
+top2_infrequent_sklearn,0.00704948357988508
+top5_4w_Electronic and Structural Properties of Oxides,0.005508072280262399
+top5_Integrated Circuits and Semiconductor Failure Analysis,0.005201213982929488
+top5_4w_infrequent_sklearn,0.003909665724489986
+top5_3D IC and TSV technologies,0.0036143526799485492
+top5_Ferroelectric and Negative Capacitance Devices,0.0031082744803738447
+top5_Advancements in Semiconductor Devices and Circuit Design,0.002565081107359822
+top5_4w_Copper Interconnects and Reliability,0.002352579541938209
+top5_Advanced Memory and Neural Computing,0.0022054900651380907
+top2_Catalytic Processes in Materials Science,0.0017142427716386212
+top5_Semiconductor materials and interfaces,0.001647213445392649
+top5_Advancements in Battery Materials,0.0014288424310228082
+top5_Copper Interconnects and Reliability,0.0013266975913999043
+top5_nan,0.0013144746272147304
+top5_Catalytic Processes in Materials Science,0.001168910296923511
+top2_Copper Interconnects and Reliability,0.0009555712763583658
+top5_Silicon Carbide Semiconductor Technologies,0.0007906891258463667
+top5_Electron and X-Ray Spectroscopy Techniques,0.0007728657284828545
+top5_Diamond and Carbon-based Materials Research,0.0005555732970914975
+top2_Advancements in Battery Materials,0.0005395836692967421
+top5_4w_Silicon Carbide Semiconductor Technologies,0.00046902915691567526
+top2_Semiconductor materials and interfaces,0.00043551692600476174
+top5_Nanowire Synthesis and Applications,0.00038039578004656603
+top5_ZnO doping and properties,0.0002069244552924181
+top5_Advanced ceramic materials synthesis,0.00018656873264713414
+top5_GaN-based semiconductor devices and materials,0.00014472823127379517
+top2_GaN-based semiconductor devices and materials,3.9404871364732916e-05
+top5_Ferroelectric and Piezoelectric Materials,2.2810400037405498e-05
+top5_Metal and Thin Film Mechanics,0.0
+top2_4w_Advancements in Semiconductor Devices and Circuit Design,0.0
+top2_4w_infrequent_sklearn,0.0

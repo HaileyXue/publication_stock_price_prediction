@@ -369,13 +369,16 @@ with tab_plots:
 
     # Base plots in the exact order (2 per row)
     ordered_plots = [
-        PLOTS_DIR / f"{sector}_{tag}_price.png",                    # 1st (left)
-        PLOTS_DIR / f"{sector}_{tag}_levels_price_vs_pubs.png",     # 2nd (right)
-        PLOTS_DIR / f"{sector}_{tag}_ret5d_vs_pub_growth.png",
-        PLOTS_DIR / f"{sector}_{tag}_ret5d_vs_pub4w.png",
+        PLOTS_DIR / f"{sector}_{tag}_price.png",
+        PLOTS_DIR / f"{sector}_{tag}_levels_price_vs_pubs.png",
+        PLOTS_DIR / f"{sector}_{tag}_ret5d_vs_pub_growth.png",   # new
+        PLOTS_DIR / f"{sector}_{tag}_ret5d_vs_pub4w.png",        # new
+        PLOTS_DIR / f"{sector}_{tag}_class_balance.png",
+        PLOTS_DIR / f"{sector}_{tag}_violin_pub4w_by_y.png",     # new
+        PLOTS_DIR / f"{sector}_{tag}_granger_pubGrowth_vs_ret5d.png",  # new
+        PLOTS_DIR / f"{sector}_{tag}_leadlag_heatmap.png",       # new
         PLOTS_DIR / f"{sector}_{tag}_corr_all.png",
         PLOTS_DIR / f"{sector}_{tag}_corr_core.png",
-        PLOTS_DIR / f"{sector}_{tag}_class_balance.png",
     ]
 
     # Only show Cramér's V heatmap if categorical features are selected
