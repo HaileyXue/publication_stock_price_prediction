@@ -167,7 +167,7 @@ Provide and sector, whether to use categorical features and whether to use publi
 
 -  **Features used:**
   - Price & returns (ret_5d), volume (vol_4w, vol_growth)
-  - Publication counts (pub_4w, pub_growth, top3_4w_share, top5_4w_share)
+  - Publication counts (pub_4w, pub_growth, top2_4w_share, top5_4w_share)
   - Publication topics (top2, top5, top2_4w, top5_4w)
 
 - **Models:**
