@@ -177,7 +177,7 @@ def main():
     # Candidate columns
     # Candidate columns for modeling
     numeric_base = ["ret_5d", "vol_4w", "vol_growth"]
-    numeric_pub  = ["pub_4w", "pub_growth", "top3_4w_share", "top5_4w_share"]  # gated by --include-pub
+    numeric_pub  = ["pub_4w", "pub_growth", "top2_4w_share", "top5_4w_share"]  # gated by --include-pub
 
     # Categorical columns (if --use-categories is on)
     cat_cols_all = ["top2","top5","top2_4w","top5_4w"]

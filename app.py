@@ -91,7 +91,7 @@ SCRIPT_CMDS = {
 # =========================
 NUM_FEATURES = [
     "ret_5d", "vol_4w","vol_growth","pub_4w", "pub_growth",
-    "top3_4w_share", "top5_4w_share",
+    "top2_4w_share", "top5_4w_share",
 ]
 CAT_FEATURES = [
     "top2","top5",
@@ -370,7 +370,7 @@ with tab_features:
 
         # --- Select columns based on toggles ---
         base_num = ["ret_5d", "vol_4w", "vol_growth"]
-        pub_num  = ["pub_4w", "pub_growth", "top3_4w_share", "top5_4w_share"] if st.session_state.include_pub_numeric else []
+        pub_num  = ["pub_4w", "pub_growth", "top2_4w_share", "top5_4w_share"] if st.session_state.include_pub_numeric else []
         cats     = ["top2","top5","top2_4w","top5_4w"] if st.session_state.with_categories else []
 
         selected_cols = [c for c in (base_num + pub_num + cats) if c in df.columns]
@@ -392,7 +392,7 @@ with tab_features:
             "vol_growth":    "Day-over-day % change in trading volume.",
             "pub_4w":        "Rolling 4-week sum of publications mapped to trading days.",
             "pub_growth":    "Day-over-day % change in publication counts.",
-            "top3_4w_share": "Share of the 4-week publications taken by the 3rd most frequent topic over that window.",
+            "top2_4w_share": "Share of the 4-week publications taken by the 2nd most frequent topic over that window.",
             "top5_4w_share": "Share of the 4-week publications taken by the 5th most frequent topic over that window.",
             # categorical
             "top2":   "Daily 2nd most frequent topic name.",
@@ -402,7 +402,7 @@ with tab_features:
         }
 
         NUM_SET = {
-            "ret_5d","vol_4w","vol_growth","pub_4w","pub_growth","top3_4w_share","top5_4w_share"
+            "ret_5d","vol_4w","vol_growth","pub_4w","pub_growth","top2_4w_share","top5_4w_share"
         }
         CAT_SET = {"top2","top5","top2_4w","top5_4w"}
 
