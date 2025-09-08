@@ -59,7 +59,8 @@ Visit [Lit&Stock App](https://publicationstockpriceprediction-haileyxue.streamli
 ```
 docker run -p 8501:8501 haileyxue391/pub-stock-app:2025-09-07
 ```
-*Note: Use the latest version 2025-09-7*
+*Note: Use the latest version 2025-09-7*  
+
 3. Visit http://localhost:8501
 
 **Option 3 — Docker**
