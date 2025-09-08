@@ -1,0 +1,45 @@
+feature,importance
+vol_4w,0.3205766007734639
+vol_growth,0.16326079557392958
+ret_5d,0.1531144145716422
+top5_4w_Financial Reporting and Valuation Research,0.04639202096915888
+"top5_4w_Banking stability, regulation, efficiency",0.045061815296592665
+top5_4w_Private Equity and Venture Capital,0.027232976891388816
+"top2_Auditing, Earnings Management, Governance",0.019799624441088428
+"top2_4w_Auditing, Earnings Management, Governance",0.01961038854081782
+top5_4w_Financial Markets and Investment Strategies,0.017653979738579646
+top2_Working Capital and Financial Performance,0.016750786089062334
+top2_4w_Working Capital and Financial Performance,0.01605774935451919
+top5_Corporate Social Responsibility Reporting,0.012558495354945812
+"top5_Banking stability, regulation, efficiency",0.011703949905936869
+"top2_Banking stability, regulation, efficiency",0.011482019767113499
+top5_Financial Markets and Investment Strategies,0.008990698788642528
+top5_Financial Reporting and Valuation Research,0.00896783714557516
+top5_Corporate Taxation and Avoidance,0.00847105666159784
+top5_Private Equity and Venture Capital,0.008411394046291373
+top2_Financial Markets and Investment Strategies,0.008309283718913622
+top5_Working Capital and Financial Performance,0.00813084013528435
+top5_infrequent_sklearn,0.007984152022383716
+top2_Private Equity and Venture Capital,0.0070722099874374845
+top5_4w_Corporate Social Responsibility Reporting,0.006849128556594396
+top2_Financial Reporting and Valuation Research,0.005913638765549629
+"top5_Auditing, Earnings Management, Governance",0.00570057899687898
+top5_Firm Innovation and Growth,0.005203768188983767
+top5_Family Business Performance and Succession,0.004989286458536687
+top2_Corporate Social Responsibility Reporting,0.003740165395694912
+top2_infrequent_sklearn,0.0036762862741793714
+top5_Islamic Finance and Banking Studies,0.0035452495708260794
+top5_Gender Diversity and Inequality,0.003010348401899153
+top2_Firm Innovation and Growth,0.0019383360440128883
+top5_4w_infrequent_sklearn,0.0018098579049627209
+top2_Family Business Performance and Succession,0.0014207878918399044
+top5_Risk Management in Financial Firms,0.0013213168037643777
+top5_Corporate Insolvency and Governance,0.0011185424771605183
+top5_International Business and FDI,0.0010593123602543758
+top5_Financial Analysis and Corporate Governance,0.000658653894277298
+top2_Corporate Taxation and Avoidance,0.00021624659999441297
+top5_Corporate Governance and Law,0.00013239264940320095
+top5_Capital Investment and Risk Analysis,6.732661415894786e-05
+"top5_Energy, Environment, Economic Growth",3.568637666248849e-05
+top2_4w_infrequent_sklearn,0.0
+top5_Auction Theory and Applications,0.0

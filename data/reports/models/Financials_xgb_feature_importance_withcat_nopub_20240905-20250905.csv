@@ -1,0 +1,37 @@
+feature,importance
+top2_4w_Financial Reporting and Valuation Research,0.2397196
+top5_4w_Private Equity and Venture Capital,0.22853455
+top5_4w_Financial Markets and Investment Strategies,0.0960994
+vol_4w,0.07201767
+vol_growth,0.061295472
+top2_4w_Working Capital and Financial Performance,0.055551577
+"top2_Auditing, Earnings Management, Governance",0.05516317
+"top2_4w_Auditing, Earnings Management, Governance",0.053270355
+ret_5d,0.050445735
+"top5_4w_Banking stability, regulation, efficiency",0.048661213
+top5_infrequent_sklearn,0.03924124
+top5_Financial Reporting and Valuation Research,0.0
+"top5_4w_Auditing, Earnings Management, Governance",0.0
+top5_4w_Financial Reporting and Valuation Research,0.0
+top5_Working Capital and Financial Performance,0.0
+top5_Private Equity and Venture Capital,0.0
+top5_Islamic Finance and Banking Studies,0.0
+top5_Firm Innovation and Growth,0.0
+top2_4w_infrequent_sklearn,0.0
+top5_Family Business Performance and Succession,0.0
+top5_Financial Markets and Investment Strategies,0.0
+top5_Corporate Taxation and Avoidance,0.0
+top5_Corporate Social Responsibility Reporting,0.0
+top5_Corporate Insolvency and Governance,0.0
+top5_Corporate Governance and Law,0.0
+"top5_Banking stability, regulation, efficiency",0.0
+"top5_Auditing, Earnings Management, Governance",0.0
+top2_infrequent_sklearn,0.0
+top2_Working Capital and Financial Performance,0.0
+top2_Private Equity and Venture Capital,0.0
+top2_Firm Innovation and Growth,0.0
+top2_Financial Reporting and Valuation Research,0.0
+top2_Financial Markets and Investment Strategies,0.0
+top2_Corporate Social Responsibility Reporting,0.0
+"top2_Banking stability, regulation, efficiency",0.0
+top5_4w_infrequent_sklearn,0.0

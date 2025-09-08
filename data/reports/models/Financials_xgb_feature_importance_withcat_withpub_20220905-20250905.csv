@@ -1,0 +1,49 @@
+feature,importance
+"top5_4w_Banking stability, regulation, efficiency",0.13006574
+vol_4w,0.07651173
+top5_4w_Financial Reporting and Valuation Research,0.06750634
+top3_4w_share,0.06627968
+top5_4w_share,0.06484165
+top5_Corporate Taxation and Avoidance,0.06479459
+"top2_4w_Auditing, Earnings Management, Governance",0.05445042
+pub_4w,0.051582012
+ret_5d,0.04558923
+top5_4w_Private Equity and Venture Capital,0.0450198
+top2_Working Capital and Financial Performance,0.040298004
+"top5_Banking stability, regulation, efficiency",0.04013427
+pub_growth,0.039643947
+vol_growth,0.039585922
+top5_Corporate Social Responsibility Reporting,0.039440848
+top2_4w_Working Capital and Financial Performance,0.03852621
+"top2_Auditing, Earnings Management, Governance",0.035891507
+top5_4w_Financial Markets and Investment Strategies,0.035101216
+top5_Working Capital and Financial Performance,0.024736922
+top2_Private Equity and Venture Capital,0.0
+top5_Gender Diversity and Inequality,0.0
+"top2_Banking stability, regulation, efficiency",0.0
+top5_4w_Corporate Social Responsibility Reporting,0.0
+top2_Corporate Social Responsibility Reporting,0.0
+top2_4w_infrequent_sklearn,0.0
+top2_Corporate Taxation and Avoidance,0.0
+top5_infrequent_sklearn,0.0
+top5_Risk Management in Financial Firms,0.0
+top5_Private Equity and Venture Capital,0.0
+top5_Islamic Finance and Banking Studies,0.0
+top5_International Business and FDI,0.0
+top5_Firm Innovation and Growth,0.0
+top2_Firm Innovation and Growth,0.0
+top5_Financial Reporting and Valuation Research,0.0
+top5_Financial Markets and Investment Strategies,0.0
+top5_Financial Analysis and Corporate Governance,0.0
+top5_Family Business Performance and Succession,0.0
+"top5_Energy, Environment, Economic Growth",0.0
+top2_Family Business Performance and Succession,0.0
+top2_Financial Markets and Investment Strategies,0.0
+top5_Corporate Insolvency and Governance,0.0
+top5_Corporate Governance and Law,0.0
+top5_Capital Investment and Risk Analysis,0.0
+top2_Financial Reporting and Valuation Research,0.0
+"top5_Auditing, Earnings Management, Governance",0.0
+top5_Auction Theory and Applications,0.0
+top2_infrequent_sklearn,0.0
+top5_4w_infrequent_sklearn,0.0
